@@ -1,15 +1,24 @@
+"use client";
 import React from "react";
-import { DevTableUsage } from "@repo/ui";
+import { DndContext } from "@dnd-kit/core";
 
-type Props = {};
+import { Droppable } from "./Droppable";
+import { Draggable } from "./Draggable";
 
-const DragDrop = (props: Props) => {
+export default function App() {
+  const [isDropped, setIsDropped] = React.useState(false);
+  const draggableMarkup = <Draggable>Drag me</Draggable>;
+
   return (
-    <div className="flex-grow bg-slate-900">
-      <div>DragDrop</div>
-      <DevTableUsage />
-    </div>
+    <DndContext onDragEnd={handleDragEnd}>
+      {!isDropped ? draggableMarkup : null}
+      <Droppable>{isDropped ? draggableMarkup : "Drop here"}</Droppable>
+    </DndContext>
   );
-};
 
-export default DragDrop;
+  function handleDragEnd(event: any) {
+    if (event.over && event.over.id === "droppable") {
+      setIsDropped(true);
+    }
+  }
+}
