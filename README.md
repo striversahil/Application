@@ -1,18 +1,18 @@
-# Turborepo starter
+# Apotza Core 🤖
 
-This is an official starter Turborepo.
+This is an official starter Apotza Core monorepo.
 
 ## Using this example
 
-Run the following command:
+Run the following command to clone this monorepo:
 
-```sh
-npx create-turbo@latest
+```bash
+git clone https://github.com/apotza/Apotza.git
 ```
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+This Rep includes the following packages/apps:
 
 ### Apps and Packages
 
@@ -36,8 +36,8 @@ This Turborepo has some additional tools already setup for you:
 
 To build all apps and packages, run the following command:
 
-```
-cd my-turborepo
+```bash
+cd Apotza
 pnpm build
 ```
 
@@ -46,8 +46,8 @@ pnpm build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
-pnpm dev
+cd Apotza
+npm run dev
 ```
 
 ### Remote Caching
