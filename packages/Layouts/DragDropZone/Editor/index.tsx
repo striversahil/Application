@@ -11,7 +11,7 @@ export function Editor(props: any) {
   };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className="bg-gray-900  flex-grow">
       {props.children}
     </div>
   );

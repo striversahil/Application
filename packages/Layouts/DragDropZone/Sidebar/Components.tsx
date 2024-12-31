@@ -2,11 +2,13 @@
 import React from "react";
 
 import { Reference } from "@repo/common/Json/Reference";
+import { data } from "@repo/common/Json";
+
 import { useDraggable } from "@dnd-kit/core";
 
 type Props = {};
 
-function DraggableToolboxItem({ id, Component }: any) {
+function DraggableToolboxItem({ id, Component, href }: any) {
   const { attributes, listeners, setNodeRef, isDragging, transform } =
     useDraggable({
       id: id,
@@ -17,15 +19,30 @@ function DraggableToolboxItem({ id, Component }: any) {
       }
     : undefined;
 
+  /**
+   * Render a component based on the given props.
+   * @param isDragging - If the component is being dragged
+   * @returns The rendered component
+   */
+  const renderComponent = (): JSX.Element => {
+    if (isDragging) {
+      // If the component is being dragged, render the usage component
+      return data[href]?.usage || <></>;
+    } else {
+      // If the component is not being dragged, render the component name
+      return <div>{Component}</div>;
+    }
+  };
+
   return (
     <div
       ref={setNodeRef}
-      className={`border border-red-500  p-4 cursor-grab ${isDragging ? "opacity-50" : ""}`}
+      className={`border p-4 cursor-grab ${isDragging ? "absolute w-fit opacity-50 border-green-500 rounded-xl" : ""}`}
       {...listeners}
       {...attributes}
       style={style}
     >
-      {Component}
+      {renderComponent()}
     </div>
   );
 }
@@ -39,6 +56,7 @@ const Components = (props: Props) => {
             className=""
             id={item.id}
             Component={item.title}
+            href={item.href}
           />
         </div>
       ))}
