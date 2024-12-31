@@ -19,7 +19,7 @@ export const DragDropZone = (props: Props) => {
     <DndContext onDragEnd={handleDragEnd}>
       <div className="w-full h-full flex">
         <Sidebar />
-        <Editor />
+        <Editor isDropped={isDropped} />
       </div>
     </DndContext>
   );

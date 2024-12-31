@@ -11,7 +11,11 @@ export function Editor(props: any) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="bg-gray-900  flex-grow">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`bg-gray-900  flex-grow ${isOver ? "border-[3px] border-green-500" : ""}`}
+    >
       {props.children}
     </div>
   );
