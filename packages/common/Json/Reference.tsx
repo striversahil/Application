@@ -20,17 +20,21 @@ export const Reference = [
   {
     title: TableTitle,
     href: TableHref,
+    id: 1,
   },
   {
     title: PaginationTitle,
     href: PaginationHref,
+    id: 2,
   },
   {
     title: ToastTitle,
     href: ToastHref,
+    id: 3,
   },
   {
     title: TemplateTitle,
     href: TemplateHref,
+    id: 4,
   },
 ];

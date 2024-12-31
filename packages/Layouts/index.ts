@@ -1,5 +1,5 @@
 // Barrel File
 
-export * from "./Sidebar";
+export * from "./DragDropZone";
 
-export { default as DragDrop } from "./DragDrop";
+export { DragDropZone } from "./DragDropZone";

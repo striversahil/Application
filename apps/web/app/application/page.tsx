@@ -1,13 +1,12 @@
 import React from "react";
-import { Sidebar, DragDrop } from "@repo/layouts";
+import { DragDropZone } from "@repo/layouts";
 
 type Props = {};
 
 const page = (props: Props) => {
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      <DragDrop />
+      <DragDropZone />
     </div>
   );
 };
