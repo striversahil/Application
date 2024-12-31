@@ -8,6 +8,7 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/ui_patterns/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/Layouts/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
