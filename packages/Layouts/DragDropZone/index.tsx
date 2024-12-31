@@ -8,18 +8,22 @@ import { DndContext } from "@dnd-kit/core";
 type Props = {};
 
 export const DragDropZone = (props: Props) => {
+  const [isDropped, setIsDropped] = React.useState(false);
+  const [SelectedChilderen, setSelectedChildren] = React.useState<
+    React.ReactNode[]
+  >([]);
   function handleDragEnd(event: any) {
     if (event.over && event.over.id === "droppable") {
       setIsDropped(true);
+      setSelectedChildren([event.active.id]);
     }
   }
-  const [isDropped, setIsDropped] = React.useState(false);
   // const draggableMarkup = <Draggable>Drag me</Draggable>;`
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="w-full h-full flex">
         <Sidebar />
-        <Editor isDropped={isDropped} />
+        <Editor isDropped={isDropped} children={SelectedChilderen} />
       </div>
     </DndContext>
   );

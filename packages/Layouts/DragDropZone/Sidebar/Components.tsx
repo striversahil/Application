@@ -54,7 +54,7 @@ const Components = (props: Props) => {
         <div key={index} className="m-5 bg-slate-400 rounded-md gap-10">
           <DraggableToolboxItem
             className=""
-            id={item.id}
+            id={item.href}
             Component={item.title}
             href={item.href}
           />
