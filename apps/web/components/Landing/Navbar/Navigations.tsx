@@ -3,6 +3,8 @@ import Link from "next/link";
 
 type Props = {};
 
+// TODO: Add Nested Links for Hover Navigation
+
 const links = [
   { href: "/", label: "Features" },
   { href: "/blog", label: "Blog" },
@@ -13,12 +15,12 @@ const links = [
 
 const Navigations = (props: Props) => {
   return (
-    <nav className="flex items-center justify-between w-1/2">
+    <nav className="flex items-center justify-between space-x-10">
       {links.map((link, index) => (
         <Link
           key={index}
           href={link.href}
-          className="hover:underline hover:text-blue-500 duration-100"
+          className="text-lg hover:text-blue-500 duration-100"
         >
           {link.label}
         </Link>
