@@ -1,11 +1,12 @@
 import React from "react";
+import Navbar from "../components/Landing/Navbar";
 
 type Props = {};
 
 const page = (props: Props) => {
   return (
-    <div className="text-orange-800 text-3xl font-bold relative top-10 hover:text-4xl">
-      page
+    <div className="h-screen">
+      <Navbar />
     </div>
   );
 };
