@@ -5,7 +5,7 @@ type Props = {};
 
 const Text = (props: Props) => {
   return (
-    <div className="flex flex-col space-y-5 py-[20px] backdrop-blur-lg z-10">
+    <div className="flex flex-col space-y-5 py-[20px]  z-10">
       <h1 className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-tr text-center from-white to-gray-500">
         Internal Tool Automation
         <br />
