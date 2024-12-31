@@ -1,26 +1,36 @@
 import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 
-export function Draggable(props: any) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "draggable",
+function DraggableToolboxItem({ id, label }: any) {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id,
   });
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        border: "1px solid red",
-      }
-    : undefined;
 
   return (
-    <button
+    <div
       ref={setNodeRef}
-      style={style}
+      className={`border border-red-500  p-4 cursor-grab ${isDragging ? "opacity-50" : ""}`}
       {...listeners}
       {...attributes}
-      className="bg-gray-300"
     >
-      {props.children}
-    </button>
+      {label}
+    </div>
+  );
+}
+
+export function Toolbox() {
+  const tools = [
+    { id: "button", label: "Button" },
+    { id: "text-field", label: "Text Field" },
+    { id: "image", label: "Image" },
+  ];
+
+  return (
+    <div className="flex flex-col gap-4">
+      <h3>Toolbox</h3>
+      {tools.map((tool) => (
+        <DraggableToolboxItem key={tool.id} id={tool.id} label={tool.label} />
+      ))}
+    </div>
   );
 }

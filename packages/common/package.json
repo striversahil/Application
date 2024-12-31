@@ -1,18 +1,12 @@
 {
-  "name": "@repo/layouts",
+  "name": "@repo/common",
   "version": "1.0.0",
-  "type": "module",
   "main": "./index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@dnd-kit/core": "^6.3.1",
-    "@dnd-kit/modifiers": "^9.0.0",
-    "@dnd-kit/sortable": "^10.0.0",
-    "@repo/ui": "*",
-    "@repo/components": "*",
-    "@repo/common": "*"
+    "@repo/components": "*"
   },
   "keywords": [],
   "author": "",

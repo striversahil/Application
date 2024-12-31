@@ -1,33 +1,16 @@
 import React from "react";
 
-type Props = {};
+import { Reference } from "@repo/common/Json/Reference";
 
-const Name = [
-  {
-    name: "Table",
-    //     component: <Button />,
-  },
-  {
-    name: "Gallery",
-    //     component: <Button />,
-  },
-  {
-    name: "Table",
-    //     component: <Button />,
-  },
-  {
-    name: "Gallery",
-    //     component: <Button />,
-  },
-];
+type Props = {};
 
 const Components = (props: Props) => {
   return (
     <div className="grid grid-cols-2">
-      {Name.map((item, index) => (
+      {Reference.map((item, index) => (
         <div key={index} className="m-5 bg-slate-400 rounded-md gap-10">
           <h1 className="text-2xl text-white font-bold p-5 text-center">
-            {item.name}
+            {item.title}
           </h1>
         </div>
       ))}
