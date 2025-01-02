@@ -15,6 +15,10 @@ import {
   Title as ToastTitle,
   href as ToastHref,
 } from "@repo/components/core/Toast";
+import {
+  Title as Shadcn_title,
+  href as Shadcn_href,
+} from "@repo/components/core/shadcn_table";
 
 export const Reference = [
   {
@@ -36,5 +40,10 @@ export const Reference = [
     title: TemplateTitle,
     href: TemplateHref,
     id: 4,
+  },
+  {
+    title: Shadcn_title,
+    href: Shadcn_href,
+    id: 5,
   },
 ];

@@ -2,9 +2,9 @@ import React from "react";
 
 type StepsProps = {
   value: string;
+  // Learn : how to give Prop back to parent
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFormSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  data: any;
   isLoading: boolean;
 };
 
@@ -12,7 +12,6 @@ const Steps: React.FC<StepsProps> = ({
   value,
   onInputChange,
   onFormSubmit,
-  data,
   isLoading,
 }) => {
   return (
@@ -32,9 +31,7 @@ const Steps: React.FC<StepsProps> = ({
           onChange={onInputChange}
         />
       </form>
-      <h1 className="text-3xl overflow-auto">
-        {isLoading ? "Loading......." : JSON.stringify(data)}
-      </h1>
+      {isLoading && <div>Loading...</div>}
     </div>
   );
 };
