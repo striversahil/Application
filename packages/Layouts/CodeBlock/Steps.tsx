@@ -1,36 +1,40 @@
-"use client";
 import React from "react";
 
-type Props = {};
+type StepsProps = {
+  value: string;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFormSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  data: any;
+  isLoading: boolean;
+};
 
-const Steps = (props: Props) => {
-  const Inputflow = (e: any) => {
-    fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: `${e.target.value}`,
-        password: `${e.target.value}`,
-        expiresInMins: 30, // optional, defaults to 60
-      }),
-      credentials: "include", // Include cookies (e.g., accessToken) in the request
-    })
-      .then((res) => res.json())
-      .then(console.log);
-  };
-
+const Steps: React.FC<StepsProps> = ({
+  value,
+  onInputChange,
+  onFormSubmit,
+  data,
+  isLoading,
+}) => {
   return (
     <div className="flex flex-col space-y-5 items-center w-1/3 h-full bg-slate-500">
-      <button className="p-2 mx-2 w-fit  bg-blue-500 rounded-full">
-        Run API
-      </button>
-      <form action=""></form>
-      <input
-        type="text"
-        className="w-1/2 p-2 text-gray-400"
-        placeholder="Enter API Endpoint"
-        onInput={(e) => Inputflow(e)}
-      />
+      <form onSubmit={onFormSubmit}>
+        <button
+          className="p-2 mx-2 w-fit bg-blue-500 rounded-full"
+          type="submit"
+        >
+          Run API
+        </button>
+        <input
+          type="text"
+          className="w-1/2 p-2 text-gray-400 rounded-md"
+          placeholder="Enter API Endpoint"
+          value={value}
+          onChange={onInputChange}
+        />
+      </form>
+      <h1 className="text-3xl overflow-auto">
+        {isLoading ? "Loading......." : JSON.stringify(data)}
+      </h1>
     </div>
   );
 };
