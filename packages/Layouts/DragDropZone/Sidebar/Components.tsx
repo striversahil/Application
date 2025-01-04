@@ -19,11 +19,6 @@ function DraggableToolboxItem({ id, Component, href }: any) {
       }
     : undefined;
 
-  /**
-   * Render a component based on the given props.
-   * @param isDragging - If the component is being dragged
-   * @returns The rendered component
-   */
   const renderComponent = (): JSX.Element => {
     if (isDragging) {
       // If the component is being dragged, render the usage component

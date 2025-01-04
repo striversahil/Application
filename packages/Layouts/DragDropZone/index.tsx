@@ -28,19 +28,3 @@ export const DragDropZone = (props: Props) => {
     </DndContext>
   );
 };
-
-// import React, { useState } from "react";
-
-// import { Droppable } from "./Droppable";
-// import { Draggable } from "./Draggable";
-
-// function App() {
-
-//   return (
-//     <DndContext onDragEnd={handleDragEnd}>
-//       {!isDropped ? draggableMarkup : null}
-//       <Droppable>{isDropped ? draggableMarkup : "Drop here"}</Droppable>
-//     </DndContext>
-//   );
-
-// }

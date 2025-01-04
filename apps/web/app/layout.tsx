@@ -14,6 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/apotzalogo.jpeg" />
+      </head>
       <body>{children}</body>
     </html>
   );

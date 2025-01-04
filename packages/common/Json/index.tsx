@@ -5,6 +5,7 @@ import * as Template from "@repo/components/core/__template";
 import * as Table from "@repo/components/core/Table";
 import * as Pagination from "@repo/components/core/Pagination";
 import * as Toast from "@repo/components/core/Toast";
+import * as Shadcn_table from "@repo/components/core/shadcn_table";
 
 interface Props {
   title: string;
@@ -42,5 +43,12 @@ export const data: { [key: string]: Props } = {
     usage: <Toast.Usage />,
     code: Toast.code,
     prop: Toast.Props,
+  },
+  shadcn_table: {
+    title: Shadcn_table.Title,
+    description: Shadcn_table.Description,
+    usage: <Shadcn_table.Usage />,
+    code: Shadcn_table.code,
+    prop: Shadcn_table.Props,
   },
 };
