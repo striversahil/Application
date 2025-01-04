@@ -1,15 +1,15 @@
-class CustomError extends Error {
+class APIError extends Error {
   statusCode: number;
   message: string;
   details: any;
-  constructor(statusCode: number, message: string, details: any) {
+  constructor(statusCode: number, message: string, details?: any) {
     super(message);
     this.statusCode = statusCode;
     this.message = message;
     this.details = details;
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, CustomError);
+      Error.captureStackTrace(this, APIError);
     }
   }
 
@@ -22,4 +22,4 @@ class CustomError extends Error {
   }
 }
 
-export default CustomError;
+export default APIError;

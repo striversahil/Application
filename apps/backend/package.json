@@ -1,9 +1,9 @@
 {
-  "name": "@repo/api",
+  "name": "@repo/backend",
   "version": "1.0.0",
   "main": "./index.js",
   "scripts": {
-    "start": "nodemon ./index.ts"
+    "start": "nodemon dotenv/config ./index.ts"
   },
   "dependencies": {
     "@repo/common": "*",
