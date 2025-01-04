@@ -13,8 +13,7 @@ const Logins = (props: Props) => {
         Login
       </Link>
       <Link
-        // Todo : Link to SignUp
-        href={"/application"}
+        href={"/signup"}
         className="bg-blue-500 hover:bg-blue-500/50 rounded-md font-semibold text-lg px-4 py-1"
       >
         Try for Free
