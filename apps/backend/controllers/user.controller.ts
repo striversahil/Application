@@ -6,7 +6,14 @@ import { Request, Response, NextFunction } from "express";
 
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { Name, Email, Password } = req.body;
+    const { name, email, password }: any = req.body;
+    console.log(req.body);
+
+    await User.create({
+      name: name as string,
+      email: email as string,
+      password: password as string,
+    });
 
     //   if (!Name || !Email || !Password) {
     //     return res
@@ -45,9 +52,9 @@ const registerUser = asyncHandler(
       new ApiResponse(
         201,
         {
-          username: Name,
-          message: "Sala pagal ho gaya itna der tak na ho paya 🥲",
-          user: Password,
+          username: name,
+          message: "Sala pagal ho gaya itna der tak na ho paya 🥲 ",
+          user: password,
         },
         "User Created Successfully"
       )
