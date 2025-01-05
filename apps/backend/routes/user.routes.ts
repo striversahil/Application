@@ -8,6 +8,7 @@ import { Router } from "express";
 const router = Router();
 
 router.route("/signup").post(registerUser);
+
 router.route("/signin").get(signIN);
 
 // router.get("/signin", async (req, res) => {
