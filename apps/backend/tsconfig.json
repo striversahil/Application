@@ -1,0 +1,17 @@
+{
+  "extends": "@repo/typescript-config/api.json",
+
+  "compilerOptions": {
+    "paths": {
+      "@repo/*": ["./*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.ts",
+    "index.ts",
+    "**/*.controller.ts",
+    "**/*.routes.ts"
+  ],
+  "exclude": ["node_modules"]
+}
