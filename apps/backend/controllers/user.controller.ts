@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import ApiResponse from "../helper/ApiResponse";
+import ApiError from "../helper/ApiError";
 import asyncHandler from "../helper/asyncHandler";
 import { User } from "../models/user.model";
 import { Request, Response, NextFunction } from "express";
@@ -8,6 +9,8 @@ const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password }: any = req.body;
     console.log(req.body);
+
+    throw new ApiError(409, "User with email or username already exists", []);
 
     await User.create({
       name: name as string,

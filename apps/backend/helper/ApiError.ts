@@ -1,4 +1,4 @@
-class APIError extends Error {
+class ApiError extends Error {
   statusCode: number;
   message: string;
   details: any;
@@ -7,10 +7,6 @@ class APIError extends Error {
     this.statusCode = statusCode;
     this.message = message;
     this.details = details;
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, APIError);
-    }
   }
 
   toJSON() {
@@ -22,4 +18,4 @@ class APIError extends Error {
   }
 }
 
-export default APIError;
+export default ApiError;
