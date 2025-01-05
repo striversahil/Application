@@ -2,30 +2,61 @@ import bcrypt from "bcrypt";
 import ApiResponse from "../helper/ApiResponse";
 import asyncHandler from "../helper/asyncHandler";
 import { User } from "../models/user.model";
+import { Request, Response, NextFunction } from "express";
 
-const userController = asyncHandler(async ({ req, res }: any) => {
-  const { name, email, password } = req.body;
+const registerUser = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { Name, Email, Password } = req.body;
 
-  await User.create({ name, email, password });
+    //   if (!Name || !Email || !Password) {
+    //     return res
+    //       .status(400)
+    //       .json(new ApiResponse(400, {}, "All fields are required"));
+    //   }
+    //   const user = await User.findOne({ email: email });
+    //   if (user) {
+    //     return res
+    //       .status(400)
+    //       .json(new ApiResponse(400, {}, "User already exists"));
+    //   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+    // Check if all required fields are provided
+    //     if (!name || !email || !password) {
+    //       return res
+    //         .status(400)
+    //         .json(new ApiResponse(400, {}, "All fields are required"));
+    //     }
 
-  const createdUser = new User({ name, email, hashedPassword });
-  await createdUser.save();
+    //   const user = new User({
+    //     name: "Sahil",
+    //     email: "email@email.com",
+    //     password: "password",
+    //   });
 
-  if (!createdUser) {
-    return res.status(400).json(new ApiResponse(400, {}, "User not created"));
-  }
+    //   await user.save();
 
-  return res
-    .status(201)
-    .json(
+    //   const createdUser = await User.findOne({ email: "email@email.com" });
+
+    //   if (!createdUser) {
+    //     return res.status(400).json(new ApiResponse(400, {}, "User not created"));
+    //   }
+
+    return res.status(201).json(
       new ApiResponse(
-        200,
-        { username: name, message: "User Created", email },
-        "User Created"
+        201,
+        {
+          username: Name,
+          message: "Sala pagal ho gaya itna der tak na ho paya 🥲",
+          user: Password,
+        },
+        "User Created Successfully"
       )
     );
+  }
+);
+
+const signIN = asyncHandler(({ req, res }: any) => {
+  return res.status(200).json(new ApiResponse(200, "User  Signed In Done"));
 });
 
-export { userController };
+export { registerUser, signIN };

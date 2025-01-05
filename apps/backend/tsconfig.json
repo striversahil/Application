@@ -6,6 +6,12 @@
       "@repo/*": ["./*"]
     }
   },
-  "include": ["**/*.ts", "**/*.ts", "index.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.ts",
+    "index.ts",
+    "**/*.controller.ts",
+    "**/*.routes.ts"
+  ],
   "exclude": ["node_modules"]
 }

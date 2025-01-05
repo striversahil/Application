@@ -1,12 +1,14 @@
-import Express from "express";
+import express from "express";
 import cors from "cors";
 import { createServer } from "http";
 import userRoute from "./routes/user.routes";
-const bodyParser = require("body-parser");
+// import bodyParser from "body-parser";
 
-const app = Express();
+const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 const httpServer = createServer(app);
 
