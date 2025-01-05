@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
+import { userController } from "../controllers/user.controller";
+
 import { Router } from "express";
 // import userController from "../controllers/user.controller.ts";
 
 const router = Router();
 
-router.get("/signup", async (req, res) => {
-  res.status(200).json({ message: "User Signed Up Done" });
-});
+router.route("/signup").post(userController);
 
 router.get("/signin", async (req, res) => {
   res.status(200).json({ message: "User Signed In Done" });

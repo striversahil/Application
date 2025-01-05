@@ -1,14 +1,18 @@
 import mongoose from "mongoose";
 
+const db_Name = "Apotza_Backend";
+
 const connectDB = async () => {
   if (mongoose.ConnectionStates.connected < 1) {
     try {
-      const Connection = await mongoose.connect(
-        process.env.MONGODB_URI as string
+      const connectionInstance = await mongoose.connect(
+        `${process.env.MONGODB_URI as string}/${db_Name as string}`
       );
 
-      Connection.connection.on("connected", () => {
-        console.log("Connected to database  Successfully 🚀");
+      connectionInstance.connection.on("connected", () => {
+        console.log(
+          `Connected to database  Successfully 🚀: ${connectionInstance.connection.host}`
+        );
       });
     } catch (error) {
       console.log(error);
