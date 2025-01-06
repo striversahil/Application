@@ -2,7 +2,19 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const UserSchema = new mongoose.Schema(
+interface User extends mongoose.Document {
+  name: string;
+  email: string;
+  refreshToken: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+  isCorrectPassword: (password: string) => Promise<boolean>;
+  generateAccessToken: () => string;
+  generateRefreshToken: () => string;
+}
+
+const UserSchema: mongoose.Schema<User> = new mongoose.Schema(
   {
     name: {
       type: String,

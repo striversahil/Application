@@ -9,11 +9,12 @@ const registerUser = asyncHandler(
     const { name, email, password }: any = req.body;
     console.log(req.body);
 
-    const user = new User({
+    const user = await User.create({
       name: name,
       email: email,
       password: password,
     });
+    user.isCorrectPassword(password);
 
     await User.create({
       name: name as string,
