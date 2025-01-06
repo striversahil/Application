@@ -180,18 +180,23 @@ const verifyToken = asyncHandler(async (req: Request, res: Response) => {
       .status(401)
       .json(new ApiResponse(401, {}, "Redirecting to login..."));
   }
+
   try {
     const decoded = jwt.verify(
       token,
       process.env.REFRESH_TOKEN_SECRET as string
     );
+
     const user = await User.findOne({ email: decoded });
+
     if (!user) {
       return res
         .status(401)
         .json(new ApiResponse(401, {}, "Unauthorized User"));
     }
+
     const TokenResponse = await generateAccessRefreshToken(user.email);
+
     if (!TokenResponse) {
       return res
         .status(500)
