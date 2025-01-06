@@ -6,6 +6,7 @@ const app = express();
 const httpServer = createServer(app);
 // Keep this http Server at the top so to Implement Middlewares
 import userRoute from "./routes/user.routes";
+import bucketRoute from "./routes/bucket.routes";
 // import bodyParser from "body-parser";
 
 app.use(express.json()); // for parsing application/json
@@ -17,5 +18,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(cors());
 
 app.use("/user", userRoute);
+
+app.use("/bucket", bucketRoute);
 
 export default httpServer;

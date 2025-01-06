@@ -1,19 +1,56 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import ApiResponse from "../helper/ApiResponse";
+import { generateAccessRefreshToken } from "../controllers/user.controller";
 
-const authenticate = (
-  req: Response,
-  res: Response,
-  next: NextFunction
-): any => {
-  const { token } = req.cookie.jwt;
+declare global {
+  namespace Express {
+    interface Request {
+      user: object;
+      password: string;
+    }
+  }
+}
+
+const authenticate = (req: Request, res: Response, next: NextFunction): any => {
+  const token = req.cookies.jwt;
   if (!token) {
     return res
       .status(401)
       .json(new ApiResponse(401, {}, "Redirecting to login..."));
   }
-  return jwt.verify(token, process.env.REFRESH_TOKEN_SECRET as string);
+  // Todo : Verify Token Safely
+  jwt.verify(token, "sahil", async (err: any, decoded: any) => {
+    if (err) {
+      return res
+        .status(401)
+        .json(new ApiResponse(401, {}, "Redirecting to login..."));
+    }
+    req.user = decoded;
+
+    const Expiry_left_in_hours = (decoded.iat - decoded.exp) / (60 * 60);
+
+    if (Expiry_left_in_hours < 10) {
+      const tokenResponse = await generateAccessRefreshToken(decoded.email);
+      if (!tokenResponse) {
+        return res
+          .status(500)
+          .json(
+            new ApiResponse(
+              500,
+              {},
+              "User not authenticated due to server error"
+            )
+          );
+      }
+      res.cookie("jwt", tokenResponse.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
+    }
+  });
+  next();
 };
 
 export default authenticate;
