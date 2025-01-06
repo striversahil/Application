@@ -5,7 +5,15 @@ import { User } from "../models/user.model";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-const generateAccessRefreshToken = async (email: string) => {
+type UserType = {
+  name?: string;
+  email: string;
+  password: string;
+};
+
+const generateAccessRefreshToken = async (
+  email: string
+): Promise<{ accessToken: string; refreshToken: string }> => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -23,6 +31,10 @@ const generateAccessRefreshToken = async (email: string) => {
     return { accessToken, refreshToken };
   } catch (error) {
     console.log("There is an error in generating access and refresh token");
+    return {
+      accessToken: "",
+      refreshToken: "",
+    };
   }
 };
 
@@ -31,12 +43,11 @@ const cookie: object = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production ? true : false",
   sameSite: "strict",
-  maxAge: 24 * 60 * 60 * 1000,
 };
 
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, password }: any = req.body;
+    const { name, email, password }: UserType = req.body;
     console.log(req.body);
 
     // Validation Checks
@@ -121,7 +132,7 @@ const registerUser = asyncHandler(
 );
 
 const signIN = asyncHandler(async (req: Request, res: Response) => {
-  const { email, password }: any = req.body;
+  const { email, password }: UserType = req.body;
 
   if (!email || !password || !req.body) {
     return res
@@ -233,4 +244,4 @@ const verifyToken = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { registerUser, signIN, verifyToken };
+export { generateAccessRefreshToken, registerUser, signIN, verifyToken };
