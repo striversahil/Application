@@ -44,6 +44,9 @@ const useFetch = ({
         const response = await axios[method](href, payload, {
           withCredentials: true,
         });
+        if (!external && response.data.statusCode === 401) {
+          window.location.href = "/login";
+        }
         setData(response.data);
       } catch (e: any) {
         setError(e);
