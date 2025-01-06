@@ -9,25 +9,47 @@ const registerUser = asyncHandler(
     const { name, email, password }: any = req.body;
     console.log(req.body);
 
-    const user = await User.create({
-      name: name,
-      email: email,
-      password: password,
-    });
-    user.isCorrectPassword(password);
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json(
+          new ApiResponse(400, {}, "Please Provide all the required fields")
+        );
+    }
 
-    await User.create({
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res
+        .status(400)
+        .json(new ApiResponse(400, {}, "User already exists with this email"));
+    }
+
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json(
+          new ApiResponse(400, {}, "Password must be at least 6 characters")
+        );
+    }
+
+    const newUser = await User.create({
       name: name as string,
       email: email as string,
       password: password as string,
     });
+
+    if (!newUser) {
+      return res
+        .status(400)
+        .json(new ApiResponse(400, {}, "User not created successfully"));
+    }
 
     return res.status(201).json(
       new ApiResponse(
         201,
         {
           username: name,
-          message: "Sala pagal ho gaya itna der tak na ho paya 🥲 ",
+          message: "User Created Successfully 🚀",
           user: password,
         },
         "User Created Successfully"
