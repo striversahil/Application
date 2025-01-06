@@ -9,7 +9,7 @@ const router = Router();
 
 router.route("/signup").post(registerUser);
 
-router.route("/signin").get(signIN);
+router.route("/signin").post(signIN);
 
 // router.get("/signin", async (req, res) => {
 //   res.status(200).json({ message: "User Signed In Done" });

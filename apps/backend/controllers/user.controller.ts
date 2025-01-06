@@ -5,6 +5,27 @@ import { User } from "../models/user.model";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+const generateAccessRefreshToken = async (email: string) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return {
+        accessToken: "",
+        refreshToken: "",
+      };
+    }
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
+
+    return { accessToken, refreshToken };
+  } catch (error) {
+    console.log("There is an error in generating access and refresh token");
+  }
+};
+
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password }: any = req.body;
@@ -43,10 +64,22 @@ const registerUser = asyncHandler(
       password: password as string,
     });
 
-    const accessToken = newUser.generateAccessToken();
+    const tokenResponse = await generateAccessRefreshToken(email);
+    if (!tokenResponse) {
+      return res
+        .status(500)
+        .json(
+          new ApiResponse(
+            500,
+            {},
+            "User not created successfully due to server error"
+          )
+        );
+    }
+    const accessToken = tokenResponse.accessToken;
+    const refreshToken = tokenResponse.refreshToken;
 
-    const refreshToken = newUser.generateRefreshToken();
-
+    // Saving Refresh Token
     newUser.refreshToken = refreshToken;
 
     res.cookie("jwt", accessToken, {
@@ -60,8 +93,14 @@ const registerUser = asyncHandler(
 
     if (!newUser) {
       return res
-        .status(400)
-        .json(new ApiResponse(400, {}, "User not created successfully"));
+        .status(500)
+        .json(
+          new ApiResponse(
+            500,
+            {},
+            "User not created successfully due to server error"
+          )
+        );
     }
 
     return res.status(201).json(
@@ -78,8 +117,60 @@ const registerUser = asyncHandler(
   }
 );
 
-const signIN = asyncHandler(({ req, res }: any) => {
-  return res.status(200).json(new ApiResponse(200, "User  Signed In Done"));
+const signIN = asyncHandler(async ({ req, res }: any) => {
+  const { email, password }: any = req.body;
+
+  if (!email || !password || !req.body) {
+    return res
+      .status(400)
+      .json(new ApiResponse(400, {}, "Please Provide all the required fields"));
+  }
+
+  const userExists = await User.findOne({ email });
+  if (!userExists) {
+    return res
+      .status(400)
+      .json(new ApiResponse(400, {}, "User does not exist with this email"));
+  }
+
+  if (await userExists.isCorrectPassword(password)) {
+    const tokenResponse = await generateAccessRefreshToken(email);
+    if (!tokenResponse) {
+      return res
+        .status(500)
+        .json(
+          new ApiResponse(
+            500,
+            {},
+            "User not created successfully due to server error"
+          )
+        );
+    }
+    const accessToken = tokenResponse.accessToken;
+    const refreshToken = tokenResponse.refreshToken;
+
+    // Saving Refresh Token
+    userExists.refreshToken = refreshToken;
+
+    res.cookie("jwt", accessToken, {
+      // creating cookie
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          username: userExists.name,
+          message: "User Signed In Successfully 🚀",
+          user: userExists,
+        },
+        "User Signed In Successfully"
+      )
+    );
+  }
 });
 
 export { registerUser, signIN };
