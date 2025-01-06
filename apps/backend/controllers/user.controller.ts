@@ -173,4 +173,56 @@ const signIN = asyncHandler(async ({ req, res }: any) => {
   }
 });
 
-export { registerUser, signIN };
+const verifyToken = asyncHandler(async (req: Request, res: Response) => {
+  const token = req.cookies.jwt;
+  if (!token) {
+    return res
+      .status(401)
+      .json(new ApiResponse(401, {}, "Redirecting to login..."));
+  }
+  try {
+    const decoded = jwt.verify(
+      token,
+      process.env.REFRESH_TOKEN_SECRET as string
+    );
+    const user = await User.findOne({ email: decoded });
+    if (!user) {
+      return res
+        .status(401)
+        .json(new ApiResponse(401, {}, "Unauthorized User"));
+    }
+    const TokenResponse = await generateAccessRefreshToken(user.email);
+    if (!TokenResponse) {
+      return res
+        .status(500)
+        .json(
+          new ApiResponse(
+            500,
+            {},
+            "User not created successfully due to server error"
+          )
+        );
+    }
+
+    const accessToken = TokenResponse.accessToken;
+    const refreshToken = TokenResponse.refreshToken;
+
+    res.cookie("jwt", accessToken, {
+      // creating cookie
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
+
+    return res.status(200).json(new ApiResponse(200, {}, "Authorized"));
+  } catch (error) {
+    return res
+      .status(401)
+      .json(new ApiResponse(500, {}, "Internal Server Error"));
+  }
+});
+
+export { registerUser, signIN, verifyToken };
