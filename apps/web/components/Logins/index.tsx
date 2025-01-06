@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+import { redirect } from "next/navigation";
 
 type Look = "signin" | "signup";
 
@@ -28,7 +29,10 @@ const Login = (props: Props) => {
     if (data) {
       console.log(data);
     }
-    setTrigger(false);
+    setTrigger(false); // Reset Trigger Important
+    if (data?.success) {
+      redirect("/application"); // Redirect to Application
+    }
   }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +85,7 @@ const Login = (props: Props) => {
               {props.look === "signin" ? "Sign In" : "Sign Up"}
             </button>
             <div className="text-white">
-              {isLoading && <div>Loading...</div>}
+              {Trigger && isLoading && <div>Loading...</div>}
               {data && <div>{JSON.stringify(data)}</div>}
               {/* {error && <div>{JSON.stringify(error)}</div>} */}
             </div>

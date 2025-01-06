@@ -10,6 +10,13 @@ type Props = {
   external?: boolean;
 };
 
+type Data = {
+  statusCode: number;
+  data: object | null;
+  message: string;
+  success: boolean;
+};
+
 const useFetch = ({
   href,
   trigger = false,
@@ -17,7 +24,7 @@ const useFetch = ({
   payload = {},
   external = false,
 }: Props) => {
-  const [data, setData] = useState<string | null>(null);
+  const [data, setData] = useState<Data | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
