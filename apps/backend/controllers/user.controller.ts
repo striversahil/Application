@@ -3,11 +3,14 @@ import ApiResponse from "../helper/ApiResponse";
 import asyncHandler from "../helper/asyncHandler";
 import { User } from "../models/user.model";
 import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password }: any = req.body;
     console.log(req.body);
+
+    // Validation Checks
 
     if (!name || !email || !password) {
       return res
@@ -32,11 +35,28 @@ const registerUser = asyncHandler(
         );
     }
 
+    // Creating New User
+
     const newUser = await User.create({
       name: name as string,
       email: email as string,
       password: password as string,
     });
+
+    const accessToken = newUser.generateAccessToken();
+
+    const refreshToken = newUser.generateRefreshToken();
+
+    newUser.refreshToken = refreshToken;
+
+    res.cookie("jwt", accessToken, {
+      // creating cookie
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    newUser.save();
 
     if (!newUser) {
       return res
