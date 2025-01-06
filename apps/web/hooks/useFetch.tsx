@@ -41,7 +41,9 @@ const useFetch = ({
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await axios[method](href, payload);
+        const response = await axios[method](href, payload, {
+          withCredentials: true,
+        });
         setData(response.data);
       } catch (e: any) {
         setError(e);

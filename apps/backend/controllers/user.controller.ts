@@ -26,6 +26,14 @@ const generateAccessRefreshToken = async (email: string) => {
   }
 };
 
+const cookie: object = {
+  // creating cookie
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production ? true : false",
+  sameSite: "strict",
+  maxAge: 24 * 60 * 60 * 1000,
+};
+
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password }: any = req.body;
@@ -82,12 +90,7 @@ const registerUser = asyncHandler(
     // Saving Refresh Token
     newUser.refreshToken = refreshToken;
 
-    res.cookie("jwt", accessToken, {
-      // creating cookie
-      httpOnly: true,
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie("jwt", accessToken, cookie);
 
     newUser.save();
 
@@ -220,12 +223,7 @@ const verifyToken = asyncHandler(async (req: Request, res: Response) => {
     const accessToken = TokenResponse.accessToken;
     const refreshToken = TokenResponse.refreshToken;
 
-    res.cookie("jwt", accessToken, {
-      // creating cookie
-      httpOnly: true,
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie("jwt", accessToken, cookie);
 
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
