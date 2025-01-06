@@ -4,7 +4,7 @@ import Login from "../../../components/Logins";
 type Props = {};
 
 const SignUp = (props: Props) => {
-  return <Login look={"sign-up"} />;
+  return <Login look={"signup"} />;
 };
 
 export default SignUp;

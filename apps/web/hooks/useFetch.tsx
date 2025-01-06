@@ -4,6 +4,7 @@ import axios from "axios";
 
 type Props = {
   href: string;
+  trigger?: boolean;
   method?: "get" | "post" | "put" | "delete";
   payload?: any;
   external?: boolean;
@@ -11,6 +12,7 @@ type Props = {
 
 const useFetch = ({
   href,
+  trigger = false,
   method = "get",
   payload = {},
   external = false,
@@ -24,10 +26,11 @@ const useFetch = ({
   if (external) {
     href = href;
   } else {
-    href = process.env.NEXT_PUBLIC_API_URL + href;
+    href = `http://localhost:8080/${href}`;
   }
 
   useEffect(() => {
+    if (!trigger) return;
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -41,7 +44,7 @@ const useFetch = ({
     };
 
     fetchData();
-  }, [href]);
+  }, [trigger]);
 
   return { data, isLoading, error };
 };
