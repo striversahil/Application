@@ -114,7 +114,7 @@ const registerUser = asyncHandler(
           message: "User Created Successfully 🚀",
           user: password,
         },
-        "User Created Successfully"
+        "User Created Successfully 🚀"
       )
     );
   }
@@ -163,12 +163,9 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
     // Saving Refresh Token
     userExists.refreshToken = refreshToken;
 
-    res.cookie("jwt", accessToken, {
-      // creating cookie
-      httpOnly: true,
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie("jwt", accessToken, cookie);
+
+    await userExists.save();
 
     return res.status(200).json(
       new ApiResponse(

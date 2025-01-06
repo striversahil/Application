@@ -39,7 +39,7 @@ const UserSchema: mongoose.Schema<User> = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, "Password is required "],
     },
   },
   { timestamps: true }
