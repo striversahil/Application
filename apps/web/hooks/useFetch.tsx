@@ -1,30 +1,40 @@
 "use client";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 type Props = {
   href: string;
+  method?: "get" | "post" | "put" | "delete";
+  payload?: any;
+  external?: boolean;
 };
 
-const useFetch = ({ href }: Props) => {
+const useFetch = ({
+  href,
+  method = "get",
+  payload = {},
+  external = false,
+}: Props) => {
   const [data, setData] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+
+  if (!href) return { data, isLoading, error };
+
+  if (external) {
+    href = href;
+  } else {
+    href = process.env.NEXT_PUBLIC_API_URL + href;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(href, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        });
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        setError(error as Error);
+        const response = await axios[method](href, payload);
+        setData(response.data);
+      } catch (e: any) {
+        setError(e);
       } finally {
         setIsLoading(false);
       }

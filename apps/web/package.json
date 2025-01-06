@@ -11,9 +11,10 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "*",
-    "@repo/layouts": "*",
     "@repo/api": "*",
+    "@repo/layouts": "*",
+    "@repo/ui": "*",
+    "axios": "^1.7.9",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

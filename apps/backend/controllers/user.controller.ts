@@ -117,7 +117,7 @@ const registerUser = asyncHandler(
   }
 );
 
-const signIN = asyncHandler(async ({ req, res }: any) => {
+const signIN = asyncHandler(async (req: Request, res: Response) => {
   const { email, password }: any = req.body;
 
   if (!email || !password || !req.body) {
@@ -133,7 +133,15 @@ const signIN = asyncHandler(async ({ req, res }: any) => {
       .json(new ApiResponse(400, {}, "User does not exist with this email"));
   }
 
-  if (await userExists.isCorrectPassword(password)) {
+  const verified = await userExists.isCorrectPassword(password);
+
+  if (!verified) {
+    return res
+      .status(400)
+      .json(new ApiResponse(400, {}, "Password is incorrect"));
+  }
+
+  if (verified) {
     const tokenResponse = await generateAccessRefreshToken(email);
     if (!tokenResponse) {
       return res
