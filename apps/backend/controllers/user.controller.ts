@@ -43,6 +43,7 @@ const cookie: object = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production ? true : false",
   sameSite: "strict",
+  maxAge: 1000 * 60 * 60 * 24 * 15, // 15 days of cookie
 };
 
 const registerUser = asyncHandler(

@@ -47,6 +47,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24 * 15, // 15 days
       });
     }
   });
