@@ -26,6 +26,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
         .status(401)
         .json(new ApiResponse(401, {}, "Redirecting to login..."));
     }
+    // Passing the User to the next middleware
     req.user = decoded;
 
     const Expiry_left_in_hours = (decoded.iat - decoded.exp) / (60 * 60);
