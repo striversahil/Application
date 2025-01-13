@@ -14,6 +14,7 @@ declare global {
 
 const authenticate = (req: Request, res: Response, next: NextFunction): any => {
   const token = req.cookies.jwt;
+
   if (!token) {
     return res
       .status(401)

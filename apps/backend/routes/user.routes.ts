@@ -13,7 +13,6 @@ router.route("/signup").post(registerUser);
 router.route("/signin").post(signIN);
 
 router.route("/auth").get(authenticate, async (req, res) => {
-  console.log(req.user);
   res.status(200).json({ message: "User Authenticated" });
 });
 
