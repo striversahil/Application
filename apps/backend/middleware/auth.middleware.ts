@@ -40,7 +40,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
             new ApiResponse(
               500,
               {},
-              "User not authenticated due to server error"
+              "User could not be authenticated due to server error"
             )
           );
       }
