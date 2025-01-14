@@ -49,4 +49,11 @@ const WorkspaceSchema: mongoose.Schema<Workspace> = new mongoose.Schema(
   }
 );
 
+// add default admin if not added
+WorkspaceSchema.pre("save", function (next) {
+  if (this.isModified("members")) return next();
+  this.members.push({ member: this.user, role: Role.admin });
+  next();
+});
+
 export const Workspace = mongoose.model("Workspace", WorkspaceSchema);

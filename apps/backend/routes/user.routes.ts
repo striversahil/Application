@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { signIN, registerUser } from "../controllers/user.controller";
+import { signIN, registerUser } from "../controllers/auth/user.controller";
 
 import { Router } from "express";
 import authenticate from "../middleware/auth.middleware";
