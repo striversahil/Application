@@ -6,6 +6,8 @@ enum SocialsSource {
   instagram = "instagram",
   github = "github",
   linkedin = "linkedin",
+  youtube = "youtube",
+  website = "website",
 }
 
 interface Socials {
@@ -64,7 +66,15 @@ const ProfileSchema: mongoose.Schema<Profile> = new mongoose.Schema({
         },
       },
     ],
-    enum: ["facebook", "twitter", "instagram", "github", "linkedin"],
+    enum: [
+      "facebook",
+      "twitter",
+      "instagram",
+      "github",
+      "linkedin",
+      "youtube",
+      "website",
+    ],
     default: [],
   },
 });

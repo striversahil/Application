@@ -7,7 +7,6 @@ interface User extends mongoose.Document {
   email: string;
   refreshToken: string;
   password: string;
-  role: string;
   createdAt: Date;
   updatedAt: Date;
   isCorrectPassword: (password: string) => Promise<boolean>;
@@ -41,11 +40,6 @@ const UserSchema: mongoose.Schema<User> = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required "],
-    },
-    role: {
-      type: String,
-      enum: ["owner", "admin", "user"],
-      default: "owner",
     },
   },
   { timestamps: true }

@@ -1,10 +1,23 @@
 import mongoose, { Mongoose } from "mongoose";
 
-interface Workspace {
+enum Role {
+  admin = "admin",
+  member = "member",
+}
+
+interface Member {
+  member: mongoose.Schema.Types.ObjectId;
+  role: Role;
+}
+
+type Workspace = {
   name: string;
   user: mongoose.Schema.Types.ObjectId;
-  members: string[];
-}
+  members: Member[];
+  role: Role;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 const WorkspaceSchema: mongoose.Schema<Workspace> = new mongoose.Schema(
   {
@@ -19,8 +32,15 @@ const WorkspaceSchema: mongoose.Schema<Workspace> = new mongoose.Schema(
     },
     members: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        member: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        role: {
+          type: String,
+          enum: Object.values(Role),
+          default: Role.member,
+        },
       },
     ],
   },
