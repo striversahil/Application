@@ -18,7 +18,7 @@ const Text = (props: Props) => {
           {" "}
           Automation
         </span>{" "}
-        Tool <br />
+        <span className="text-6xl">Tool</span> <br />
         <span className="text-5xl"> for Your </span>
         <span className="bg-clip-text text-transparent bg-gradient-to-b from-pink-500 to-blue-500">
           Workflow ...

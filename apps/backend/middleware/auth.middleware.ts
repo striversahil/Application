@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import ApiResponse from "../helper/ApiResponse";
-import { generateAccessRefreshToken } from "../controllers/user.controller";
+import { generateAccessRefreshToken } from "../controllers/auth/user.controller";
 
 declare global {
   namespace Express {
@@ -14,6 +14,7 @@ declare global {
 
 const authenticate = (req: Request, res: Response, next: NextFunction): any => {
   const token = req.cookies.jwt;
+
   if (!token) {
     return res
       .status(401)
@@ -26,6 +27,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
         .status(401)
         .json(new ApiResponse(401, {}, "Redirecting to login..."));
     }
+    // Passing the User to the next middleware
     req.user = decoded;
 
     const Expiry_left_in_hours = (decoded.iat - decoded.exp) / (60 * 60);
@@ -39,7 +41,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
             new ApiResponse(
               500,
               {},
-              "User not authenticated due to server error"
+              "User could not be authenticated due to server error"
             )
           );
       }
@@ -47,6 +49,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24 * 15, // 15 days
       });
     }
   });
