@@ -22,7 +22,7 @@ interface Profile {
   profilePic: string;
   bio: string;
   location: string;
-  socials: string[];
+  socials: Socials[];
 }
 
 const ProfileSchema: mongoose.Schema<Profile> = new mongoose.Schema({
@@ -53,7 +53,17 @@ const ProfileSchema: mongoose.Schema<Profile> = new mongoose.Schema({
     default: "",
   },
   socials: {
-    type: [String],
+    type: [
+      {
+        source: {
+          type: String,
+          enum: Object.values(SocialsSource),
+        },
+        url: {
+          type: String,
+        },
+      },
+    ],
     enum: ["facebook", "twitter", "instagram", "github", "linkedin"],
     default: [],
   },
