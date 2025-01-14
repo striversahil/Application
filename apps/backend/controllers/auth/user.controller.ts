@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import ApiResponse from "../helper/ApiResponse";
-import asyncHandler from "../helper/asyncHandler";
-import { User } from "../models/auth/user.model";
+import ApiResponse from "../../helper/ApiResponse";
+import asyncHandler from "../../helper/asyncHandler";
+import { User } from "../../models/auth/user.model";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
@@ -49,7 +49,6 @@ const cookie: object = {
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password }: UserType = req.body;
-    console.log(req.body);
 
     // Validation Checks
 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import ApiResponse from "../helper/ApiResponse";
-import { generateAccessRefreshToken } from "../controllers/user.controller";
+import { generateAccessRefreshToken } from "../controllers/auth/user.controller";
 
 declare global {
   namespace Express {
