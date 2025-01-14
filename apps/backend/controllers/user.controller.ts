@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import ApiResponse from "../helper/ApiResponse";
 import asyncHandler from "../helper/asyncHandler";
-import { User } from "../models/user.model";
+import { User } from "../models/auth/user.model";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
