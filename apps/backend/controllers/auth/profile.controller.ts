@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import ApiResponse from "@repo/helper/ApiResponse";
-import asyncHandler from "@repo/helper/asyncHandler";
-import { Profile } from "@repo/models/auth/profile.model";
+import ApiResponse from "../../helper/ApiResponse";
+import asyncHandler from "../../helper/asyncHandler";
+import { Profile } from "../../models/auth/profile.model";
 
 const getProfile = asyncHandler(async (req: Request, res: Response) => {
   const profile = await Profile.findOne({ user: req.body });

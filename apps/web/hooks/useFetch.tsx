@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 type Props = {
   href: string;
@@ -45,7 +46,7 @@ const useFetch = ({
           withCredentials: true,
         });
         if (!external && response.data.statusCode === 401) {
-          window.location.href = "/login";
+          redirect("/login");
         }
         setData(response.data);
       } catch (e: any) {

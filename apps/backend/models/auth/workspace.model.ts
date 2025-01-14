@@ -13,8 +13,8 @@ interface Member {
 type Workspace = {
   name: string;
   user: mongoose.Schema.Types.ObjectId;
+  private: boolean;
   members: Member[];
-  role: Role;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -29,6 +29,10 @@ const WorkspaceSchema: mongoose.Schema<Workspace> = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    private: {
+      type: Boolean,
+      default: false,
     },
     members: [
       {

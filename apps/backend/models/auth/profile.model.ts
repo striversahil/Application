@@ -20,7 +20,7 @@ interface Profile {
     firstName: string;
     lastName: string;
   };
-  user: mongoose.Schema.Types.ObjectId;
+  user_id: mongoose.Schema.Types.ObjectId;
   profilePic: string;
   bio: string;
   location: string;
@@ -37,7 +37,7 @@ const ProfileSchema: mongoose.Schema<Profile> = new mongoose.Schema({
       type: String,
     },
   },
-  user: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
