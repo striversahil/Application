@@ -6,11 +6,21 @@ import useFetch from "../../hooks/useFetch";
 type Props = {};
 
 const CodeBlock: React.FC<Props> = () => {
-  const [pokemonName, setPokemonName] = React.useState("");
+  const [value, setvalue] = React.useState("");
+  const [trigger, setTrigger] = React.useState(false);
   const [hidden, setHidden] = React.useState(true);
   const { data, isLoading } = useFetch({
-    href: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+    href: `https://jsonplaceholder.org/posts/${value}`,
+    external: true,
+    trigger,
   });
+
+  // Reset the trigger
+  useEffect(() => {
+    if (trigger) {
+      setTrigger(false);
+    }
+  }, [trigger]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -26,11 +36,12 @@ const CodeBlock: React.FC<Props> = () => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPokemonName(event.target.value);
+    setvalue(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setTrigger(true);
   };
 
   return (
@@ -38,7 +49,7 @@ const CodeBlock: React.FC<Props> = () => {
       {hidden && (
         <div className="absolute bottom-0 flex h-1/3 w-full bg-slate-400 rounded-xl">
           <Codeblock.Steps
-            value={pokemonName}
+            value={value}
             onInputChange={handleInputChange}
             onFormSubmit={handleSubmit}
             isLoading={isLoading}
