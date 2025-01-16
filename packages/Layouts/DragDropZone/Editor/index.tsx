@@ -15,7 +15,7 @@ export function Editor(props: any) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`bg-gray-900  flex-grow ${isOver ? "border-[3px] border-green-500" : ""}`}
+      className={`bg-gray-900  flex-grow ${isOver && "border-[3px] border-green-500 bg-gray-900/80 "}`}
     >
       {props.children.map((child: any, index: any) => (
         <div

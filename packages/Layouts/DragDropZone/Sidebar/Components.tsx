@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Reference } from "@repo/common/Json/Reference";
 import { data } from "@repo/common/Json";
@@ -28,6 +28,9 @@ function DraggableToolboxItem({ id, Component, href }: any) {
       return <div>{Component}</div>;
     }
   };
+  useEffect(() => {
+    // console.log(transform);
+  }, [transform]);
 
   return (
     <div
