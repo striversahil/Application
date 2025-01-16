@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Provider } from "react-redux";
+import store from "../store";
 
 export const metadata: Metadata = {
   title: "Apotza",
@@ -17,7 +19,9 @@ export default function RootLayout({
       <head suppressHydrationWarning>
         <link rel="icon" href="/apotzalogo.jpeg" />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <Provider store={store}>
+        <body suppressHydrationWarning>{children}</body>
+      </Provider>
     </html>
   );
 }
