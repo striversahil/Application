@@ -6,8 +6,8 @@ type Props = {};
 
 const Hero = (props: Props) => {
   return (
-    <div className="relative flex justify-center h-screen bg-gradient-to-r from-transparent to-blue-800/60 overflow-clip">
-      <div className="absolute -z-10 hidden md:flex opacity-70 h-full w-full -left-[5%] -top-[5%] items-center rounded-3xl rotate-45 overflow-clip">
+    <div className="relative flex justify-center h-screen  overflow-clip">
+      <div className="absolute -z-10 hidden md:flex  h-[120%] w-[120%] -left-[6%] -top-[7%] items-center rounded-3xl rotate-45 overflow-clip">
         <video
           autoPlay
           loop

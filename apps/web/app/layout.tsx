@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head suppressHydrationWarning>
-        <link rel="icon" href="/apotzalogo.jpeg" />
+        <link rel="icon" href="apotzalogo.jpg" />
       </head>
       <body suppressHydrationWarning>{children}</body>
     </html>
