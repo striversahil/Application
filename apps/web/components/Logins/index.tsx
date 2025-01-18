@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../hooks/useBackend";
 import { redirect } from "next/navigation";
 
 type Look = "signin" | "signup";

@@ -11,7 +11,6 @@ const CodeBlock: React.FC<Props> = () => {
   const [hidden, setHidden] = React.useState(true);
   const { data, isLoading } = useFetch({
     href: `https://jsonplaceholder.org/posts/${value}`,
-    external: true,
     trigger,
   });
 

@@ -8,7 +8,14 @@ type Props = {
   trigger?: boolean;
   method?: "get" | "post" | "put" | "delete";
   payload?: any;
-  custom?: any;
+  external?: boolean;
+};
+
+type Data = {
+  statusCode: number;
+  data: object | null;
+  message: string;
+  success: boolean;
 };
 
 const useFetch = ({
@@ -16,14 +23,21 @@ const useFetch = ({
   trigger = false,
   method = "get",
   payload = {},
-  custom = {},
+  external = false,
 }: Props) => {
-  const [data, setData] = useState<object | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [data, setData] = useState<Data | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   // If not href given return null data
   if (!href) return { data, isLoading, error };
+
+  // Route href based on if it is internal or external query
+  if (external) {
+    href = href;
+  } else {
+    href = `${process.env.BACKEND_API}/${href}`;
+  }
 
   useEffect(() => {
     if (!trigger) return;
@@ -31,11 +45,11 @@ const useFetch = ({
       setIsLoading(true);
       try {
         const response = await axios[method](href, payload, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          ...custom,
+          withCredentials: true,
         });
+        if (!external && response.data.statusCode === 401) {
+          redirect("/login");
+        }
         setData(response.data);
       } catch (e: any) {
         setError(e);
