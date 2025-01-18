@@ -13,19 +13,23 @@ declare global {
 }
 
 const authenticate = (req: Request, res: Response, next: NextFunction): any => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.access_token;
 
   if (!token) {
     return res
       .status(401)
-      .json(new ApiResponse(401, {}, "Redirecting to login..."));
+      .json(
+        new ApiResponse(401, {}, "No token found. \n Redirecting to login...")
+      );
   }
   // Todo : Verify Token Safely
   jwt.verify(token, "sahil", async (err: any, decoded: any) => {
     if (err) {
       return res
         .status(401)
-        .json(new ApiResponse(401, {}, "Redirecting to login..."));
+        .json(
+          new ApiResponse(401, {}, "Error in token. \n Redirecting to login...")
+        );
     }
     // Passing the User to the next middleware
     req.user = decoded;

@@ -18,7 +18,7 @@ type Data = {
   success: boolean;
 };
 
-const useFetch = ({
+const useBackend = ({
   endpoint,
   trigger = false,
   method = "get",
@@ -59,4 +59,4 @@ const useFetch = ({
   return { data, isLoading, error };
 };
 
-export default useFetch;
+export default useBackend;

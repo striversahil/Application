@@ -101,7 +101,7 @@ const registerUser = asyncHandler(
     // Saving Refresh Token
     newUser.refreshToken = refreshToken;
 
-    res.cookie("jwt", accessToken, cookie);
+    res.cookie("access_token", accessToken, cookie);
 
     newUser.save();
 
@@ -193,7 +193,7 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const verifyToken = asyncHandler(async (req: Request, res: Response) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.access_token;
   if (!token) {
     return res
       .status(401)
@@ -231,7 +231,7 @@ const verifyToken = asyncHandler(async (req: Request, res: Response) => {
     const accessToken = TokenResponse.accessToken;
     const refreshToken = TokenResponse.refreshToken;
 
-    res.cookie("jwt", accessToken, cookie);
+    res.cookie("access_token", accessToken, cookie);
 
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
