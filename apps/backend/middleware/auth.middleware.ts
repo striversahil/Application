@@ -14,9 +14,11 @@ declare global {
 const authenticate = (req: Request, res: Response, next: NextFunction): any => {
   const token = req.cookies.access_token;
 
+  console.log(req.cookies);
+
   if (!token) {
     return res
-      .status(401)
+      .status(200)
       .json(
         new ApiResponse(401, {}, "No token found. \n Redirecting to login...")
       );
@@ -25,7 +27,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
   jwt.verify(token, "sahil", async (err: any, decoded: any) => {
     if (err) {
       return res
-        .status(401)
+        .status(200)
         .json(
           new ApiResponse(401, {}, "Error in token. \n Redirecting to login...")
         );
@@ -48,10 +50,11 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
             )
           );
       }
+      const isProduction = process.env.NODE_ENV === "production";
       res.cookie("access_token", tokenResponse.accessToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 1000 * 60 * 60 * 24 * 15, // 15 days
       });
     }

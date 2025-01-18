@@ -11,6 +11,8 @@ type Props = {
   external?: boolean;
 };
 
+axios.defaults.withCredentials = true; // Global axios config to enable cookies
+
 type Data = {
   statusCode: number;
   data: object | null;
@@ -25,12 +27,12 @@ const useBackend = ({
   payload = {},
   external = false,
 }: Props) => {
-  const [data, setData] = useState<Data | null>(null);
+  const [rawdata, setrawData] = useState<Data | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   // If not endpoint given return null data
-  if (!endpoint) return { data, isLoading, error };
+  if (!endpoint) return { rawdata, isLoading, error };
 
   const href = `${process.env.NEXT_PUBLIC_BASE_URL}/${endpoint}`;
 
@@ -45,7 +47,7 @@ const useBackend = ({
         if (!external && response.data.statusCode === 401) {
           redirect("/login");
         }
-        setData(response.data);
+        setrawData(response.data);
       } catch (e: any) {
         setError(e);
       } finally {
@@ -56,7 +58,7 @@ const useBackend = ({
     fetchData();
   }, [trigger]);
 
-  return { data, isLoading, error };
+  return { rawdata, isLoading, error };
 };
 
 export default useBackend;

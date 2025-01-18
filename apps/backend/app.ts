@@ -9,13 +9,17 @@ import userRoute from "./routes/user.routes";
 import bucketRoute from "./routes/bucket.routes";
 // import bodyParser from "body-parser";
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.json()); // for parsing application/json
 
 app.use(cookieparser()); // for parsing cookies
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
-app.use(cors());
 
 app.use("/user", userRoute);
 
