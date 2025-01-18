@@ -7,6 +7,7 @@ interface User extends mongoose.Document {
   email: string;
   refreshToken: string;
   password: string;
+  workspaces: mongoose.Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
   isCorrectPassword: (password: string) => Promise<boolean>;
@@ -41,6 +42,12 @@ const UserSchema: mongoose.Schema<User> = new mongoose.Schema(
       type: String,
       required: [true, "Password is required "],
     },
+    workspaces: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Workspace",
+      },
+    ],
   },
   { timestamps: true }
 );
