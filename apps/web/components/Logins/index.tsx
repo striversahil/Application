@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
-import useFetch from "../../hooks/useBackend";
+import React, { useEffect, useRef, useMemo } from "react";
+import useBackend from "../../hooks/useBackend";
 import { redirect } from "next/navigation";
 
 type Look = "signin" | "signup";
@@ -18,8 +18,8 @@ const Login = (props: Props) => {
 
   const [Trigger, setTrigger] = React.useState(false);
 
-  const { data, isLoading, error } = useFetch({
-    href: `user/${props.look}`,
+  const { data, isLoading, error } = useBackend({
+    endpoint: `user/${props.look}`,
     method: "post",
     payload: FormData,
     trigger: Trigger,
@@ -31,9 +31,9 @@ const Login = (props: Props) => {
     }
     setTrigger(false); // Reset Trigger Important
     if (data?.success) {
-      redirect("/application"); // Redirect to Application
+      redirect("/dashboard"); // Redirect to Application
     }
-  }, [data]);
+  }, [data, Trigger]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...FormData, [e.target.name]: e.target.value });

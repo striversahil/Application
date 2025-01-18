@@ -20,7 +20,11 @@ router.route("/project/:projectId").post(authenticate, Testing);
 
 // Middleware Testing
 router.route("/auth").get(authenticate, async (req, res) => {
-  res.status(200).json({ message: "User Authenticated" });
+  try {
+    res.status(200).json({ message: "User Authenticated", user: req.user });
+  } catch (error) {
+    console.log("Error in Auth Middleware", error);
+  }
 });
 
 router.route("/").get((req, res) => {

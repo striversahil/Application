@@ -32,7 +32,7 @@ const useBackend = ({
   // If not endpoint given return null data
   if (!endpoint) return { data, isLoading, error };
 
-  const href = `${process.env.BACKEND_API}/${endpoint}`;
+  const href = `${process.env.NEXT_PUBLIC_BASE_URL}/${endpoint}`;
 
   useEffect(() => {
     if (!trigger) return;

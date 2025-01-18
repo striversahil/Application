@@ -16,6 +16,7 @@ const generateAccessRefreshToken = async (
 ): Promise<{ accessToken: string; refreshToken: string }> => {
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
       return {
         accessToken: "",
@@ -174,7 +175,7 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
     // Saving Refresh Token
     userExists.refreshToken = refreshToken;
 
-    res.cookie("jwt", accessToken, cookie);
+    res.cookie("access_token", accessToken, cookie);
 
     await userExists.save();
 
@@ -184,7 +185,7 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
         {
           username: userExists.name,
           message: "User Signed In Successfully 🚀",
-          user: userExists,
+          user: userExists, //Todo : Remove this as it Exposes everything
         },
         "User Signed In Successfully"
       )

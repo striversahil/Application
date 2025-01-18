@@ -7,7 +7,6 @@ declare global {
   namespace Express {
     interface Request {
       user: object;
-      password: string;
     }
   }
 }
@@ -34,7 +33,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
     // Passing the User to the next middleware
     req.user = decoded;
 
-    const Expiry_left_in_hours = (decoded.iat - decoded.exp) / (60 * 60);
+    const Expiry_left_in_hours = (decoded.exp - decoded.iat) / (60 * 60);
 
     if (Expiry_left_in_hours < 10) {
       const tokenResponse = await generateAccessRefreshToken(decoded.email);
@@ -49,7 +48,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
             )
           );
       }
-      res.cookie("jwt", tokenResponse.accessToken, {
+      res.cookie("access_token", tokenResponse.accessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "none",
