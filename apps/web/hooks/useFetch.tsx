@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { redirect } from "next/navigation";
 
 type Props = {
   href: string;

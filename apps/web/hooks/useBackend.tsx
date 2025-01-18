@@ -4,7 +4,7 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 
 type Props = {
-  href: string;
+  endpoint: string;
   trigger?: boolean;
   method?: "get" | "post" | "put" | "delete";
   payload?: any;
@@ -19,7 +19,7 @@ type Data = {
 };
 
 const useFetch = ({
-  href,
+  endpoint,
   trigger = false,
   method = "get",
   payload = {},
@@ -29,15 +29,10 @@ const useFetch = ({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // If not href given return null data
-  if (!href) return { data, isLoading, error };
+  // If not endpoint given return null data
+  if (!endpoint) return { data, isLoading, error };
 
-  // Route href based on if it is internal or external query
-  if (external) {
-    href = href;
-  } else {
-    href = `${process.env.BACKEND_API}/${href}`;
-  }
+  const href = `${process.env.BACKEND_API}/${endpoint}`;
 
   useEffect(() => {
     if (!trigger) return;

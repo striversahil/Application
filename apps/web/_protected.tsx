@@ -14,7 +14,7 @@ const Protected_Route = ({ children }: Props) => {
   const [trigger, setTrigger] = React.useState<boolean>(false);
 
   useEffect(() => {
-    const { data } = useFetch({ href: "/verify", trigger: trigger });
+    const { data } = useFetch({ endpoint: "/verify", trigger: trigger });
   }, [route]);
 
   return <div>{children}</div>;
