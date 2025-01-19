@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import * as Codeblock from "@repo/layouts/CodeBlock";
 import useFetch from "../../hooks/useFetch";
+import Header from "./header";
+import * as Resizable from "@repo/ui/src/shadcn_ui/resizable";
 
 type Props = {};
 
@@ -44,9 +46,12 @@ const CodeBlock: React.FC<Props> = () => {
   };
 
   return (
-    <>
+    // Here Setting minimum height to be view port height because were not able to get the height of the header
+
+    <div className="absolute bottom-0 min-h-[5vh] max-h-1/3 w-full">
+      <Header hidden={() => setHidden(!hidden)} ishidden={hidden} />
       {hidden && (
-        <div className="absolute bottom-0 flex h-1/3 w-full bg-slate-400 rounded-xl">
+        <div className="flex h-[35vh] mt-[5vh] w-full bg-slate-400 rounded-xl">
           <Codeblock.Steps
             value={value}
             onInputChange={handleInputChange}
@@ -54,23 +59,9 @@ const CodeBlock: React.FC<Props> = () => {
             isLoading={isLoading}
           />
           <Codeblock.Output data={data} />
-          <div
-            className="absolute top-0 right-0 px-4 py-2 m-3 cursor-pointer bg-red-500 hover:bg-red-500/80 rounded-md"
-            onClick={() => setHidden(!hidden)}
-          >
-            <span className="text-white text-2xl">X</span>
-          </div>
         </div>
       )}
-      {!hidden && (
-        <div
-          className="absolute bottom-0 w-full h-5 bg-white"
-          onClick={() => setHidden(!hidden)}
-        >
-          Hello dear
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 

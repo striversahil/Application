@@ -21,8 +21,11 @@ const Protected_Route = ({ children }: Props) => {
     trigger: true,
   });
 
+  // Todo : Restrict User from accessing Children
+
   // Redirect to login if user is not authenticated
   useEffect(() => {
+    console.log("Checking Auth...");
     if (!isLoading && (error || !rawdata)) {
       console.log("You are not Authenticated 😔");
       redirect("/login");
@@ -31,7 +34,12 @@ const Protected_Route = ({ children }: Props) => {
     }
   }, [rawdata, isLoading, error, route]);
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      {isLoading && <div>Loading...</div>}
+      {!isLoading && <div>{children}</div>}
+    </div>
+  );
 };
 
 export default Protected_Route;

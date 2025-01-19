@@ -14,8 +14,6 @@ declare global {
 const authenticate = (req: Request, res: Response, next: NextFunction): any => {
   const token = req.cookies.access_token;
 
-  console.log(req.cookies);
-
   if (!token) {
     return res
       .status(200)
@@ -36,6 +34,8 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
     req.user = decoded;
 
     const Expiry_left_in_hours = (decoded.exp - decoded.iat) / (60 * 60);
+    // Todo : Check for Expiry Reality
+    console.log(Expiry_left_in_hours);
 
     if (Expiry_left_in_hours < 10) {
       const tokenResponse = await generateAccessRefreshToken(decoded.email);
