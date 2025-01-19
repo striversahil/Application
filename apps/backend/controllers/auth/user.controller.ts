@@ -16,6 +16,7 @@ const generateAccessRefreshToken = async (
 ): Promise<{ accessToken: string; refreshToken: string }> => {
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
       return {
         accessToken: "",
@@ -37,12 +38,13 @@ const generateAccessRefreshToken = async (
     };
   }
 };
+const isProduction = process.env.NODE_ENV === "production";
 
 const cookie: object = {
   // creating cookie
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production ? true : false",
-  sameSite: "strict",
+  secure: isProduction,
+  sameSite: isProduction ? "none" : "lax",
   maxAge: 1000 * 60 * 60 * 24 * 15, // 15 days of cookie
 };
 
@@ -101,7 +103,7 @@ const registerUser = asyncHandler(
     // Saving Refresh Token
     newUser.refreshToken = refreshToken;
 
-    res.cookie("jwt", accessToken, cookie);
+    res.cookie("access_token", accessToken, cookie);
 
     newUser.save();
 
@@ -174,7 +176,7 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
     // Saving Refresh Token
     userExists.refreshToken = refreshToken;
 
-    res.cookie("jwt", accessToken, cookie);
+    res.cookie("access_token", accessToken, cookie);
 
     await userExists.save();
 
@@ -184,7 +186,7 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
         {
           username: userExists.name,
           message: "User Signed In Successfully 🚀",
-          user: userExists,
+          user: userExists, //Todo : Remove this as it Exposes everything
         },
         "User Signed In Successfully"
       )
@@ -193,7 +195,7 @@ const signIN = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const verifyToken = asyncHandler(async (req: Request, res: Response) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.access_token;
   if (!token) {
     return res
       .status(401)
@@ -231,7 +233,7 @@ const verifyToken = asyncHandler(async (req: Request, res: Response) => {
     const accessToken = TokenResponse.accessToken;
     const refreshToken = TokenResponse.refreshToken;
 
-    res.cookie("jwt", accessToken, cookie);
+    res.cookie("access_token", accessToken, cookie);
 
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });

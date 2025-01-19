@@ -66,15 +66,6 @@ const ProfileSchema: mongoose.Schema<Profile> = new mongoose.Schema({
         },
       },
     ],
-    enum: [
-      "facebook",
-      "twitter",
-      "instagram",
-      "github",
-      "linkedin",
-      "youtube",
-      "website",
-    ],
     default: [],
   },
 });

@@ -7,6 +7,7 @@ interface User extends mongoose.Document {
   email: string;
   refreshToken: string;
   password: string;
+  workspaces: mongoose.Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
   isCorrectPassword: (password: string) => Promise<boolean>;
@@ -41,6 +42,12 @@ const UserSchema: mongoose.Schema<User> = new mongoose.Schema(
       type: String,
       required: [true, "Password is required "],
     },
+    workspaces: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Workspace",
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -66,7 +73,7 @@ UserSchema.methods.generateAccessToken = function () {
       username: this.username,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY as string }
   );
 };
 
@@ -76,7 +83,7 @@ UserSchema.methods.generateRefreshToken = function () {
       _id: this._id,
     },
     process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
+    { expiresIn: process.env.REFRESH_TOKEN_EXPIRY as string }
   );
 };
 

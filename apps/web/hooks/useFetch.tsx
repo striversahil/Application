@@ -1,21 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { redirect } from "next/navigation";
 
 type Props = {
   href: string;
   trigger?: boolean;
   method?: "get" | "post" | "put" | "delete";
   payload?: any;
-  external?: boolean;
-};
-
-type Data = {
-  statusCode: number;
-  data: object | null;
-  message: string;
-  success: boolean;
+  custom?: any;
 };
 
 const useFetch = ({
@@ -23,19 +15,14 @@ const useFetch = ({
   trigger = false,
   method = "get",
   payload = {},
-  external = false,
+  custom = {},
 }: Props) => {
-  const [data, setData] = useState<Data | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<object | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
+  // If not href given return null data
   if (!href) return { data, isLoading, error };
-
-  if (external) {
-    href = href;
-  } else {
-    href = `http://localhost:8080/${href}`;
-  }
 
   useEffect(() => {
     if (!trigger) return;
@@ -43,11 +30,11 @@ const useFetch = ({
       setIsLoading(true);
       try {
         const response = await axios[method](href, payload, {
-          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          ...custom,
         });
-        if (!external && response.data.statusCode === 401) {
-          redirect("/login");
-        }
         setData(response.data);
       } catch (e: any) {
         setError(e);

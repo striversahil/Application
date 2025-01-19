@@ -15,6 +15,7 @@ type Workspace = {
   user: mongoose.Schema.Types.ObjectId;
   private: boolean;
   members: Member[];
+  projects: mongoose.Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 };
@@ -34,6 +35,12 @@ const WorkspaceSchema: mongoose.Schema<Workspace> = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    projects: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Project",
+      },
+    ],
     members: [
       {
         member: {

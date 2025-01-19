@@ -7,30 +7,35 @@ declare global {
   namespace Express {
     interface Request {
       user: object;
-      password: string;
     }
   }
 }
 
 const authenticate = (req: Request, res: Response, next: NextFunction): any => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.access_token;
 
   if (!token) {
     return res
-      .status(401)
-      .json(new ApiResponse(401, {}, "Redirecting to login..."));
+      .status(200)
+      .json(
+        new ApiResponse(401, {}, "No token found. \n Redirecting to login...")
+      );
   }
   // Todo : Verify Token Safely
   jwt.verify(token, "sahil", async (err: any, decoded: any) => {
     if (err) {
       return res
-        .status(401)
-        .json(new ApiResponse(401, {}, "Redirecting to login..."));
+        .status(200)
+        .json(
+          new ApiResponse(401, {}, "Error in token. \n Redirecting to login...")
+        );
     }
     // Passing the User to the next middleware
     req.user = decoded;
 
-    const Expiry_left_in_hours = (decoded.iat - decoded.exp) / (60 * 60);
+    const Expiry_left_in_hours = (decoded.exp - decoded.iat) / (60 * 60);
+    // Todo : Check for Expiry Reality
+    console.log(Expiry_left_in_hours);
 
     if (Expiry_left_in_hours < 10) {
       const tokenResponse = await generateAccessRefreshToken(decoded.email);
@@ -45,10 +50,11 @@ const authenticate = (req: Request, res: Response, next: NextFunction): any => {
             )
           );
       }
-      res.cookie("jwt", tokenResponse.accessToken, {
+      const isProduction = process.env.NODE_ENV === "production";
+      res.cookie("access_token", tokenResponse.accessToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 1000 * 60 * 60 * 24 * 15, // 15 days
       });
     }

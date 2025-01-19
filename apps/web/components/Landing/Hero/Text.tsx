@@ -6,7 +6,7 @@ type Props = {};
 const Text = (props: Props) => {
   return (
     <div className="flex flex-col h-3/5 space-y-5 py-[20px]  z-10">
-      <div className="flex items-center font-bold bg-green-700 px-4 py-1 rounded-full w-fit">
+      <div className="flex items-center font-bold  bg-green-700 px-4 py-1 rounded-full w-fit shadow-inner shadow-white/50 cursor-progress">
         Currently in Alpha{" "}
         <div className="animate-pulse text-lg">
           <div>⭐</div>

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 import { signIN, registerUser } from "../controllers/auth/user.controller";
 import { Testing } from "../controllers/auth/workspace.controller";
+import ApiResponse from "../helper/ApiResponse";
 
 import { Router } from "express";
 import authenticate from "../middleware/auth.middleware";
@@ -20,7 +21,13 @@ router.route("/project/:projectId").post(authenticate, Testing);
 
 // Middleware Testing
 router.route("/auth").get(authenticate, async (req, res) => {
-  res.status(200).json({ message: "User Authenticated" });
+  try {
+    res
+      .status(200)
+      .json(new ApiResponse(200, req.user, "User is Authenticated"));
+  } catch (error) {
+    console.log("Error in Auth Middleware", error);
+  }
 });
 
 router.route("/").get((req, res) => {

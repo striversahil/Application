@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
+import React, { useEffect, useRef, useMemo } from "react";
+import useBackend from "../../hooks/useBackend";
 import { redirect } from "next/navigation";
 
 type Look = "signin" | "signup";
@@ -18,22 +18,22 @@ const Login = (props: Props) => {
 
   const [Trigger, setTrigger] = React.useState(false);
 
-  const { data, isLoading, error } = useFetch({
-    href: `user/${props.look}`,
+  const { rawdata, isLoading, error } = useBackend({
+    endpoint: `user/${props.look}`,
     method: "post",
     payload: FormData,
     trigger: Trigger,
   });
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
+    if (rawdata) {
+      console.log(rawdata);
     }
     setTrigger(false); // Reset Trigger Important
-    if (data?.success) {
-      redirect("/application"); // Redirect to Application
+    if (rawdata?.success) {
+      redirect("/dashboard"); // Redirect to Application
     }
-  }, [data]);
+  }, [rawdata, Trigger]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...FormData, [e.target.name]: e.target.value });
@@ -86,7 +86,7 @@ const Login = (props: Props) => {
             </button>
             <div className="text-white">
               {Trigger && isLoading && <div>Loading...</div>}
-              {data && <div>{JSON.stringify(data)}</div>}
+              {rawdata && <div>{JSON.stringify(rawdata)}</div>}
               {/* {error && <div>{JSON.stringify(error)}</div>} */}
             </div>
           </div>
