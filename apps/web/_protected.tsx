@@ -5,6 +5,7 @@
 import { redirect, usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import useBackend from "./hooks/useBackend";
+import Loading from "./components/utils/loading";
 
 type Props = {
   children: React.ReactNode;
@@ -36,7 +37,12 @@ const Protected_Route = ({ children }: Props) => {
 
   return (
     <div>
-      {isLoading && <div>Loading...</div>}
+      {/* Routing to Loading Page while Checking Auth */}
+      {isLoading && (
+        <div className="h-screen flex items-center justify-center">
+          <Loading />
+        </div>
+      )}
       {!isLoading && <div>{children}</div>}
     </div>
   );
