@@ -1,14 +1,19 @@
-"use client";
-import React, { useEffect } from "react";
-
-import { Reference } from "@repo/common/Json/Reference";
+// Worker for Sidebar
+import React from "react";
+import { useDraggable } from "@dnd-kit/core";
 import { data } from "@repo/common/Json";
 
-import { useDraggable } from "@dnd-kit/core";
+type DraggableToolboxProp = {
+  id: string;
+  Component: string;
+  href: string;
+};
 
-type Props = {};
-
-function DraggableToolboxItem({ id, Component, href }: any) {
+const DraggableToolboxItem = ({
+  id,
+  Component,
+  href,
+}: DraggableToolboxProp) => {
   const { attributes, listeners, setNodeRef, isDragging, transform } =
     useDraggable({
       id: id,
@@ -28,9 +33,6 @@ function DraggableToolboxItem({ id, Component, href }: any) {
       return <div>{Component}</div>;
     }
   };
-  useEffect(() => {
-    // console.log(transform);
-  }, [transform]);
 
   return (
     <div
@@ -43,24 +45,5 @@ function DraggableToolboxItem({ id, Component, href }: any) {
       {renderComponent()}
     </div>
   );
-}
-
-const Components = (props: Props) => {
-  return (
-    <div className="grid grid-cols-2">
-      {Reference.map((item, index) => (
-        <div key={index} className="m-5 bg-slate-400 rounded-md gap-10">
-          {/* Passing the props to the draggable component we created to make each draggable*/}
-          <DraggableToolboxItem
-            className=""
-            id={item.href}
-            Component={item.title}
-            href={item.href}
-          />
-        </div>
-      ))}
-    </div>
-  );
 };
-
-export default Components;
+export default DraggableToolboxItem;

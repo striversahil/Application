@@ -12,13 +12,16 @@ export const DragDropZone = (props: Props) => {
   const [SelectedChilderen, setSelectedChildren] = React.useState<
     React.ReactNode[]
   >([]);
+
   function handleDragEnd(event: any) {
+    // We are setting event active id's when item is dropped i.e. event.over
+
     if (event.over && event.over.id === "droppable") {
       setIsDropped(true);
       setSelectedChildren([event.active.id]);
     }
   }
-  // const draggableMarkup = <Draggable>Drag me</Draggable>;`
+
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="w-full h-full flex">
