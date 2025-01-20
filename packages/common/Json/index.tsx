@@ -44,11 +44,11 @@ export const data: { [key: string]: Props } = {
     code: Toast.code,
     prop: Toast.Props,
   },
-  shadcn_table: {
-    title: Shadcn_table.Title,
-    description: Shadcn_table.Description,
-    usage: <Shadcn_table.Usage />,
-    code: Shadcn_table.code,
-    prop: Shadcn_table.Props,
-  },
+  // shadcn_table: {
+  //   title: Shadcn_table.Title,
+  //   description: Shadcn_table.Description,
+  //   usage: <Shadcn_table.Usage />,
+  //   code: Shadcn_table.code,
+  //   prop: Shadcn_table.Props,
+  // },
 };

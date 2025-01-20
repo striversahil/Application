@@ -1,1 +1,1 @@
-export { default as DevTableUsage } from "./Table/index.tsx";
+export { default as DevTableUsage } from "./src/Table/index.tsx";
