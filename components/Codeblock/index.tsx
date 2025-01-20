@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import * as Codeblock from "@repo/layouts/CodeBlock";
+import * as Codeblock from "";
 import useFetch from "../../hooks/useFetch";
 import Header from "./header";
 import * as Resizable from "@repo/ui/src/shadcn_ui/resizable";
