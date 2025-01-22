@@ -16,7 +16,7 @@ const Protected_Route = ({ children }: Props) => {
 
   const route = usePathname();
 
-  // Check if user is authenticated
+  // Check if user is authenticated using api call to backend /auth route
   const { rawdata, isLoading, error } = useBackend({
     endpoint: "user/auth",
     trigger: true,

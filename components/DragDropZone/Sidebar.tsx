@@ -1,7 +1,7 @@
 // Worker for Sidebar
 import React from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { data } from "@repo/common/Json";
+import { data } from "@/packages/common/Json";
 
 type DraggableToolboxProp = {
   id: string;

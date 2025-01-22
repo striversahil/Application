@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 
-import { Reference } from "@repo/common/Json/Reference";
-import { data } from "@repo/common/Json";
+import { Reference } from "@/packages/ages/common/Json/Reference";
+import { data } from "@/packages/ages/common/Json";
 
 import DraggableToolboxItem from "../../../apps/web/components/DragDropZone/Sidebar";
 

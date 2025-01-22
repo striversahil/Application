@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@/packages/ui",
   "version": "0.0.0",
   "type": "module",
   "main": "./index.ts",
@@ -9,8 +9,8 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@/packages/eslint-config": "*",
+    "@/packages/typescript-config": "*",
     "@turbo/gen": "^1.12.4",
     "@types/node": "^20.11.24",
     "@types/react": "18.3.0",

@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 
-import { Reference } from "@repo/common/Json/Reference";
-import { data } from "@repo/common/Json";
+import { Reference } from "@/packages/common/Json/Reference";
+import { data } from "@/packages/common/Json";
 
 import { useDraggable } from "@dnd-kit/core";
 
