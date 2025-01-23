@@ -1,20 +1,29 @@
+"use client";
 import React from "react";
 import useBackend from "../../hooks/useBackend";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {};
 
 const page = (props: Props) => {
-  const { rawdata, isLoading, error } = useBackend({
-    endpoint: "user",
-    trigger: true,
+  const { data, isLoading } = useQuery({
+    queryKey: ["test"],
+    queryFn: () => {
+      return useBackend({
+        endpoint: "user/auth",
+        method: "get",
+      });
+    },
   });
 
-  console.log(rawdata);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-slate-800">
       page
-      <div>Hello</div>
+      <div>{JSON.stringify(data)}</div>
     </div>
   );
 };

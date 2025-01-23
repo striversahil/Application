@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useMemo } from "react";
 import useBackend from "../../hooks/useBackend";
 import { redirect } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 type Look = "signin" | "signup";
 
@@ -18,11 +19,19 @@ const Login = (props: Props) => {
 
   const [Trigger, setTrigger] = React.useState(false);
 
-  const { rawdata, isLoading, error } = useBackend({
-    endpoint: `user/${props.look}`,
-    method: "post",
-    payload: FormData,
-    trigger: Trigger,
+  const {
+    data: rawdata,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["auth"],
+    queryFn: () => {
+      return useBackend({
+        endpoint: "user/auth",
+        method: "post",
+        payload: FormData,
+      });
+    },
   });
 
   useEffect(() => {

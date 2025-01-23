@@ -1,64 +1,48 @@
-"use client";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import axios, { AxiosResponse } from "axios";
 import { redirect } from "next/navigation";
 
 type Props = {
   endpoint: string;
-  trigger?: boolean;
   method?: "get" | "post" | "put" | "delete";
   payload?: any;
   external?: boolean;
 };
 
-axios.defaults.withCredentials = true; // Global axios config to enable cookies
-
-type Data = {
+interface Data {
   statusCode: number;
   data: object | null;
   message: string;
   success: boolean;
-};
+}
 
-const useBackend = ({
+axios.defaults.withCredentials = true; // Global axios config to enable cookies
+
+const fetchBackend = async ({
   endpoint,
-  trigger = false,
   method = "get",
   payload = {},
-  external = false,
-}: Props) => {
-  const [rawdata, setrawData] = useState<Data | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  // If not endpoint given return null data
-  if (!endpoint) return { rawdata, isLoading, error };
-
+}: Props): Promise<Data> => {
   const href = `${process.env.NEXT_PUBLIC_BASE_URL}/${endpoint}`;
+  console.log(href);
 
-  useEffect(() => {
-    if (!trigger) return;
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios[method](href, payload, {
-          withCredentials: true,
-        });
-        if (!external && response.data.statusCode === 401) {
-          redirect("/login");
-        }
-        setrawData(response.data);
-      } catch (e: any) {
-        setError(e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [trigger]);
-
-  return { rawdata, isLoading, error };
+  const response: AxiosResponse = await axios[method](href, payload, {
+    withCredentials: true,
+  });
+  if (response.status === 401) {
+    redirect("/login");
+  }
+  return response.data;
 };
 
-export default useBackend;
+const useBackendQuery = ({ endpoint, method = "get", payload = {} }: Props) => {
+  const queryKey = [endpoint, method, payload];
+  return useQuery({
+    queryKey: queryKey,
+    queryFn: () => fetchBackend({ endpoint, method, payload }),
+    refetchOnWindowFocus: false,
+    enabled: !!endpoint, // Only fetch if endpoint exists
+  });
+};
+
+export default fetchBackend;
