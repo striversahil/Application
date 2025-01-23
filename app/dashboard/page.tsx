@@ -2,19 +2,13 @@
 import React from "react";
 import useBackend from "../../hooks/useBackend";
 import { useQuery } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
+import { getUserAuth } from "@actions/user";
 
 type Props = {};
 
 const page = (props: Props) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["test"],
-    queryFn: () => {
-      return useBackend({
-        endpoint: "user/auth",
-        method: "get",
-      });
-    },
-  });
+  const { data, isLoading } = getUserAuth();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -24,6 +18,13 @@ const page = (props: Props) => {
     <div className="bg-slate-800">
       page
       <div>{JSON.stringify(data)}</div>
+      <button
+        onClick={() => {
+          redirect("/dashboard/example");
+        }}
+      >
+        navigation
+      </button>
     </div>
   );
 };

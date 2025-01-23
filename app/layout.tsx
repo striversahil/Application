@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "../_app";
 import ReactQueryProvider from "../providers/react_query,";
 import Protected_Route from "../_protected";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Apotza",
@@ -15,6 +16,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // redirect("/dashboard");
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head suppressHydrationWarning>

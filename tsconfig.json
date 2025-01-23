@@ -26,9 +26,10 @@
     "allowJs": true,
     "noEmit": true,
     "paths": {
-      "@/app/*": ["./app/*"],
-      "@/components/*": ["./components/*"],
-      "@/packages/*": ["./packages/*"]
+      "@app/*": ["./app/*"],
+      "@components/*": ["./components/*"],
+      "@packages/*": ["./packages/*"],
+      "@actions/*": ["./actions/*"]
     }
   },
   "include": [

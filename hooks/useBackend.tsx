@@ -18,7 +18,7 @@ interface Data {
 
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 
-const fetchBackend = async ({
+const useBackend = async ({
   endpoint,
   method = "get",
   payload = {},
@@ -35,14 +35,4 @@ const fetchBackend = async ({
   return response.data;
 };
 
-const useBackendQuery = ({ endpoint, method = "get", payload = {} }: Props) => {
-  const queryKey = [endpoint, method, payload];
-  return useQuery({
-    queryKey: queryKey,
-    queryFn: () => fetchBackend({ endpoint, method, payload }),
-    refetchOnWindowFocus: false,
-    enabled: !!endpoint, // Only fetch if endpoint exists
-  });
-};
-
-export default fetchBackend;
+export default useBackend;

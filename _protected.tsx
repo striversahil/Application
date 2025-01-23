@@ -30,6 +30,9 @@ const Protected_Route = ({ children }: Props) => {
         method: "get",
       });
     },
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 1000 * 60 * 5,
   });
 
   // Todo : Restrict User from accessing Children
