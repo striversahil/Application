@@ -1,6 +1,6 @@
 // Contains user actions related to authentication
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useBackend from "../../hooks/useBackend";
 
 export const getUserAuth = (): any =>
@@ -23,6 +23,20 @@ export const getUserInfo = (): any =>
     queryFn: () => {
       return useBackend({
         endpoint: "user",
+        method: "get",
+      });
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 1000 * 60 * 60,
+  });
+
+export const getWorkspaceInfo = (workspaceId: string): any =>
+  useQuery({
+    queryKey: ["workspace-info"],
+    queryFn: () => {
+      return useBackend({
+        endpoint: `user/workspace/${workspaceId}`,
         method: "get",
       });
     },
