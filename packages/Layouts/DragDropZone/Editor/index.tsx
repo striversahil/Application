@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useDroppable } from "@dnd-kit/core";
-import { data } from "@repo/common/Json";
+import { data } from "@packages/common/Json";
 
 export function Editor(props: any) {
   const { isOver, setNodeRef } = useDroppable({

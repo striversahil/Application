@@ -6,6 +6,7 @@ import { redirect, usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import useBackend from "./hooks/useBackend";
 import Loading from "./components/utils/loading";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   children: React.ReactNode;
@@ -16,10 +17,22 @@ const Protected_Route = ({ children }: Props) => {
 
   const route = usePathname();
 
-  // Check if user is authenticated
-  const { rawdata, isLoading, error } = useBackend({
-    endpoint: "user/auth",
-    trigger: true,
+  // Check if user is authenticated using api call to backend /auth route
+  const {
+    data: rawdata,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["auth"],
+    queryFn: () => {
+      return useBackend({
+        endpoint: "user/auth",
+        method: "get",
+      });
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 1000 * 60 * 5,
   });
 
   // Todo : Restrict User from accessing Children

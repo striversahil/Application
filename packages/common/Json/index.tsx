@@ -1,11 +1,11 @@
-import * as Slug from "@repo/components";
+import * as Slug from "@packages/components";
 
-import * as Template from "@repo/components/core/__template";
+import * as Template from "@packages/components/core/__template";
 
-import * as Table from "@repo/components/core/Table";
-import * as Pagination from "@repo/components/core/Pagination";
-import * as Toast from "@repo/components/core/Toast";
-import * as Shadcn_table from "@repo/components/core/shadcn_table";
+import * as Table from "@packages/components/core/Table";
+import * as Pagination from "@packages/components/core/Pagination";
+import * as Toast from "@packages/components/core/Toast";
+import * as Shadcn_table from "@packages/components/core/shadcn_table";
 
 interface Props {
   title: string;
