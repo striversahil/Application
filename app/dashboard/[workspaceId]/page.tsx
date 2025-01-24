@@ -1,6 +1,7 @@
 import { useRouter, redirect } from "next/navigation";
 import { getWorkspaceInfo } from "@actions/user";
 import React from "react";
+import Sidebar from "@components/Global/Sidebar";
 
 type Props = {
   params: {
@@ -15,7 +16,13 @@ const page = (props: Props) => {
   // const { workspaceInfo, isLoading } = await getWorkspaceInfo(WorkspaceId);
 
   return (
-    <div>Here is the list of Applications Available for {WorkspaceId} </div>
+    <div className="flex bg-slate-950">
+      <Sidebar />
+      <main className="flex-1 p-8">
+        <h1 className="text-2xl font-bold">Main Content</h1>
+        <p>This is the main content area.</p>
+      </main>
+    </div>
   );
 };
 
