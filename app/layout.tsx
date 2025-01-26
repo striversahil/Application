@@ -25,7 +25,9 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ReactQueryProvider>
-          <Protected_Route>{children}</Protected_Route>
+          {/* <Protected_Route> */}
+          {children}
+          {/* </Protected_Route> */}
         </ReactQueryProvider>
       </body>
     </html>

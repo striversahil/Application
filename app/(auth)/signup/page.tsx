@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "../../../components/Logins";
+import Login from "../_components/Logins";
 
 type Props = {};
 

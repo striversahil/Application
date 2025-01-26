@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useMemo } from "react";
-import useBackend from "../../hooks/useBackend";
 import { redirect } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getUserAuth } from "@actions/user";
@@ -23,13 +22,13 @@ const Login = (props: Props) => {
   const { data: rawdata, isLoading, error } = getUserAuth();
 
   useEffect(() => {
-    if (rawdata) {
-      console.log(rawdata);
+    if (rawdata === null || rawdata === undefined) {
+      return; // Early return to prevent null pointer exceptions
+    }
+    if (rawdata.success) {
+      redirect("/dashboard");
     }
     setTrigger(false); // Reset Trigger Important
-    if (rawdata?.success) {
-      redirect("/dashboard"); // Redirect to Application
-    }
   }, [rawdata, Trigger]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
