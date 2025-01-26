@@ -9,9 +9,5 @@ type Props = {
 };
 
 export default function DashboardLayout({ children }: Props) {
-  // const { data: rawdata, isLoading } = getUserInfo();
-  // if (!isLoading) {
-  //   return <div>{rawdata}</div>;
-  // }
   return <div suppressHydrationWarning>{children}</div>;
 }

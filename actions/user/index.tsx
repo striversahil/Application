@@ -2,21 +2,28 @@
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useBackend from "../../hooks/useBackend";
+import { useMutationData } from "../../hooks/useMutation";
+import { redirect } from "next/navigation";
 
-export const getUserAuth = (): any =>
-  useQuery({
-    queryKey: ["test"],
-    queryFn: () => {
+export const userLogin = (FormData: any) =>
+  useMutationData(
+    ["user-login"],
+    () => {
       return useBackend({
-        endpoint: "user/auth",
-        method: "get",
+        endpoint: "user/signin",
+        method: "post",
+        payload: FormData,
       });
     },
-  });
+    "userinfo"
+    // () => {
+    //   console.log("User updated successfully!");
+    // }
+  );
 
 export const getUserInfo = (): any =>
   useQuery({
-    queryKey: ["user-info"],
+    queryKey: ["userinfo"],
     queryFn: () => {
       return useBackend({
         endpoint: "user",

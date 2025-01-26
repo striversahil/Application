@@ -2,7 +2,8 @@
 import React, { useEffect, useRef, useMemo } from "react";
 import { redirect } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getUserAuth } from "@actions/user";
+import { userLogin } from "@actions/user";
+import { useMutationData } from "../../../../hooks/useMutation";
 
 type Look = "signin" | "signup";
 
@@ -17,19 +18,7 @@ const Login = (props: Props) => {
     password: "",
   });
 
-  const [Trigger, setTrigger] = React.useState(false);
-
-  const { data: rawdata, isLoading, error } = getUserAuth();
-
-  useEffect(() => {
-    if (rawdata === null || rawdata === undefined) {
-      return; // Early return to prevent null pointer exceptions
-    }
-    if (rawdata.success) {
-      redirect("/dashboard");
-    }
-    setTrigger(false); // Reset Trigger Important
-  }, [rawdata, Trigger]);
+  const { mutate, isPending } = userLogin(FormData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...FormData, [e.target.name]: e.target.value });
@@ -37,7 +26,7 @@ const Login = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTrigger(true);
+    mutate(FormData);
   };
 
   return (
@@ -80,11 +69,6 @@ const Login = (props: Props) => {
             >
               {props.look === "signin" ? "Sign In" : "Sign Up"}
             </button>
-            <div className="text-white">
-              {Trigger && isLoading && <div>Loading...</div>}
-              {rawdata && <div>{JSON.stringify(rawdata)}</div>}
-              {/* {error && <div>{JSON.stringify(error)}</div>} */}
-            </div>
           </div>
         </form>
       </div>

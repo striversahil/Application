@@ -21,12 +21,9 @@ export const useMutationData = (
     onSuccess(data) {
       if (onSuccess) onSuccess(); // Calling onSuccess if provided
 
-      return toast(
-        data?.status === 200 || data?.status === 201 ? "Success" : "Error",
-        {
-          description: data?.data,
-        }
-      );
+      return toast("Success", {
+        description: JSON.stringify(data),
+      });
     },
     onSettled: async () => {
       return await client.invalidateQueries({

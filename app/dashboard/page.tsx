@@ -10,26 +10,22 @@ type Props = {};
 const page = (props: Props) => {
   const { data, isLoading, error } = getUserInfo();
 
+  console.log(data);
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(data);
-  console.log(error);
-  return <div>{JSON.stringify(data)} Hello</div>;
-  // if (!isLoading && data.statusCode === 401) {
-  //   redirect("/login");
-  // }
-  // Todo : Redirected to first workspace find a workaround
-
-  // if (!isLoading && data.data.workspaces.length != 0) {
-  //   redirect(`/dashboard/${data.data.workspaces[0]}`);
-  // }
-  // redirect(`/dashboard/${data.data.workspaces[0]}`);
+  if (data && data.statusCode === 401) {
+    redirect("/login");
+  }
+  if (data && data.statusCode === 200) {
+    redirect(`/dashboard/${data.data.workspaces[0]}`);
+  }
 
   return (
     <div className="bg-slate-800">
-      page
-      <div>{JSON.stringify(data.data.workspaces)}</div>
+      <h1>Dashboard</h1>
+
+      <div>Authenticated</div>
       <button
         onClick={() => {
           redirect("/dashboard/example");
