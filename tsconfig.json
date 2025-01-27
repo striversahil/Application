@@ -29,7 +29,11 @@
       "@app/*": ["./app/*"],
       "@components/*": ["./components/*"],
       "@packages/*": ["./packages/*"],
-      "@actions/*": ["./actions/*"]
+      "@actions/*": ["./actions/*"],
+      "@utils/*": ["./utils/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@/lib/*": ["./lib/*"],
+      "@types/*": ["./types/*"]
     }
   },
   "include": [

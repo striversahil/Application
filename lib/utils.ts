@@ -1,2 +1,6 @@
-export const cn = <T extends string[]>(...classNames: T) =>
-  classNames.filter(Boolean).join(" ") as T extends string ? string : never;
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
