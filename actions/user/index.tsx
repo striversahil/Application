@@ -5,22 +5,6 @@ import useBackend from "../../hooks/useBackend";
 import { useMutationData } from "../../hooks/useMutation";
 import { redirect } from "next/navigation";
 
-export const userLogin = (FormData: any) =>
-  useMutationData(
-    ["user-login"],
-    () => {
-      return useBackend({
-        endpoint: "user/signin",
-        method: "post",
-        payload: FormData,
-      });
-    },
-    "userinfo"
-    // () => {
-    //   console.log("User updated successfully!");
-    // }
-  );
-
 export const getUserInfo = (): any =>
   useQuery({
     queryKey: ["userinfo"],

@@ -9,7 +9,7 @@ type Props = {};
 
 const Dropdown = (props: Props) => {
   return (
-    <DropdownMenuContent className="w-[--radix-popper-anchor-width] bg-white/80 backdrop-blur">
+    <DropdownMenuContent className="w-[--radix-popper-anchor-width] bg-black/50 backdrop-blur-sm ">
       <DropdownMenuItem>
         <span>Acme Inc</span>
       </DropdownMenuItem>

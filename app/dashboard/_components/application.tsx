@@ -1,3 +1,5 @@
+import { getWorkspaceInfo } from "@actions/user";
+
 export const ApplicationSelectionBoxes = () => {
   const applications = [
     {

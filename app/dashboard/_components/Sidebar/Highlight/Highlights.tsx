@@ -28,7 +28,7 @@ const Highlights = (props: Props) => {
             </div>
 
             <div className="flex-1 flex flex-col pr-10 justify-center w-full">
-              <span className="font-bold text-left text-xl text-white">
+              <span className="font-bold text-left text-xl text-white capitalize ">
                 Your Name
               </span>
               <span className=" text-left text-sm text-white/50">
