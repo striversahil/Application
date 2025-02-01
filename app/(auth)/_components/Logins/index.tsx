@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useMemo } from "react";
-import useBackend from "../../hooks/useBackend";
 import { redirect } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getUserAuth } from "@actions/user";
+import { useMutationData } from "../../../../hooks/useMutation";
+import { useLogin } from "./useLogin";
 
 type Look = "signin" | "signup";
 
@@ -12,39 +12,16 @@ type Props = {
 };
 
 const Login = (props: Props) => {
-  const [FormData, setFormData] = React.useState<Object>({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const { register, watch, reset, onFormSubmit, errors } = useLogin();
 
-  const [Trigger, setTrigger] = React.useState(false);
-
-  const { data: rawdata, isLoading, error } = getUserAuth();
-
-  useEffect(() => {
-    if (rawdata) {
-      console.log(rawdata);
-    }
-    setTrigger(false); // Reset Trigger Important
-    if (rawdata?.success) {
-      redirect("/dashboard"); // Redirect to Application
-    }
-  }, [rawdata, Trigger]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...FormData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setTrigger(true);
-  };
+  // const onSubmit = (e: any) => {
+  //   console.log("submit");
+  // };
 
   return (
     <div className="flex justify-center items-center h-screen w-full bg-gradient-to-tr from-transparent to-slate-800">
       <div className=" w-1/5 h-1/2 bg-slate-500 rounded-lg ">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onFormSubmit}>
           <div className="flex flex-col items-center mx-10 text-black">
             <div>
               <h1 className="text-3xl text-white font-bold p-5 text-center">
@@ -53,26 +30,25 @@ const Login = (props: Props) => {
             </div>
             {props.look === "signup" && (
               <input
+                {...register("name")}
                 type="name"
                 name="name"
                 placeholder="Enter Your Name"
                 className="w-full p-2 m-2 rounded-md"
-                onChange={handleChange}
               />
             )}
+            {/* {errors.name && <p className="text-red-500">{errors.name.message}</p>} */}
             <input
+              {...register("email")}
               type="email"
-              name="email"
               placeholder="Enter Your Email"
               className="w-full p-2 m-2 rounded-md"
-              onChange={handleChange}
             />
             <input
               type="password"
-              name="password"
               placeholder="Enter Your Password"
               className="w-full p-2 m-2 rounded-md"
-              onChange={handleChange}
+              {...register("password")}
             />
             <button
               type="submit"
@@ -81,11 +57,6 @@ const Login = (props: Props) => {
             >
               {props.look === "signin" ? "Sign In" : "Sign Up"}
             </button>
-            <div className="text-white">
-              {Trigger && isLoading && <div>Loading...</div>}
-              {rawdata && <div>{JSON.stringify(rawdata)}</div>}
-              {/* {error && <div>{JSON.stringify(error)}</div>} */}
-            </div>
           </div>
         </form>
       </div>

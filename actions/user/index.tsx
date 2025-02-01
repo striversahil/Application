@@ -2,24 +2,12 @@
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useBackend from "../../hooks/useBackend";
-
-export const getUserAuth = (): any =>
-  useQuery({
-    queryKey: ["test"],
-    queryFn: () => {
-      return useBackend({
-        endpoint: "user/auth",
-        method: "get",
-      });
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 1000 * 60 * 60,
-  });
+import { useMutationData } from "../../hooks/useMutation";
+import { redirect } from "next/navigation";
 
 export const getUserInfo = (): any =>
   useQuery({
-    queryKey: ["user-info"],
+    queryKey: ["userinfo"],
     queryFn: () => {
       return useBackend({
         endpoint: "user",

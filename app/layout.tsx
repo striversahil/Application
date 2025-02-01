@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "../_app";
 import ReactQueryProvider from "../providers/react_query,";
+import { Toaster } from "sonner";
 import Protected_Route from "../_protected";
 import { redirect } from "next/navigation";
 
@@ -25,7 +26,10 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ReactQueryProvider>
-          <Protected_Route>{children}</Protected_Route>
+          {/* <Protected_Route> */}
+          {children}
+          <Toaster />
+          {/* </Protected_Route> */}
         </ReactQueryProvider>
       </body>
     </html>

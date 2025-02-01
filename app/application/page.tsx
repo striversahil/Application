@@ -1,7 +1,7 @@
 import React from "react";
 import { DragDropZone } from "@packages/Layouts";
 import Modification from "@packages/Layouts/Modification";
-import CodeBlock from "../../components/Codeblock";
+import CodeBlock from "../../components/Global/Codeblock";
 
 type Props = {};
 

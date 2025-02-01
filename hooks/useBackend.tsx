@@ -24,14 +24,10 @@ const useBackend = async ({
   payload = {},
 }: Props): Promise<Data> => {
   const href = `${process.env.NEXT_PUBLIC_BASE_URL}/${endpoint}`;
-  console.log(href);
 
   const response: AxiosResponse = await axios[method](href, payload, {
     withCredentials: true,
   });
-  if (response.status === 401) {
-    redirect("/login");
-  }
   return response.data;
 };
 
