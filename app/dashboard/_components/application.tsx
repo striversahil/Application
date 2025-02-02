@@ -1,4 +1,4 @@
-import { getWorkspaceInfo } from "@actions/user";
+import { getWorkspaceInfo } from "./_hooks/useWorkflowsinfo";
 
 export const ApplicationSelectionBoxes = () => {
   const applications = [
