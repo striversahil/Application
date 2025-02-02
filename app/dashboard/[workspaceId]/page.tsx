@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, redirect } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { getWorkspaceInfo } from "@actions/user";
 import { ApplicationSelectionBoxes } from "@app/dashboard/_components/application";
 import React from "react";
@@ -19,8 +19,9 @@ type Props = {
 
 const page = () => {
   // Next js is not allowing me to put this data into JSX
-  const href: string = window.location.href;
-  const workspaceId = href.split("/")[4];
+  const path = usePathname();
+
+  const workspaceId = path?.split("/")[2];
   const { data, isLoading } = useQueryData(
     "workspace",
     getWorkspaceInfo(workspaceId!)
@@ -40,7 +41,7 @@ const page = () => {
                 {isLoading ? "Loading" : data.data.name}
               </span>{" "}
             </h1>
-            <ApplicationSelectionBoxes />
+            {/* <ApplicationSelectionBoxes workspaceId={workspaceId} /> */}
           </div>
         </main>
       </div>

@@ -1,7 +1,6 @@
 // Contains user actions related to authentication
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import useBackend from "../../hooks/useBackend";
 import { useMutationData } from "../../hooks/useMutation";
 import { redirect } from "next/navigation";
 import axios from "axios";

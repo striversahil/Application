@@ -1,6 +1,14 @@
+import { useQueryData } from "@hooks/useQueryData";
 import { getWorkspaceInfo } from "./_hooks/useWorkflowsinfo";
 
-export const ApplicationSelectionBoxes = () => {
+interface WorkspaceData {
+  data: {
+    name: string;
+    // Add other properties of the data object here
+  };
+}
+
+export const ApplicationSelectionBoxes = ({ workspaceId }: any) => {
   const applications = [
     {
       id: 1,
@@ -28,6 +36,11 @@ export const ApplicationSelectionBoxes = () => {
     },
   ];
 
+  const { data, isLoading } = useQueryData<WorkspaceData>(
+    "workspace",
+    getWorkspaceInfo(workspaceId!)
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
       {applications.map((app) => (
@@ -37,6 +50,10 @@ export const ApplicationSelectionBoxes = () => {
         >
           <div className="text-4xl mb-4">{app.icon}</div>
           <h2 className="text-xl font-semibold mb-2">{app.name}</h2>
+          {isLoading && <p className="text-gray-600 text-center">Loading...</p>}
+          {!isLoading && (
+            <p className="text-gray-600 text-center">{data?.data.name}</p>
+          )}
           <p className="text-gray-600 text-center">{app.description}</p>
         </div>
       ))}
