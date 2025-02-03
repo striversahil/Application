@@ -103,7 +103,7 @@ const Sidebar = () => {
           ></Input>
         </SidebarHeader>
         <SidebarContent className="flex flex-col py-[10%]">
-          <div className="grid grid-cols-2 gap-y-6">
+          <div className="grid grid-cols-2 gap-5 mx-2">
             {test.map((item) => (
               <Draggable {...item} key={item.id} />
             ))}

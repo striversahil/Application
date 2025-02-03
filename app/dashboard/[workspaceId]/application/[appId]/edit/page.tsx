@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 
@@ -7,56 +7,6 @@ type Props = {};
 
 // create array of nested id's of components1
 
-// const test = [
-//   {
-//     id: 1,
-//     name: "Dashboard",
-//     icon: "📊",
-//     description: "View and manage your analytics and reports.",
-//   },
-//   {
-//     id: 2,
-//     name: "CRM",
-//     icon: "📇",
-//     description: "Manage customer relationships and interactions.",
-//   },
-//   {
-//     id: 3,
-//     name: "Project Management",
-//     icon: "📅",
-//     description: "Organize and track your projects and tasks.",
-//   },
-//   {
-//     id: 4,
-//     name: "Marketing",
-//     icon: "📢",
-//     description: "Plan and execute marketing campaigns.",
-//   },
-//   {
-//     id: 5,
-//     name: "Dashboard",
-//     icon: "📊",
-//     description: "View and manage your analytics and reports.",
-//   },
-//   {
-//     id: 6,
-//     name: "CRM",
-//     icon: "📇",
-//     description: "Manage customer relationships and interactions.",
-//   },
-//   {
-//     id: 7,
-//     name: "Project Management",
-//     icon: "📅",
-//     description: "Organize and track your projects and tasks.",
-//   },
-//   {
-//     id: 8,
-//     name: "Marketing",
-//     icon: "📢",
-//     description: "Plan and execute marketing campaigns.",
-//   },
-// ];
 interface ComponentData {
   id: number;
   x: number;
@@ -96,24 +46,6 @@ const test: ComponentData[] = [
     y: 421,
   },
 ];
-
-const Droppable = ({ id, children }: any) => {
-  const { isOver, setNodeRef } = useDroppable({
-    id: "droppable",
-  });
-  const style = {
-    color: isOver ? "green" : undefined,
-  };
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="bg-white/20 w-full h-full p-2 rounded-lg text-center"
-    >
-      {children}
-    </div>
-  );
-};
 
 const Draggable = ({ id, content, x, y }: ComponentData) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -157,3 +89,21 @@ const page = (props: Props) => {
 };
 
 export default page;
+
+// const Droppable = ({ id, children }: any) => {
+//   const { isOver, setNodeRef } = useDroppable({
+//     id: "droppable",
+//   });
+//   const style = {
+//     color: isOver ? "green" : undefined,
+//   };
+//   return (
+//     <div
+//       ref={setNodeRef}
+//       style={style}
+//       className="bg-white/20 w-full h-full p-2 rounded-lg text-center"
+//     >
+//       {children}
+//     </div>
+//   );
+// };

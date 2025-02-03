@@ -17,3 +17,8 @@ export const getWorkspaceInfo = async (workspaceId: string) => {
   const response = await axios.get(`${source}/user/workspace/${workspaceId}`);
   return response.data;
 };
+
+export const userLogin = async (payload: any) => {
+  const response = await axios.post(`${source}/auth/login`, payload);
+  return response.data;
+};

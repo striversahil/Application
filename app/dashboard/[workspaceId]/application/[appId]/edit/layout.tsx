@@ -28,6 +28,7 @@ function DraggableItemOverlay({ id }: any) {
 const RootLayout = (props: Props) => {
   const [activeId, setActiveId] = useState<string>("");
   const [IsDropped, setIsDropped] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -38,8 +39,16 @@ const RootLayout = (props: Props) => {
   return (
     <div>
       <DndContext
-        onDragEnd={() => setActiveId("")}
-        onDragStart={(event) => setActiveId(event.active.id as string)}
+        onDragEnd={() => {
+          setActiveId("");
+          setIsDropped(true);
+          setIsDragging(false);
+        }}
+        onDragStart={(event) => {
+          setActiveId(event.active.id as string);
+          setIsDropped(false);
+          setIsDragging(true);
+        }}
         sensors={sensors}
       >
         <SidebarProvider>
@@ -48,9 +57,14 @@ const RootLayout = (props: Props) => {
             <main className="relative flex-1 w-full">
               <SidebarTrigger />
               <SidebarRail />
+              {/* Drag Overlay will act as Our Drag Preview */}
               <DragOverlay>
                 {activeId ? <DraggableItemOverlay id={activeId} /> : null}
               </DragOverlay>
+              {isDragging ? (
+                <div className="fixed w-screen h-screen bg-black">Dragging</div>
+              ) : null}
+              <div></div>
               {props.children}
               <CodeBlock />
               <ConfigFolder />
