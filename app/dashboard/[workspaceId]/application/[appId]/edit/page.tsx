@@ -32,17 +32,50 @@ const test = [
     icon: "📢",
     description: "Plan and execute marketing campaigns.",
   },
+  {
+    id: 5,
+    name: "Dashboard",
+    icon: "📊",
+    description: "View and manage your analytics and reports.",
+  },
+  {
+    id: 6,
+    name: "CRM",
+    icon: "📇",
+    description: "Manage customer relationships and interactions.",
+  },
+  {
+    id: 7,
+    name: "Project Management",
+    icon: "📅",
+    description: "Organize and track your projects and tasks.",
+  },
+  {
+    id: 8,
+    name: "Marketing",
+    icon: "📢",
+    description: "Plan and execute marketing campaigns.",
+  },
 ];
 
 const SortableItems = ({ id, name, icon, description }: any) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({
-      id: id,
-    });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    isOver,
+  } = useSortable({
+    id: id,
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    opacity: isDragging ? 0.5 : 1,
+    background: isDragging ? "lightgreen" : undefined,
   };
 
   return (
