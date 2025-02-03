@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { CSS } from "@dnd-kit/utilities";
-import { useDraggable } from "@dnd-kit/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 type Props = {};
 
@@ -96,6 +96,24 @@ const test: ComponentData[] = [
     y: 421,
   },
 ];
+
+const Droppable = ({ id, children }: any) => {
+  const { isOver, setNodeRef } = useDroppable({
+    id: "droppable",
+  });
+  const style = {
+    color: isOver ? "green" : undefined,
+  };
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="bg-white/20 w-full h-full p-2 rounded-lg text-center"
+    >
+      {children}
+    </div>
+  );
+};
 
 const Draggable = ({ id, content, x, y }: ComponentData) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
