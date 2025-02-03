@@ -1,5 +1,6 @@
 import { useQueryData } from "@hooks/useQueryData";
 import { getWorkspaceInfo } from "./_hooks/useWorkflowsinfo";
+import { redirect } from "next/navigation";
 
 interface WorkspaceData {
   data: {
@@ -8,7 +9,7 @@ interface WorkspaceData {
   };
 }
 
-export const ApplicationSelectionBoxes = ({ workspaceId }: any) => {
+export const ApplicationSelectionBoxes = ({ data, isLoading }: any) => {
   const applications = [
     {
       id: 1,
@@ -36,10 +37,15 @@ export const ApplicationSelectionBoxes = ({ workspaceId }: any) => {
     },
   ];
 
-  const { data, isLoading } = useQueryData<WorkspaceData>(
-    "workspace",
-    getWorkspaceInfo(workspaceId!)
-  );
+  console.log(data, isLoading);
+
+  const handleClick = () => {
+    if (data) {
+      redirect(
+        `/dashboard/${data.data._id}/application/${data.data.projects[0]._id}`
+      );
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
@@ -47,14 +53,12 @@ export const ApplicationSelectionBoxes = ({ workspaceId }: any) => {
         <div
           key={app.id}
           className="flex flex-col items-center justify-center bg-slate-800 hover:bg-slate-800/50 p-6  border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+          onClick={handleClick}
         >
           <div className="text-4xl mb-4">{app.icon}</div>
           <h2 className="text-xl font-semibold mb-2">{app.name}</h2>
-          {isLoading && <p className="text-gray-600 text-center">Loading...</p>}
-          {!isLoading && (
-            <p className="text-gray-600 text-center">{data?.data.name}</p>
-          )}
           <p className="text-gray-600 text-center">{app.description}</p>
+          <p className="text-gray-600 text-center">{data?.data.name}</p>
         </div>
       ))}
     </div>

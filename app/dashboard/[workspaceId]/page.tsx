@@ -41,7 +41,11 @@ const page = () => {
                 {isLoading ? "Loading" : data.data.name}
               </span>{" "}
             </h1>
-            {/* <ApplicationSelectionBoxes workspaceId={workspaceId} /> */}
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <ApplicationSelectionBoxes data={data} isLoading={isLoading} />
+            )}
           </div>
         </main>
       </div>
