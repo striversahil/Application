@@ -1,34 +1,24 @@
 // Contains user actions related to authentication
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import useBackend from "../../hooks/useBackend";
 import { useMutationData } from "../../hooks/useMutation";
 import { redirect } from "next/navigation";
+import axios from "axios";
 
-export const getUserInfo = (): any =>
-  useQuery({
-    queryKey: ["userinfo"],
-    queryFn: () => {
-      return useBackend({
-        endpoint: "user",
-        method: "get",
-      });
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 1000 * 60 * 60,
-  });
+axios.defaults.withCredentials = true; // Global axios config to enable cookies
+const source = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const getWorkspaceInfo = (workspaceId: string): any =>
-  useQuery({
-    queryKey: ["workspace-info"],
-    queryFn: () => {
-      return useBackend({
-        endpoint: `user/workspace/${workspaceId}`,
-        method: "get",
-      });
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 1000 * 60 * 60,
-  });
+export const getUserInfo = async () => {
+  const response = await axios.get(`${source}/user`);
+  return response.data;
+};
+
+export const getWorkspaceInfo = async (workspaceId: string) => {
+  const response = await axios.get(`${source}/user/workspace/${workspaceId}`);
+  return response.data;
+};
+
+export const userLogin = async (payload: any) => {
+  const response = await axios.post(`${source}/user/signin`, payload);
+  return response.data;
+};

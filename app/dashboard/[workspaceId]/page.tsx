@@ -1,4 +1,5 @@
-import { useRouter, redirect } from "next/navigation";
+"use client";
+import { usePathname } from "next/navigation";
 import { getWorkspaceInfo } from "@actions/user";
 import { ApplicationSelectionBoxes } from "@app/dashboard/_components/application";
 import React from "react";
@@ -8,6 +9,7 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@components/ui/Sidebar/sidebar";
+import { useQueryData } from "@hooks/useQueryData";
 
 type Props = {
   params: {
@@ -15,11 +17,15 @@ type Props = {
   };
 };
 
-const page = (props: Props) => {
-  const WorkspaceId = props.params.workspaceId;
-  console.log(WorkspaceId);
+const page = () => {
+  // Next js is not allowing me to put this data into JSX
+  const path = usePathname();
 
-  // const { workspaceInfo, isLoading } = getWorkspaceInfo(WorkspaceId);
+  const workspaceId = path?.split("/")[2];
+  const { data, isLoading } = useQueryData(
+    "workspace",
+    getWorkspaceInfo(workspaceId!)
+  );
 
   return (
     <SidebarProvider>
@@ -31,9 +37,15 @@ const page = (props: Props) => {
           <div className="p-8">
             <h1 className="text-3xl font-bold mb-8">
               Here is the Dashboard Available for{" "}
-              <span className="text-blue-500 select-none">{WorkspaceId}</span>{" "}
+              <span className="text-blue-500 select-none">
+                {isLoading ? "Loading" : data.data.name}
+              </span>{" "}
             </h1>
-            <ApplicationSelectionBoxes />
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <ApplicationSelectionBoxes data={data} isLoading={isLoading} />
+            )}
           </div>
         </main>
       </div>

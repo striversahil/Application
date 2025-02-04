@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
-import useBackend from "../../hooks/useBackend";
 import { useQuery } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
 import { getUserInfo } from "@actions/user";
+import { useQueryData } from "@hooks/useQueryData";
 
 type Props = {};
 
 const page = (props: Props) => {
-  const { data, isLoading, error } = getUserInfo();
+  const { data, isLoading, error } = useQueryData("user", getUserInfo());
 
   console.log(data);
   if (isLoading) {
