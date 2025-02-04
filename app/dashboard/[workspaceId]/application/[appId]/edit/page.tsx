@@ -63,59 +63,57 @@ const test: ComponentData[] = [
 
 const page = (props: Props) => {
   const [Data, setData] = useState<ComponentData[]>(test);
-  const [Coordinate, setCoordinate] = useState({ x: 0, y: 0 });
   const [activeId, setActiveId] = useState<string>("");
   const [IsDropped, setIsDropped] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    })
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
+  console.log(Data);
 
-  const filterOperation = (event: any) => {
-    const { active, over, delta } = event;
-    const droppableRect = over.rect.current;
-
+  const filterOperation = (event: any, mouseX: number, mouseY: number) => {
+    const { active } = event;
     const filtered_array = Data.filter((item) => item.id !== Number(active.id));
+
     if (filtered_array.length === 0) {
       setData((initialData) => [
         ...initialData,
         {
           id: initialData.length + 144,
-          content: "Component " + (initialData.length + 1),
-          x: event.clientX - droppableRect.left,
-          y: event.clientY - droppableRect.top,
+          content: "Component " + (initialData.length + 144),
+          x: mouseX,
+          y: mouseY, // Fixed typo here
         },
       ]);
-      return;
-    }
-    // const rect = event.current.getBoundingClientRect();
-    // console.log(rect);
+      return null;
+    } else {
+      const tobe_modified_array = Data.filter(
+        (item) => item.id === Number(active.id)
+      );
+      console.log(tobe_modified_array);
 
-    const tobe_modified_array = Data.filter(
-      (item) => item.id === Number(active.id)
-    );
-    const newData = [
-      ...filtered_array,
-      {
-        id: filtered_array.length + 1,
-        content: "Component " + (filtered_array.length + 1),
-        x: delta.left + tobe_modified_array[0]?.x,
-        y: delta.top + tobe_modified_array[0]?.y,
-      },
-    ];
-    setData(newData);
-    console.log(newData);
+      const newData = [
+        ...filtered_array,
+        {
+          id: tobe_modified_array[0]?.id,
+          content: tobe_modified_array[0]?.content,
+          x: event.delta.x + tobe_modified_array[0]?.x,
+          y: event.delta.y + tobe_modified_array[0]?.y,
+        },
+      ];
+      setData(newData);
+    }
   };
 
   const handleDragEnd = (event: any) => {
-    if (event.over && event.over.id === "droppable") {
-      filterOperation(event);
-      console.log(event.over.rect.rect);
+    if (event.over?.id === "droppable") {
+      const mouseX = event.activatorEvent.clientX;
+      const mouseY = event.activatorEvent.clientY;
+      filterOperation(event, mouseX, mouseY);
+      setIsDropped(true);
     }
+    setIsDragging(false);
+    setActiveId("");
   };
 
   return (

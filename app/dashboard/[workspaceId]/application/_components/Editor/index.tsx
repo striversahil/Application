@@ -8,6 +8,7 @@ interface ComponentData {
   x: number;
   y: number;
   content: string;
+  rect?: any;
   // Add more configurable properties as needed
 }
 type Props = {
@@ -16,19 +17,23 @@ type Props = {
 
 // create array of nested id's of components1
 
-const Draggable = ({ id, content, x, y }: ComponentData) => {
+const Draggable = ({ id, content, x, y, rect }: ComponentData) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: id,
     });
+
+  if (!rect) {
+    return null;
+  }
 
   const style = {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     position: "absolute" as const,
-    left: x,
-    top: y,
+    left: x || "auto",
+    top: y || "auto",
     opacity: isDragging ? 0.5 : 1,
     background: isDragging ? "lightgreen" : undefined,
   };
@@ -49,6 +54,12 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
 
 const Editor = ({ data }: Props) => {
   const testRef = React.useRef<HTMLDivElement>(null);
+  const [rect, setRect] = useState<DOMRect | undefined>();
+  useEffect(() => {
+    const rect = testRef.current?.getBoundingClientRect();
+    setRect(rect);
+    console.log(rect);
+  }, []);
 
   // This whole Component is a drag and drop zone
   const { isOver, setNodeRef } = useDroppable({
@@ -64,8 +75,8 @@ const Editor = ({ data }: Props) => {
         ref={setNodeRef}
       >
         <div className="relative w-full h-full">
-          {data.map((item) => (
-            <Draggable key={item.id} {...item}></Draggable>
+          {data.map((item, index) => (
+            <Draggable key={index} {...item} rect={rect}></Draggable>
           ))}
         </div>
       </div>
