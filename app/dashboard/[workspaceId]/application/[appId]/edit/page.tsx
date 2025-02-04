@@ -76,17 +76,18 @@ const page = (props: Props) => {
   );
 
   const filterOperation = (event: any) => {
-    const filtered_array = Data.filter(
-      (item) => item.id !== Number(event.active.id)
-    );
+    const { active, over, delta } = event;
+    const droppableRect = over.rect.current;
+
+    const filtered_array = Data.filter((item) => item.id !== Number(active.id));
     if (filtered_array.length === 0) {
       setData((initialData) => [
         ...initialData,
         {
-          id: initialData.length + 1,
+          id: initialData.length + 144,
           content: "Component " + (initialData.length + 1),
-          x: event.over.rect.rect.left,
-          y: event.over.rect.rect.top,
+          x: event.clientX - droppableRect.left,
+          y: event.clientY - droppableRect.top,
         },
       ]);
       return;
@@ -95,15 +96,15 @@ const page = (props: Props) => {
     // console.log(rect);
 
     const tobe_modified_array = Data.filter(
-      (item) => item.id === Number(event.active.id)
+      (item) => item.id === Number(active.id)
     );
     const newData = [
       ...filtered_array,
       {
         id: filtered_array.length + 1,
         content: "Component " + (filtered_array.length + 1),
-        x: event.over.rect.rect.left + tobe_modified_array[0]?.x,
-        y: event.over.rect.rect.top + tobe_modified_array[0]?.y,
+        x: delta.left + tobe_modified_array[0]?.x,
+        y: delta.top + tobe_modified_array[0]?.y,
       },
     ];
     setData(newData);
