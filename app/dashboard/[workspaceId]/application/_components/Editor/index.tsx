@@ -46,8 +46,20 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
 };
 
 const Editor = ({ data }: Props) => {
+  const { isOver, setNodeRef } = useDroppable({
+    id: "droppable",
+  });
+  const style = {
+    //     color: isOver ? "green" : undefined,
+  };
   return (
-    <div className="w-full h-full">
+    <div
+      className={
+        `w-full h-full` + (isOver ? " border-[3px] border-green-500" : "")
+      }
+      ref={setNodeRef}
+      style={style}
+    >
       <div>
         {data.map((item) => (
           <Draggable key={item.id} {...item}></Draggable>

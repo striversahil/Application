@@ -1,5 +1,24 @@
-import React from "react";
+"use client";
 import Editor from "../../_components/Editor";
+
+import React, { useState } from "react";
+import Sidebar from "../../_components/Sidebar";
+import {
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@components/ui/Sidebar/sidebar";
+import CodeBlock from "../../_components/CodeBlock";
+import ConfigFolder from "../../_components/Config";
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+
+type Props = {};
 
 interface ComponentData {
   id: number;
@@ -8,7 +27,6 @@ interface ComponentData {
   content: string;
   // Add more configurable properties as needed
 }
-type Props = {};
 
 const test: ComponentData[] = [
   {
@@ -44,10 +62,51 @@ const test: ComponentData[] = [
 ];
 
 const page = (props: Props) => {
+  const [Data, setData] = useState<ComponentData[]>(test);
+  const [activeId, setActiveId] = useState<string>("");
+  const [IsDropped, setIsDropped] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
   return (
-    <div>
-      <Editor />
-    </div>
+    <DndContext
+      onDragEnd={() => {
+        setActiveId("");
+        setIsDropped(true);
+        setIsDragging(false);
+      }}
+      onDragStart={(event) => {
+        setActiveId(event.active.id as string);
+        setIsDropped(false);
+        setIsDragging(true);
+      }}
+      sensors={sensors}
+    >
+      <div className="relative flex min-h-screen bg-slate-950">
+        <SidebarProvider>
+          <div className="flex w-full bg-slate-950 gap-1">
+            <Sidebar />
+            <main className="relative flex-1 w-full">
+              <SidebarTrigger />
+              <SidebarRail />
+              {/* Drag Overlay will act as Our Drag Preview */}
+              {/* {isDragging ? (
+                <div className="fixed w-screen h-screen bg-black">Dragging</div>
+              ) : null} */}
+              <div></div>
+              <Editor data={Data} />
+              <CodeBlock />
+              <ConfigFolder />
+            </main>
+          </div>
+        </SidebarProvider>
+      </div>
+    </DndContext>
   );
 };
 
