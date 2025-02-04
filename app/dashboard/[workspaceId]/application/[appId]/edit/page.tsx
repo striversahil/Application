@@ -1,7 +1,7 @@
 "use client";
 import Editor from "../../_components/Editor";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
 import {
   SidebarProvider,
@@ -63,6 +63,7 @@ const test: ComponentData[] = [
 
 const page = (props: Props) => {
   const [Data, setData] = useState<ComponentData[]>(test);
+  const [Coordinate, setCoordinate] = useState({ x: 0, y: 0 });
   const [activeId, setActiveId] = useState<string>("");
   const [IsDropped, setIsDropped] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -73,13 +74,52 @@ const page = (props: Props) => {
       },
     })
   );
+
+  const filterOperation = (event: any) => {
+    const filtered_array = Data.filter(
+      (item) => item.id !== Number(event.active.id)
+    );
+    if (filtered_array.length === 0) {
+      setData((initialData) => [
+        ...initialData,
+        {
+          id: initialData.length + 1,
+          content: "Component " + (initialData.length + 1),
+          x: event.delta.x,
+          y: event.delta.x,
+        },
+      ]);
+      return;
+    }
+    // const rect = event.current.getBoundingClientRect();
+    // console.log(rect);
+
+    const tobe_modified_array = Data.filter(
+      (item) => item.id !== Number(event.active.id)
+    );
+    const newData = [
+      ...filtered_array,
+      {
+        id: filtered_array.length + 1,
+        content: "Component " + (filtered_array.length + 1),
+        x: event.over.rect.rect.left + tobe_modified_array[0]?.x,
+        y: event.over.rect.rect.top + tobe_modified_array[0]?.y,
+      },
+    ];
+    setData(newData);
+    console.log(newData);
+  };
+
+  const handleDragEnd = (event: any) => {
+    if (event.over && event.over.id === "droppable") {
+      filterOperation(event);
+      console.log(event.over.rect.rect);
+    }
+  };
+
   return (
     <DndContext
-      onDragEnd={() => {
-        setActiveId("");
-        setIsDropped(true);
-        setIsDragging(false);
-      }}
+      onDragEnd={handleDragEnd}
       onDragStart={(event) => {
         setActiveId(event.active.id as string);
         setIsDropped(false);
@@ -88,8 +128,8 @@ const page = (props: Props) => {
       sensors={sensors}
     >
       <div className="relative flex min-h-screen bg-slate-950">
-        <SidebarProvider>
-          <div className="flex w-full bg-slate-950 gap-1">
+        <div className="flex w-full bg-slate-950 gap-1">
+          <SidebarProvider>
             <Sidebar />
             <main className="relative flex-1 w-full">
               <SidebarTrigger />
@@ -100,11 +140,11 @@ const page = (props: Props) => {
               ) : null} */}
               <div></div>
               <Editor data={Data} />
-              <CodeBlock />
               <ConfigFolder />
+              <CodeBlock />
             </main>
-          </div>
-        </SidebarProvider>
+          </SidebarProvider>
+        </div>
       </div>
     </DndContext>
   );

@@ -23,7 +23,9 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
     });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
     position: "absolute" as const,
     left: x,
     top: y,
@@ -37,7 +39,7 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-white rounded shadow-md touch-none"
+      className="bg-white rounded shadow-md touch-none w-fit"
     >
       {/* Your content here */}
       {content}
@@ -46,45 +48,29 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
 };
 
 const Editor = ({ data }: Props) => {
+  const testRef = React.useRef<HTMLDivElement>(null);
+
+  // This whole Component is a drag and drop zone
   const { isOver, setNodeRef } = useDroppable({
     id: "droppable",
   });
-  const style = {
-    //     color: isOver ? "green" : undefined,
-  };
   return (
-    <div
-      className={
-        `w-full h-full` + (isOver ? " border-[3px] border-green-500" : "")
-      }
-      ref={setNodeRef}
-      style={style}
-    >
-      <div>
-        {data.map((item) => (
-          <Draggable key={item.id} {...item}></Draggable>
-        ))}
+    <div ref={testRef}>
+      <div
+        className={
+          `w-full min-h-screen` +
+          (isOver ? " border-[3px] border-green-500" : "")
+        }
+        ref={setNodeRef}
+      >
+        <div className="relative w-full h-full">
+          {data.map((item) => (
+            <Draggable key={item.id} {...item}></Draggable>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Editor;
-
-// const Droppable = ({ id, children }: any) => {
-//   const { isOver, setNodeRef } = useDroppable({
-//     id: "droppable",
-//   });
-//   const style = {
-//     color: isOver ? "green" : undefined,
-//   };
-//   return (
-//     <div
-//       ref={setNodeRef}
-//       style={style}
-//       className="bg-white/20 w-full h-full p-2 rounded-lg text-center"
-//     >
-//       {children}
-//     </div>
-//   );
-// };
