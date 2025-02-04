@@ -69,13 +69,15 @@ const page = (props: Props) => {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
-  console.log(Data);
 
   const filterOperation = (event: any, mouseX: number, mouseY: number) => {
     const { active } = event;
+    // Check if the active item is already in the array
+    const Presence_array = Data.filter((item) => item.id === Number(active.id));
     const filtered_array = Data.filter((item) => item.id !== Number(active.id));
 
-    if (filtered_array.length === 0) {
+    // If the active item is not in the array, add it
+    if (Presence_array.length === 0) {
       setData((initialData) => [
         ...initialData,
         {
@@ -86,19 +88,15 @@ const page = (props: Props) => {
         },
       ]);
       return null;
+      // Else We are modifying it from the Array
     } else {
-      const tobe_modified_array = Data.filter(
-        (item) => item.id === Number(active.id)
-      );
-      console.log(tobe_modified_array);
-
       const newData = [
         ...filtered_array,
         {
-          id: tobe_modified_array[0]?.id,
-          content: tobe_modified_array[0]?.content,
-          x: event.delta.x + tobe_modified_array[0]?.x,
-          y: event.delta.y + tobe_modified_array[0]?.y,
+          id: Presence_array[0]?.id ?? 0,
+          content: Presence_array[0]?.content ?? "",
+          x: event.delta.x + Presence_array[0]?.x,
+          y: event.delta.y + Presence_array[0]?.y,
         },
       ];
       setData(newData);
