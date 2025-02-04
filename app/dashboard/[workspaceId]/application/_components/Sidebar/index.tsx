@@ -94,8 +94,8 @@ const Sidebar = () => {
   });
 
   return (
-    <div className="bg-blue-800">
-      <SidebarLayout className="h-fill">
+    <div className=" ">
+      <SidebarLayout className="bg-blue-800 h-fill">
         <SidebarHeader className="h-[100px] flex items-center justify-center">
           <Input
             className=" text-white bg-white/20 p-2 rounded-lg w-full "

@@ -37,19 +37,29 @@ const Login = (props: Props) => {
                 className="w-full p-2 m-2 rounded-md"
               />
             )}
-            {/* {errors.name && <p className="text-red-500">{errors.name.message}</p>} */}
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message as string}</p>
+            )}
             <input
               {...register("email")}
               type="email"
               placeholder="Enter Your Email"
               className="w-full p-2 m-2 rounded-md"
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message as string}</p>
+            )}
             <input
               type="password"
               placeholder="Enter Your Password"
               className="w-full p-2 m-2 rounded-md"
               {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500">
+                {errors.password.message as string}
+              </p>
+            )}
             <button
               type="submit"
               className="w-full p-2 m-2 rounded-md bg-blue-500 hover:bg-blue-500/50"
