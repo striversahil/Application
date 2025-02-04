@@ -85,8 +85,8 @@ const page = (props: Props) => {
         {
           id: initialData.length + 1,
           content: "Component " + (initialData.length + 1),
-          x: event.delta.x,
-          y: event.delta.x,
+          x: event.over.rect.rect.left,
+          y: event.over.rect.rect.top,
         },
       ]);
       return;
@@ -95,7 +95,7 @@ const page = (props: Props) => {
     // console.log(rect);
 
     const tobe_modified_array = Data.filter(
-      (item) => item.id !== Number(event.active.id)
+      (item) => item.id === Number(event.active.id)
     );
     const newData = [
       ...filtered_array,

@@ -39,7 +39,7 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-white rounded shadow-md touch-none w-fit"
+      className="bg-white rounded shadow-md touch-none w-fit text-black"
     >
       {/* Your content here */}
       {content}
