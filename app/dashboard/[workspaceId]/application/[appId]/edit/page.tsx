@@ -137,14 +137,21 @@ const page = (props: Props) => {
               {/* Main Resizable Pannel Start's Here */}
               <PanelGroup direction="horizontal">
                 <Panel>
-                  <Editor data={Data} />
+                  <PanelGroup direction="vertical">
+                    <Panel defaultSize={80} minSize={40}>
+                      <Editor data={Data} />
+                    </Panel>
+                    <PanelResizeHandle />
+                    <Panel defaultSize={20} minSize={10}>
+                      <CodeBlock />
+                    </Panel>
+                  </PanelGroup>
                 </Panel>
                 <PanelResizeHandle />
-                <Panel defaultSize={20}>
+                <Panel defaultSize={20} minSize={10} maxSize={40}>
                   <ConfigFolder />
                 </Panel>
               </PanelGroup>
-              <CodeBlock />
             </main>
           </SidebarProvider>
         </div>

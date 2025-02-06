@@ -4,7 +4,7 @@ type Props = {};
 
 const CodeBlock = (props: Props) => {
   return (
-    <div className="fixed bottom-0 border border-white bg-slate-800 w-full h-[200px]">
+    <div className="border border-white bg-slate-800 w-full h-full">
       CodeBlock
     </div>
   );
