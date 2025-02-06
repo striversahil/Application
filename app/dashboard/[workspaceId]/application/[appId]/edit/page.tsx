@@ -1,6 +1,8 @@
 "use client";
 import Editor from "../../_components/Editor";
 
+import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
+
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
 import {
@@ -129,15 +131,19 @@ const page = (props: Props) => {
           <SidebarProvider>
             <Sidebar />
             <main className="relative flex-1 w-full">
-              <SidebarTrigger className="absolute" />
+              {/* Sidebar Triggers */}
+              <SidebarTrigger className="fixed" />
               <SidebarRail />
-              {/* Drag Overlay will act as Our Drag Preview */}
-              {/* {isDragging ? (
-                <div className="fixed w-screen h-screen bg-black">Dragging</div>
-              ) : null} */}
-              <div></div>
-              <Editor data={Data} />
-              <ConfigFolder />
+              {/* Main Resizable Pannel Start's Here */}
+              <PanelGroup direction="horizontal">
+                <Panel>
+                  <Editor data={Data} />
+                </Panel>
+                <PanelResizeHandle />
+                <Panel defaultSize={20}>
+                  <ConfigFolder />
+                </Panel>
+              </PanelGroup>
               <CodeBlock />
             </main>
           </SidebarProvider>
@@ -148,3 +154,12 @@ const page = (props: Props) => {
 };
 
 export default page;
+
+{
+  /* Drag Overlay will act as Our Drag Preview */
+}
+{
+  /* {isDragging ? (
+  <div className="fixed w-screen h-screen bg-black">Dragging</div>
+) : null} */
+}

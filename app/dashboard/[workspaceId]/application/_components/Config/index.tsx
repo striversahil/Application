@@ -4,7 +4,7 @@ type Props = {};
 
 const ConfigFolder = (props: Props) => {
   return (
-    <div className="fixed top-0 right-0 bg-slate-700 duration-1000 w-[300px] h-full">
+    <div className=" bg-slate-700 duration-1000 w-full h-full">
       ConfigFolder
     </div>
   );
