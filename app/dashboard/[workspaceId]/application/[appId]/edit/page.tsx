@@ -125,11 +125,11 @@ const page = (props: Props) => {
       sensors={sensors}
     >
       <div className="relative flex min-h-screen bg-slate-950">
-        <div className="flex w-full bg-slate-950 gap-1">
+        <div className="flex w-full  gap-1">
           <SidebarProvider>
             <Sidebar />
             <main className="relative flex-1 w-full">
-              <SidebarTrigger />
+              <SidebarTrigger className="absolute" />
               <SidebarRail />
               {/* Drag Overlay will act as Our Drag Preview */}
               {/* {isDragging ? (

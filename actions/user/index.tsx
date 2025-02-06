@@ -18,6 +18,16 @@ export const getWorkspaceInfo = async (workspaceId: string) => {
   return response.data;
 };
 
+export const newProject = async ( ) => {
+  const response = await axios.post(`${source}/user/project`);
+  return response.data;
+}
+
+export const userSignup = async (payload: any) => {
+  const response = await axios.post(`${source}/user/signup`, payload);
+  return response.data;
+}
+
 export const userLogin = async (payload: any) => {
   const response = await axios.post(`${source}/user/signin`, payload);
   return response.data;
