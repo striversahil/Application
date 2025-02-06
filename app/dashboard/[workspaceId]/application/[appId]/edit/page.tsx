@@ -127,30 +127,27 @@ const page = (props: Props) => {
       sensors={sensors}
     >
       <div className="relative flex min-h-screen bg-slate-950">
-        <div className="flex w-full  gap-1">
-          <div className="w-[100px] h-full bg-white"></div>
-          <Sidebar />
-          <main className="relative flex-1 w-full">
-            {/* Main Resizable Pannel Start's Here */}
-            <PanelGroup direction="horizontal">
-              <Panel defaultSize={80} minSize={40}>
-                <PanelGroup direction="vertical">
-                  <Panel defaultSize={80} minSize={40}>
-                    <Editor data={Data} />
-                  </Panel>
-                  <PanelResizeHandle />
-                  <Panel defaultSize={20} minSize={10}>
-                    <CodeBlock />
-                  </Panel>
-                </PanelGroup>
-              </Panel>
-              <PanelResizeHandle />
-              <Panel defaultSize={20} minSize={10} maxSize={40}>
-                <ConfigFolder />
-              </Panel>
-            </PanelGroup>
-          </main>
-        </div>
+        <Sidebar />
+        <main className="relative flex-1 w-full">
+          {/* Main Resizable Pannel Start's Here */}
+          <PanelGroup direction="horizontal">
+            <Panel defaultSize={80} minSize={40}>
+              <PanelGroup direction="vertical">
+                <Panel defaultSize={80} minSize={40}>
+                  <Editor data={Data} />
+                </Panel>
+                <PanelResizeHandle />
+                <Panel defaultSize={20} minSize={10}>
+                  <CodeBlock />
+                </Panel>
+              </PanelGroup>
+            </Panel>
+            <PanelResizeHandle />
+            <Panel defaultSize={20} minSize={10} maxSize={40}>
+              <ConfigFolder />
+            </Panel>
+          </PanelGroup>
+        </main>
       </div>
     </DndContext>
   );
