@@ -2,6 +2,12 @@ import React from "react";
 import CompSidebar from "./Component";
 import { LaptopMinimal } from "lucide-react";
 import Image from "next/image";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@components/ui/Tooltip/tooltip";
 
 type Props = {};
 
@@ -35,31 +41,45 @@ const Sidebar = (props: Props) => {
   };
 
   return (
-    <div className="flex duration-1000">
-      <div className="w-[45px] h-full bg-inherit  flex-col bg-slate-900 space-y-10">
-        <Image
-          src={"/apotzalogo.jpg"}
-          width={50}
-          height={50}
-          alt="brand_pic"
-          className="mx-auto bg-blue-950 rounded-md"
-        />
-        {/* Todo : Add Navigations as per need */}
-        {Reference.map((item, index) => (
-          <div
-            key={index}
-            className="cursor-pointe w-fit flex justify-center cursor-pointer hover:bg-white/10 p-2 duration-200 rounded-md mx-1"
-            onClick={() => handleClick(index)}
-          >
-            {item.icon}
-          </div>
-        ))}
+    <TooltipProvider>
+      <div className="flex duration-1000">
+        <div className="w-fit h-full bg-inherit flex-col bg-slate-900 space-y-10">
+          <Tooltip>
+            <TooltipTrigger>
+              <Image
+                src={"/apotzalogo.jpg"}
+                width={50}
+                height={50}
+                alt="brand_pic"
+                className="mx-auto bg-blue-950 rounded-md cursor-pointer hover:animate-pulse"
+                onClick={() => window.location.reload()}
+              />
+            </TooltipTrigger>
+            <TooltipContent>Apotza</TooltipContent>
+          </Tooltip>
+          {/* Todo : Add Navigations as per need */}
+          {Reference.map((item, index) => (
+            <div key={index} className="w-full flex justify-center">
+              <Tooltip>
+                <TooltipTrigger>
+                  <div
+                    className="w-fit justify-center cursor-pointer hover:bg-white/10 p-2 duration-200 rounded-md"
+                    onClick={() => handleClick(index)}
+                  >
+                    {item.icon}
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>{item.title}</TooltipContent>
+              </Tooltip>
+            </div>
+          ))}
+        </div>
+        {/* Add Custom Sidebar's for Different Usecases */}
+        <CompSidebar open={State[0]} />
+        <CompSidebar open={State[1]} />
+        <CompSidebar open={State[2]} />
       </div>
-      {/* Add Custom Sidebar's for Different Usecases */}
-      <CompSidebar open={State[0]} />
-      <CompSidebar open={State[1]} />
-      <CompSidebar open={State[2]} />
-    </div>
+    </TooltipProvider>
   );
 };
 
