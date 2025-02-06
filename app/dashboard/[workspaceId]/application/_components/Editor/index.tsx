@@ -53,9 +53,9 @@ const Editor = ({ data }: Props) => {
     id: "droppable",
   });
   return (
-    <div className="w-full h-screen overflow-y-auto">
+    <div className="w-full overflow-y-auto">
       <div
-        className={`w-full min-h-screen` + (isOver ? " bg-white/5" : "")}
+        className={`w-full min-h-screen h-full` + (isOver ? " bg-white/5" : "")}
         ref={setNodeRef}
       >
         <div className="relative w-full h-full">

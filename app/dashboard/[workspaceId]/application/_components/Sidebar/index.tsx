@@ -1,13 +1,11 @@
 "use client";
 import { Input } from "@components/ui/input";
-import {
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  Sidebar as SidebarLayout,
-} from "@components/ui/Sidebar/sidebar";
 import { useDraggable } from "@dnd-kit/core";
 import React, { useState } from "react";
+
+type SidebarProps = {
+  children?: React.ReactNode;
+};
 
 const test = [
   {
@@ -94,23 +92,22 @@ const Sidebar = () => {
   });
 
   return (
-    <div className=" ">
-      <SidebarLayout className="bg-blue-800 h-fill">
-        <SidebarHeader className="h-[100px] flex items-center justify-center">
+    <div className="">
+      <div className="bg-blue-800 h-fill h-screen">
+        <div className="h-[100px] flex items-center justify-center">
           <Input
             className=" text-white bg-white/20 p-2 rounded-lg w-full "
             placeholder="Search ..."
           ></Input>
-        </SidebarHeader>
-        <SidebarContent className="flex flex-col py-[10%]">
+        </div>
+        <div className="flex flex-col py-[10%]">
           <div className="grid grid-cols-2 gap-5 mx-2">
             {test.map((item) => (
               <Draggable {...item} key={item.id} />
             ))}
           </div>
-        </SidebarContent>
-        <SidebarFooter className=""></SidebarFooter>
-      </SidebarLayout>
+        </div>
+      </div>
     </div>
   );
 };

@@ -128,32 +128,28 @@ const page = (props: Props) => {
     >
       <div className="relative flex min-h-screen bg-slate-950">
         <div className="flex w-full  gap-1">
-          <SidebarProvider>
-            <Sidebar />
-            <main className="relative flex-1 w-full">
-              {/* Sidebar Triggers */}
-              <SidebarTrigger className="fixed" />
-              <SidebarRail />
-              {/* Main Resizable Pannel Start's Here */}
-              <PanelGroup direction="horizontal">
-                <Panel>
-                  <PanelGroup direction="vertical">
-                    <Panel defaultSize={80} minSize={40}>
-                      <Editor data={Data} />
-                    </Panel>
-                    <PanelResizeHandle />
-                    <Panel defaultSize={20} minSize={10}>
-                      <CodeBlock />
-                    </Panel>
-                  </PanelGroup>
-                </Panel>
-                <PanelResizeHandle />
-                <Panel defaultSize={20} minSize={10} maxSize={40}>
-                  <ConfigFolder />
-                </Panel>
-              </PanelGroup>
-            </main>
-          </SidebarProvider>
+          <div className="w-[100px] h-full bg-white"></div>
+          <Sidebar />
+          <main className="relative flex-1 w-full">
+            {/* Main Resizable Pannel Start's Here */}
+            <PanelGroup direction="horizontal">
+              <Panel defaultSize={80} minSize={40}>
+                <PanelGroup direction="vertical">
+                  <Panel defaultSize={80} minSize={40}>
+                    <Editor data={Data} />
+                  </Panel>
+                  <PanelResizeHandle />
+                  <Panel defaultSize={20} minSize={10}>
+                    <CodeBlock />
+                  </Panel>
+                </PanelGroup>
+              </Panel>
+              <PanelResizeHandle />
+              <Panel defaultSize={20} minSize={10} maxSize={40}>
+                <ConfigFolder />
+              </Panel>
+            </PanelGroup>
+          </main>
         </div>
       </div>
     </DndContext>
