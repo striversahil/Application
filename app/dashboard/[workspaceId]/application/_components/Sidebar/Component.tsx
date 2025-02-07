@@ -11,6 +11,7 @@ import React, { useState } from "react";
 type SidebarProps = {
   children?: React.ReactNode;
   open: boolean;
+  handleClose?: () => void;
 };
 
 const test = [
@@ -98,10 +99,10 @@ const CompSidebar = ({ children, open }: SidebarProps) => {
   });
 
   return (
-    <Collapsible open={open}>
-      <CollapsibleContent>
-        <div className="">
-          <div className="bg-blue-800 h-fill h-screen">
+    <div className="">
+      <Collapsible open={open}>
+        <CollapsibleContent>
+          <div className="bg-gray-800 h-fill h-screen">
             <div className="h-[100px] flex items-center justify-center">
               <Input
                 className=" text-white bg-white/20 p-2 rounded-lg w-full "
@@ -116,9 +117,9 @@ const CompSidebar = ({ children, open }: SidebarProps) => {
               </div>
             </div>
           </div>
-        </div>
-      </CollapsibleContent>
-    </Collapsible>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
   );
 };
 

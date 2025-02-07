@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import CompSidebar from "./Component";
-import { LaptopMinimal } from "lucide-react";
+import { LaptopMinimal, PanelLeftClose, Component } from "lucide-react";
 import Image from "next/image";
 import {
   Tooltip,
@@ -14,7 +14,7 @@ type Props = {};
 const Reference = [
   {
     title: "Component",
-    icon: <LaptopMinimal />,
+    icon: <Component />,
   },
   {
     title: "Workflow",
@@ -41,8 +41,8 @@ const Sidebar = (props: Props) => {
   };
 
   return (
-    <TooltipProvider>
-      <div className="flex duration-1000">
+    <div className="flex z-10 duration-1000">
+      <TooltipProvider>
         <div className="w-fit h-full bg-inherit flex-col bg-slate-900 space-y-10">
           <Tooltip>
             <TooltipTrigger>
@@ -51,7 +51,7 @@ const Sidebar = (props: Props) => {
                 width={50}
                 height={50}
                 alt="brand_pic"
-                className="mx-auto bg-blue-950 rounded-md cursor-pointer hover:animate-pulse"
+                className="m-2 bg-white/20 rounded-xl cursor-pointer hover:animate-pulse"
                 onClick={() => window.location.reload()}
               />
             </TooltipTrigger>
@@ -66,7 +66,7 @@ const Sidebar = (props: Props) => {
                     className="w-fit justify-center cursor-pointer hover:bg-white/10 p-2 duration-200 rounded-md"
                     onClick={() => handleClick(index)}
                   >
-                    {item.icon}
+                    {State[index] ? <PanelLeftClose /> : item.icon}
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>{item.title}</TooltipContent>
@@ -75,11 +75,11 @@ const Sidebar = (props: Props) => {
           ))}
         </div>
         {/* Add Custom Sidebar's for Different Usecases */}
-        <CompSidebar open={State[0]} />
-        <CompSidebar open={State[1]} />
-        <CompSidebar open={State[2]} />
-      </div>
-    </TooltipProvider>
+      </TooltipProvider>
+      <CompSidebar open={State[0]} handleClose={() => handleClick(0)} />
+      <CompSidebar open={State[1]} />
+      <CompSidebar open={State[2]} />
+    </div>
   );
 };
 

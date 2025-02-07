@@ -19,6 +19,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import Header from "../../_components/Header";
 
 type Props = {};
 
@@ -30,38 +31,7 @@ interface ComponentData {
   // Add more configurable properties as needed
 }
 
-const test: ComponentData[] = [
-  {
-    id: 1,
-    content: "Component 1",
-    x: 1274,
-    y: 415,
-  },
-  {
-    id: 2,
-    content: "Component 2",
-    x: 574,
-    y: 1175,
-  },
-  {
-    id: 3,
-    content: "Component 3",
-    x: 18,
-    y: 822,
-  },
-  {
-    id: 4,
-    content: "Component 4",
-    x: 877,
-    y: 14259,
-  },
-  {
-    id: 5,
-    content: "Component 5",
-    x: 154,
-    y: 421,
-  },
-];
+const test: ComponentData[] = [];
 
 const page = (props: Props) => {
   const [Data, setData] = useState<ComponentData[]>(test);
@@ -128,6 +98,7 @@ const page = (props: Props) => {
     >
       <div className="relative flex min-h-screen bg-slate-950">
         <Sidebar />
+        <Header />
         <main className="relative flex-1 w-full">
           {/* Main Resizable Pannel Start's Here */}
           <PanelGroup direction="horizontal">
@@ -137,13 +108,13 @@ const page = (props: Props) => {
                   <Editor data={Data} />
                 </Panel>
                 <PanelResizeHandle />
-                <Panel defaultSize={20} minSize={10}>
+                <Panel defaultSize={20} collapsible minSize={10}>
                   <CodeBlock />
                 </Panel>
               </PanelGroup>
             </Panel>
             <PanelResizeHandle />
-            <Panel defaultSize={20} minSize={10} maxSize={40}>
+            <Panel defaultSize={20} minSize={10} collapsible maxSize={40}>
               <ConfigFolder />
             </Panel>
           </PanelGroup>
