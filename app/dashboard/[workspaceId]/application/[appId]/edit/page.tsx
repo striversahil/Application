@@ -123,12 +123,15 @@ const page = (props: Props) => {
                 <Panel defaultSize={80} minSize={40}>
                   <Editor data={Data} />
                 </Panel>
-                <PanelResizeHandle />
+                {openCode && (
+                  <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
+                )}
                 {openCode && (
                   <Panel
                     defaultSize={20}
                     collapsible
                     minSize={10}
+                    maxSize={40}
                     onCollapse={handleOpenCode}
                   >
                     <CodeBlock handleOpen={handleOpenCode} />
@@ -136,7 +139,9 @@ const page = (props: Props) => {
                 )}
               </PanelGroup>
             </Panel>
-            <PanelResizeHandle />
+            {openConfig && (
+              <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
+            )}
             {openConfig && (
               <Panel
                 defaultSize={20}

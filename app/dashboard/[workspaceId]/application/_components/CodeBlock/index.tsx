@@ -8,7 +8,7 @@ type Props = {
 const CodeBlock = ({ handleOpen }: Props) => {
   return (
     <div className="w-full h-full">
-      <div className="relative border border-white bg-slate-800 w-full h-full">
+      <div className="relative  bg-slate-800 w-full h-full">
         <div
           className="absolute z-50 top-2 right-0 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
           onClick={handleOpen}
