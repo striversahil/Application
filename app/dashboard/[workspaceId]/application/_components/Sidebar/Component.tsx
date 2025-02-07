@@ -10,8 +10,6 @@ import React, { useState } from "react";
 
 type SidebarProps = {
   children?: React.ReactNode;
-  open: boolean;
-  handleClose?: () => void;
 };
 
 const test = [
@@ -90,7 +88,7 @@ const Draggable = ({ id, name, icon, description }: any) => {
   );
 };
 
-const CompSidebar = ({ children, open }: SidebarProps) => {
+const CompSidebar = ({ children }: SidebarProps) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: "sidebar",
     data: {
@@ -99,26 +97,22 @@ const CompSidebar = ({ children, open }: SidebarProps) => {
   });
 
   return (
-    <div className="">
-      <Collapsible open={open}>
-        <CollapsibleContent>
-          <div className="bg-gray-800 h-fill h-screen">
-            <div className="h-[100px] flex items-center justify-center">
-              <Input
-                className=" text-white bg-white/20 p-2 rounded-lg w-full "
-                placeholder="Search ..."
-              ></Input>
-            </div>
-            <div className="flex flex-col py-[10%]">
-              <div className="grid grid-cols-2 gap-5 mx-2">
-                {test.map((item) => (
-                  <Draggable {...item} key={item.id} />
-                ))}
-              </div>
-            </div>
+    <div className="w-full h-full">
+      <div className="bg-gray-800 w-full h-full rounded-md">
+        <div className="flex items-center justify-center">
+          <Input
+            className=" text-white bg-white/20 p-2 rounded-lg w-full "
+            placeholder="Search ..."
+          ></Input>
+        </div>
+        <div className="flex flex-col py-[10%]">
+          <div className="grid grid-cols-2 gap-5 mx-2">
+            {test.map((item) => (
+              <Draggable {...item} key={item.id} />
+            ))}
           </div>
-        </CollapsibleContent>
-      </Collapsible>
+        </div>
+      </div>
     </div>
   );
 };

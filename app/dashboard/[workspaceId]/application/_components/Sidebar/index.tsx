@@ -34,7 +34,7 @@ const Sidebar = (props: Props) => {
 
   const handleClick = (index: number) => {
     const newState = [...Navigators];
-    if (!State[index]) {
+    if (!index || !State[index]) {
       newState[index] = !newState[index];
     }
     setState(newState);
@@ -76,9 +76,19 @@ const Sidebar = (props: Props) => {
         </div>
         {/* Add Custom Sidebar's for Different Usecases */}
       </TooltipProvider>
-      <CompSidebar open={State[0]} handleClose={() => handleClick(0)} />
-      <CompSidebar open={State[1]} />
-      <CompSidebar open={State[2]} />
+      <div className="absolute top-[10%] left-[3%] h-[70vh] rounded-md">
+        {State[0] && <CompSidebar />}
+        {State[1] && <CompSidebar />}
+        {State[2] && <CompSidebar />}
+        {State.includes(true) && (
+          <div
+            className="absolute top-0 -right-10 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+            onClick={() => handleClick(Number.MAX_SAFE_INTEGER)}
+          >
+            <PanelLeftClose />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
