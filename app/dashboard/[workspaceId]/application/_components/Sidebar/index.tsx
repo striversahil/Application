@@ -32,11 +32,13 @@ const Navigators = Array(3).fill(false);
 const Sidebar = (props: Props) => {
   const [State, setState] = React.useState(Navigators);
 
-  const handleClick = (index: number) => {
+  const handleClick = (index: number | undefined) => {
     const newState = [...Navigators];
-    if (!index || !State[index]) {
+    if (index !== undefined && !State[index]) {
       newState[index] = !newState[index];
     }
+    console.log(newState);
+
     setState(newState);
   };
 
@@ -76,19 +78,19 @@ const Sidebar = (props: Props) => {
         </div>
         {/* Add Custom Sidebar's for Different Usecases */}
       </TooltipProvider>
-      <div className="absolute top-[10%] left-[3%] h-[70vh] rounded-md">
-        {State[0] && <CompSidebar />}
-        {State[1] && <CompSidebar />}
-        {State[2] && <CompSidebar />}
-        {State.includes(true) && (
+      {State.includes(true) && (
+        <div className="absolute top-[10%] left-[3%] h-[70vh] outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md">
+          {State[0] && <CompSidebar />}
+          {State[1] && <CompSidebar />}
+          {State[2] && <CompSidebar />}
           <div
             className="absolute top-0 -right-10 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
-            onClick={() => handleClick(Number.MAX_SAFE_INTEGER)}
+            onClick={() => handleClick(undefined)}
           >
             <PanelLeftClose />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
