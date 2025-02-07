@@ -10,7 +10,7 @@ const CodeBlock = ({ handleOpen }: Props) => {
     <div className="w-full h-full">
       <div className="relative  bg-slate-800 w-full h-full">
         <div
-          className="absolute z-50 top-2 right-0 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+          className="absolute z-50 top-2 right-0 p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
           onClick={handleOpen}
         >
           <PanelBottomClose />

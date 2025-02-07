@@ -89,13 +89,6 @@ const Draggable = ({ id, name, icon, description }: any) => {
 };
 
 const CompSidebar = ({ children }: SidebarProps) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "sidebar",
-    data: {
-      type: "sidebar",
-    },
-  });
-
   return (
     <div className="w-full h-full">
       <div className="bg-gray-800 w-full h-full rounded-md">

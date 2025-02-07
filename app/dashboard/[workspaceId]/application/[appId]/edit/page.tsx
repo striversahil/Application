@@ -128,7 +128,7 @@ const page = (props: Props) => {
                 )}
                 {openCode && (
                   <Panel
-                    defaultSize={20}
+                    defaultSize={30}
                     collapsible
                     minSize={10}
                     maxSize={40}
@@ -156,7 +156,7 @@ const page = (props: Props) => {
           </PanelGroup>
           {!openCode && (
             <div
-              className="fixed bottom-2 right-[50%] p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+              className="fixed bottom-2 right-[50%] p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
               onClick={handleOpenCode}
             >
               <PanelBottomOpen />
@@ -164,7 +164,7 @@ const page = (props: Props) => {
           )}
           {!openConfig && (
             <div
-              className="fixed top-2 right-0 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+              className="fixed top-2 right-0 p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
               onClick={handleOpenConfig}
             >
               <PanelRightOpen />

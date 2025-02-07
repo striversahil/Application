@@ -37,8 +37,6 @@ const Sidebar = (props: Props) => {
     if (index !== undefined && !State[index]) {
       newState[index] = !newState[index];
     }
-    console.log(newState);
-
     setState(newState);
   };
 
@@ -76,15 +74,18 @@ const Sidebar = (props: Props) => {
             </div>
           ))}
         </div>
-        {/* Add Custom Sidebar's for Different Usecases */}
       </TooltipProvider>
+      {/* Add Custom Sidebar's for Different Usecases */}
       {State.includes(true) && (
-        <div className="absolute top-[10%] left-[3%] h-[70vh] outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md">
+        <div
+          className="absolute top-[10%] left-[3%] h-[70vh] outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md"
+          onMouseLeave={() => handleClick(undefined)}
+        >
           {State[0] && <CompSidebar />}
           {State[1] && <CompSidebar />}
           {State[2] && <CompSidebar />}
           <div
-            className="absolute top-0 -right-10 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+            className="absolute top-0 -right-[12%] p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
             onClick={() => handleClick(undefined)}
           >
             <PanelLeftClose />
