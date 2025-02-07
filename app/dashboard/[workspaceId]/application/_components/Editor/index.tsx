@@ -8,7 +8,6 @@ interface ComponentData {
   x: number;
   y: number;
   content: string;
-  rect?: any;
   // Add more configurable properties as needed
 }
 type Props = {
@@ -17,15 +16,11 @@ type Props = {
 
 // create array of nested id's of components1
 
-const Draggable = ({ id, content, x, y, rect }: ComponentData) => {
+const Draggable = ({ id, content, x, y }: ComponentData) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: id,
     });
-
-  if (!rect) {
-    return null;
-  }
 
   const style = {
     transform: transform
@@ -53,30 +48,19 @@ const Draggable = ({ id, content, x, y, rect }: ComponentData) => {
 };
 
 const Editor = ({ data }: Props) => {
-  const testRef = React.useRef<HTMLDivElement>(null);
-  const [rect, setRect] = useState<DOMRect | undefined>();
-  useEffect(() => {
-    const rect = testRef.current?.getBoundingClientRect();
-    setRect(rect);
-    console.log(rect);
-  }, []);
-
   // This whole Component is a drag and drop zone
   const { isOver, setNodeRef } = useDroppable({
     id: "droppable",
   });
   return (
-    <div ref={testRef}>
+    <div className="w-full overflow-auto">
       <div
-        className={
-          `w-full min-h-screen` +
-          (isOver ? " border-[3px] border-green-500" : "")
-        }
+        className={`w-full min-h-screen h-full` + (isOver ? " bg-white/5" : "")}
         ref={setNodeRef}
       >
         <div className="relative w-full h-full">
           {data.map((item, index) => (
-            <Draggable key={index} {...item} rect={rect}></Draggable>
+            <Draggable key={index} {...item}></Draggable>
           ))}
         </div>
       </div>

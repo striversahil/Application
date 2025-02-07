@@ -1,11 +1,22 @@
+import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
 import React from "react";
 
-type Props = {};
+type Props = {
+  handleOpen: () => void;
+};
 
-const CodeBlock = (props: Props) => {
+const CodeBlock = ({ handleOpen }: Props) => {
   return (
-    <div className="fixed bottom-0 border border-white bg-slate-800 w-full h-[200px]">
-      CodeBlock
+    <div className="w-full h-full">
+      <div className="relative  bg-slate-800 w-full h-full">
+        <div
+          className="absolute z-50 top-2 right-0 p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
+          onClick={handleOpen}
+        >
+          <PanelBottomClose />
+        </div>
+        CodeBlock
+      </div>
     </div>
   );
 };

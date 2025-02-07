@@ -1,116 +1,97 @@
-"use client";
-import { Input } from "@components/ui/input";
+import React, { useRef } from "react";
+import CompSidebar from "./Component";
+import { LaptopMinimal, PanelLeftClose, Component } from "lucide-react";
+import Image from "next/image";
 import {
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  Sidebar as SidebarLayout,
-} from "@components/ui/Sidebar/sidebar";
-import { useDraggable } from "@dnd-kit/core";
-import React, { useState } from "react";
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@components/ui/Tooltip/tooltip";
 
-const test = [
+type Props = {};
+
+const Reference = [
   {
-    id: 11,
-    name: "Dashboard",
-    icon: "📊",
-    description: "View and manage your analytics and reports.",
+    title: "Component",
+    icon: <Component />,
   },
   {
-    id: 21,
-    name: "CRM",
-    icon: "📇",
-    description: "Manage customer relationships and interactions.",
+    title: "Workflow",
+    icon: <LaptopMinimal />,
   },
   {
-    id: 31,
-    name: "Project Management",
-    icon: "📅",
-    description: "Organize and track your projects and tasks.",
-  },
-  {
-    id: 41,
-    name: "Marketing",
-    icon: "📢",
-    description: "Plan and execute marketing campaigns.",
-  },
-  {
-    id: 51,
-    name: "Dashboard",
-    icon: "📊",
-    description: "View and manage your analytics and reports.",
-  },
-  {
-    id: 61,
-    name: "CRM",
-    icon: "📇",
-    description: "Manage customer relationships and interactions.",
-  },
-  {
-    id: 71,
-    name: "Project Management",
-    icon: "📅",
-    description: "Organize and track your projects and tasks.",
-  },
-  {
-    id: 81,
-    name: "Marketing",
-    icon: "📢",
-    description: "Plan and execute marketing campaigns.",
+    title: "Preview",
+    icon: <LaptopMinimal />,
   },
 ];
 
-// Draggable Component
-const Draggable = ({ id, name, icon, description }: any) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: id,
-    data: {
-      type: "item",
-    },
-  });
-  return (
-    <div
-      ref={setNodeRef}
-      style={{
-        transform: transform
-          ? `translate(${transform.x}px, ${transform.y}px)`
-          : undefined,
-      }}
-      {...attributes}
-      {...listeners}
-      className="bg-white/20 p-2 rounded-lg text-center"
-    >
-      {name}
-    </div>
-  );
-};
+// Add no. of Sidebar as per need
+const Navigators = Array(3).fill(false);
 
-const Sidebar = () => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "sidebar",
-    data: {
-      type: "sidebar",
-    },
-  });
+const Sidebar = (props: Props) => {
+  const [State, setState] = React.useState(Navigators);
+
+  const handleClick = (index: number | undefined) => {
+    const newState = [...Navigators];
+    if (index !== undefined && !State[index]) {
+      newState[index] = !newState[index];
+    }
+    setState(newState);
+  };
 
   return (
-    <div className=" ">
-      <SidebarLayout className="bg-blue-800 h-fill">
-        <SidebarHeader className="h-[100px] flex items-center justify-center">
-          <Input
-            className=" text-white bg-white/20 p-2 rounded-lg w-full "
-            placeholder="Search ..."
-          ></Input>
-        </SidebarHeader>
-        <SidebarContent className="flex flex-col py-[10%]">
-          <div className="grid grid-cols-2 gap-5 mx-2">
-            {test.map((item) => (
-              <Draggable {...item} key={item.id} />
-            ))}
+    <div className="flex z-10 duration-1000">
+      <TooltipProvider>
+        <div className="w-fit h-full bg-inherit flex-col bg-slate-900 space-y-10">
+          <Tooltip>
+            <TooltipTrigger>
+              <Image
+                src={"/apotzalogo.jpg"}
+                width={50}
+                height={50}
+                alt="brand_pic"
+                className="m-2 bg-white/20 rounded-xl cursor-pointer hover:animate-pulse"
+                onClick={() => window.location.reload()}
+              />
+            </TooltipTrigger>
+            <TooltipContent>Apotza</TooltipContent>
+          </Tooltip>
+          {/* Todo : Add Navigations as per need */}
+          {Reference.map((item, index) => (
+            <div key={index} className="w-full flex justify-center">
+              <Tooltip>
+                <TooltipTrigger>
+                  <div
+                    className="w-fit justify-center cursor-pointer hover:bg-white/10 p-2 duration-200 rounded-md"
+                    onClick={() => handleClick(index)}
+                  >
+                    {State[index] ? <PanelLeftClose /> : item.icon}
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>{item.title}</TooltipContent>
+              </Tooltip>
+            </div>
+          ))}
+        </div>
+      </TooltipProvider>
+      {/* Add Custom Sidebar's for Different Usecases */}
+      {State.includes(true) && (
+        <div
+          className="absolute top-[10%] left-[3%] h-[70vh] outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md"
+          onMouseLeave={() => handleClick(undefined)}
+        >
+          {State[0] && <CompSidebar />}
+          {State[1] && <CompSidebar />}
+          {State[2] && <CompSidebar />}
+          <div
+            className="absolute top-0 -right-[12%] p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
+            onClick={() => handleClick(undefined)}
+          >
+            <PanelLeftClose />
           </div>
-        </SidebarContent>
-        <SidebarFooter className=""></SidebarFooter>
-      </SidebarLayout>
+        </div>
+      )}
     </div>
   );
 };
