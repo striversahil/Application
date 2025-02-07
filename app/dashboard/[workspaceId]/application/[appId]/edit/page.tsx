@@ -2,6 +2,7 @@
 import Editor from "../../_components/Editor";
 
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
+import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
 
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
@@ -86,6 +87,13 @@ const page = (props: Props) => {
     setActiveId("");
   };
 
+  const [openCode, setOpenCode] = React.useState(true);
+
+  const handleOpenCode = () => {
+    setOpenCode(!openCode);
+    console.log(openCode);
+  };
+
   return (
     <DndContext
       onDragEnd={handleDragEnd}
@@ -108,9 +116,16 @@ const page = (props: Props) => {
                   <Editor data={Data} />
                 </Panel>
                 <PanelResizeHandle />
-                <Panel defaultSize={20} collapsible minSize={10}>
-                  <CodeBlock />
-                </Panel>
+                {openCode && (
+                  <Panel
+                    defaultSize={20}
+                    collapsible
+                    minSize={10}
+                    onCollapse={handleOpenCode}
+                  >
+                    <CodeBlock handleOpen={handleOpenCode} />
+                  </Panel>
+                )}
               </PanelGroup>
             </Panel>
             <PanelResizeHandle />
@@ -118,6 +133,14 @@ const page = (props: Props) => {
               <ConfigFolder />
             </Panel>
           </PanelGroup>
+          {!openCode && (
+            <div
+              className="fixed bottom-2 right-[50%] p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+              onClick={handleOpenCode}
+            >
+              <PanelBottomOpen />
+            </div>
+          )}
         </main>
       </div>
     </DndContext>
