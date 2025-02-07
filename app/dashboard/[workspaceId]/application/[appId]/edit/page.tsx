@@ -2,7 +2,11 @@
 import Editor from "../../_components/Editor";
 
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
-import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
+import {
+  PanelBottomClose,
+  PanelBottomOpen,
+  PanelRightOpen,
+} from "lucide-react";
 
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
@@ -88,10 +92,14 @@ const page = (props: Props) => {
   };
 
   const [openCode, setOpenCode] = React.useState(true);
+  const [openConfig, setOpenConfig] = React.useState(true);
 
   const handleOpenCode = () => {
     setOpenCode(!openCode);
-    console.log(openCode);
+  };
+
+  const handleOpenConfig = () => {
+    setOpenConfig(!openConfig);
   };
 
   return (
@@ -129,9 +137,17 @@ const page = (props: Props) => {
               </PanelGroup>
             </Panel>
             <PanelResizeHandle />
-            <Panel defaultSize={20} minSize={10} collapsible maxSize={40}>
-              <ConfigFolder />
-            </Panel>
+            {openConfig && (
+              <Panel
+                defaultSize={20}
+                minSize={10}
+                collapsible
+                onCollapse={handleOpenConfig}
+                maxSize={40}
+              >
+                <ConfigFolder handleOpen={handleOpenConfig} />
+              </Panel>
+            )}
           </PanelGroup>
           {!openCode && (
             <div
@@ -139,6 +155,14 @@ const page = (props: Props) => {
               onClick={handleOpenCode}
             >
               <PanelBottomOpen />
+            </div>
+          )}
+          {!openConfig && (
+            <div
+              className="fixed top-2 right-0 p-2 bg-black/50 rounded-xl cursor-pointer hover:bg-white/10"
+              onClick={handleOpenConfig}
+            >
+              <PanelRightOpen />
             </div>
           )}
         </main>
