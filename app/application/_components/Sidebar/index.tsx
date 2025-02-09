@@ -77,10 +77,7 @@ const Sidebar = (props: Props) => {
       </TooltipProvider>
       {/* Add Custom Sidebar's for Different Usecases */}
       {State.includes(true) && (
-        <div
-          className="absolute top-[10%] left-[3%] h-[70vh] outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md"
-          onMouseLeave={() => handleClick(undefined)}
-        >
+        <div className="absolute top-[10%] left-[3%] h-[70vh] outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md">
           {State[0] && <CompSidebar />}
           {State[1] && <CompSidebar />}
           {State[2] && <CompSidebar />}

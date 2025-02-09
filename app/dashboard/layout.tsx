@@ -2,7 +2,6 @@
 import { getUserInfo } from "@actions/user";
 import { redirect } from "next/navigation";
 import React from "react";
-import useBackend from "../../hooks/useBackend";
 
 type Props = {
   children: React.ReactNode;

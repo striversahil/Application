@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { CSS } from "@dnd-kit/utilities";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 interface ComponentData {

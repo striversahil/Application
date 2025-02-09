@@ -21,6 +21,7 @@ interface ComponentData {
   // Add more configurable properties as needed
 }
 
+// Configur Each Component Based on it's type
 const ConfigPanel = ({
   selectedItem,
   updateItem,
