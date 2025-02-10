@@ -1,5 +1,6 @@
 "use client";
 import { getApplicationInfo } from "@actions/user";
+import { Skeleton } from "@components/ui/skeleton";
 import { useQueryData } from "@hooks/useQueryData";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -7,10 +8,14 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const { isLoading, data } = useQueryData("workspace", getApplicationInfo());
+  const { isLoading, data } = useQueryData("application", getApplicationInfo());
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Skeleton className="w-screen h-screen rounded-md " />
+      </div>
+    );
   }
 
   console.log(data);

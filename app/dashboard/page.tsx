@@ -18,7 +18,7 @@ const page = (props: Props) => {
     redirect("/login");
   }
   if (data && data.statusCode === 200) {
-    redirect(`/dashboard/${data.payload.workspaces[0]}`);
+    redirect(`/dashboard/${data.payload.workspaces[0]._id}`);
   }
 
   return (

@@ -1,10 +1,66 @@
-import { Input } from "@components/ui/input";
 import React from "react";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
+import { TextComponentData } from "../_types/text";
 
-type Props = {};
+const ConfigPanelText = ({
+  selectedItem,
+  updateItem,
+}: {
+  selectedItem: TextComponentData | null;
+  updateItem: (newData: TextComponentData) => void;
+}) => {
+  if (!selectedItem) return null;
 
-const Config = (props: Props) => {
-  return <Input type="text" id="text" name="text" />;
+  return (
+    <>
+      <h2 className="text-lg font-bold mb-4">Text Settings</h2>
+      <div className="space-y-4">
+        {/* I will Create this Config Panel Saparately for each Component */}
+        <div>
+          <Label>Padding</Label>
+          <Input
+            type="range"
+            min="0"
+            max="32"
+            value={selectedItem.padding}
+            onChange={(e) =>
+              updateItem({
+                ...selectedItem,
+                padding: Number(e.target.value),
+              })
+            }
+          />
+        </div>
+        <div>
+          <Label>Content</Label>
+          <Input
+            type="text"
+            value={selectedItem.content}
+            onChange={(e) =>
+              updateItem({
+                ...selectedItem,
+                content: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div>
+          <Label>Alignment</Label>
+          <Input
+            type="text"
+            value={selectedItem.alignment}
+            onChange={(e) =>
+              updateItem({
+                ...selectedItem,
+                alignment: e.target.value,
+              })
+            }
+          />
+        </div>
+      </div>
+    </>
+  );
 };
 
-export default Config;
+export default ConfigPanelText;

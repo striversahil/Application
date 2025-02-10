@@ -3,11 +3,10 @@ import { PanelRightClose, PanelRightOpen } from "lucide-react";
 
 type Props = {
   handleOpen: () => void;
-  compData?: any;
-  newData?: (data: any) => void;
+  children?: React.ReactNode;
 };
 
-const ConfigFolder = ({ handleOpen }: Props) => {
+const ConfigFolder = ({ handleOpen, children }: Props) => {
   return (
     <div className="w-full h-full bg-slate-500 ">
       <div
@@ -17,6 +16,7 @@ const ConfigFolder = ({ handleOpen }: Props) => {
         <PanelRightClose />
       </div>
       ConfigFolder
+      {children}
     </div>
   );
 };
