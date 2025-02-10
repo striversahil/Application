@@ -23,7 +23,7 @@ export const getWorkspaceInfo = async () => {
   return response.data;
 };
 
-export const getApplicationInfo = async () => {
+export const getProjectInfo = async () => {
   const response = await axios.get(`${source}/project`);
   return response.data;
 };

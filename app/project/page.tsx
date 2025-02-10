@@ -1,5 +1,5 @@
 "use client";
-import { getApplicationInfo } from "@actions/user";
+import { getProjectInfo } from "@actions/user";
 import { Skeleton } from "@components/ui/skeleton";
 import { useQueryData } from "@hooks/useQueryData";
 import { redirect } from "next/navigation";
@@ -8,7 +8,7 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const { isLoading, data } = useQueryData("application", getApplicationInfo);
+  const { isLoading, data } = useQueryData("project", getProjectInfo);
 
   if (isLoading) {
     return (
@@ -25,7 +25,7 @@ const page = (props: Props) => {
   }
 
   if (data && data.statusCode === 200) {
-    redirect(`/application/${data.payload._id}`);
+    redirect(`/project/${data.payload._id}`);
   }
 
   return <div>{JSON.stringify(data)}</div>;
