@@ -32,13 +32,14 @@ interface ComponentData {
   id: number;
   x: number;
   y: number;
-  content: string;
+  payload: any;
   // Add more configurable properties as needed
 }
 
 const test: ComponentData[] = [];
 
 const page = (props: Props) => {
+  // Data will be query from DB
   const [Data, setData] = useState<ComponentData[]>(test);
   const [activeId, setActiveId] = useState<string>("");
   const [IsDropped, setIsDropped] = useState(false);
@@ -59,7 +60,7 @@ const page = (props: Props) => {
         ...initialData,
         {
           id: initialData.length + 144,
-          content: "Component " + (initialData.length + 144),
+          payload: "Component " + (initialData.length + 144),
           x: mouseX,
           y: mouseY, // Fixed typo here
         },
@@ -71,7 +72,7 @@ const page = (props: Props) => {
         ...filtered_array,
         {
           id: Presence_array[0]?.id ?? 0,
-          content: Presence_array[0]?.content ?? "",
+          payload: Presence_array[0]?.payload ?? "",
           x: event.delta.x + Presence_array[0]?.x,
           y: event.delta.y + Presence_array[0]?.y,
         },
@@ -150,7 +151,13 @@ const page = (props: Props) => {
                 onCollapse={handleOpenConfig}
                 maxSize={40}
               >
-                <ConfigFolder handleOpen={handleOpenConfig} />
+                <ConfigFolder handleOpen={handleOpenConfig}>
+                  {/* Add Here Config Individual component with   
+                  selectedItem={items.find((item) => item.id === selectedId) || null}
+                  updateItem={updateItem}
+                  
+                  */}
+                </ConfigFolder>
               </Panel>
             )}
           </PanelGroup>

@@ -8,7 +8,7 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const { isLoading, data } = useQueryData("application", getApplicationInfo());
+  const { isLoading, data } = useQueryData("application", getApplicationInfo);
 
   if (isLoading) {
     return (

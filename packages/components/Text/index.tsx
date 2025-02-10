@@ -3,11 +3,11 @@ import { TextComponentData } from "../_types/text";
 import { Input } from "@components/ui/input";
 import { cn } from "@/lib/utils";
 
-const TextDemoComponent = ({
+const TextComponent = ({
   padding = 0,
   content = "Some Demo Text",
   alignment = "left",
-}: TextComponentData) => {
+}: TextComponentData): JSX.Element => {
   return (
     <div>
       <Input
@@ -22,4 +22,4 @@ const TextDemoComponent = ({
   );
 };
 
-export default TextDemoComponent;
+export default TextComponent;

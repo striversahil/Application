@@ -3,7 +3,7 @@ import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { TextComponentData } from "../_types/text";
 
-const ConfigPanelText = ({
+const TextConfigPanel = ({
   selectedItem,
   updateItem,
 }: {
@@ -63,4 +63,4 @@ const ConfigPanelText = ({
   );
 };
 
-export default ConfigPanelText;
+export default TextConfigPanel;

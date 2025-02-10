@@ -6,7 +6,7 @@ interface ComponentData {
   id: number;
   x: number;
   y: number;
-  content: string;
+  payload: any;
   // Add more configurable properties as needed
 }
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 
 // create array of nested id's of components1
 
-const Draggable = ({ id, content, x, y }: ComponentData) => {
+const Draggable = ({ id, payload, x, y }: ComponentData) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: id,
@@ -41,7 +41,7 @@ const Draggable = ({ id, content, x, y }: ComponentData) => {
       className="bg-white rounded shadow-md touch-none w-fit text-black"
     >
       {/* Your content here */}
-      {content}
+      {payload}
     </div>
   );
 };

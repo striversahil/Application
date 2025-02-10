@@ -7,6 +7,7 @@ import {
 import { Input } from "@components/ui/input";
 import { useDraggable } from "@dnd-kit/core";
 import React, { useState } from "react";
+import { ReferenceSidebarComponents } from "@packages/common/referenceSidebarComponents";
 
 type SidebarProps = {
   children?: React.ReactNode;
@@ -64,13 +65,14 @@ const test = [
 ];
 
 // Draggable Component
-const Draggable = ({ id, name, icon, description }: any) => {
+const Draggable = ({ title, target }: any) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: id,
+    id: target,
     data: {
       type: "item",
     },
   });
+  console.log(target);
   return (
     <div
       ref={setNodeRef}
@@ -83,7 +85,7 @@ const Draggable = ({ id, name, icon, description }: any) => {
       {...listeners}
       className="bg-white/20 p-2 rounded-lg text-center"
     >
-      {name}
+      {title}
     </div>
   );
 };
@@ -100,9 +102,11 @@ const CompSidebar = ({ children }: SidebarProps) => {
         </div>
         <div className="flex flex-col py-[10%]">
           <div className="grid grid-cols-2 gap-5 mx-2">
-            {test.map((item) => (
-              <Draggable {...item} key={item.id} />
-            ))}
+            {ReferenceSidebarComponents.map(
+              (item: Record<string, any>, index: number) => (
+                <Draggable {...item} key={index} />
+              )
+            )}
           </div>
         </div>
       </div>
