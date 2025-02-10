@@ -59,8 +59,8 @@ const page = (props: Props) => {
       setData((initialData) => [
         ...initialData,
         {
-          id: initialData.length + 144,
-          payload: "Component " + (initialData.length + 144),
+          id: Date.now(),
+          payload: "Component " + Date.now(),
           x: mouseX,
           y: mouseY, // Fixed typo here
         },

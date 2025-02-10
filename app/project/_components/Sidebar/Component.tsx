@@ -8,6 +8,7 @@ import { Input } from "@components/ui/input";
 import { useDraggable } from "@dnd-kit/core";
 import React, { useState } from "react";
 import { ReferenceSidebarComponents } from "@packages/common/referenceSidebarComponents";
+import { cn } from "@/lib/utils";
 
 type SidebarProps = {
   children?: React.ReactNode;
@@ -65,14 +66,14 @@ const test = [
 ];
 
 // Draggable Component
-const Draggable = ({ title, target }: any) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: target,
-    data: {
-      type: "item",
-    },
-  });
-  console.log(target);
+const Draggable = ({ id, title, target }: any) => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: id,
+      data: {
+        type: "item",
+      },
+    });
   return (
     <div
       ref={setNodeRef}
@@ -83,9 +84,12 @@ const Draggable = ({ title, target }: any) => {
       }}
       {...attributes}
       {...listeners}
-      className="bg-white/20 p-2 rounded-lg text-center"
+      className={cn(
+        "bg-white/20 p-2 rounded-lg text-center",
+        isDragging ? "cursor-grabbing" : "cursor-grab"
+      )}
     >
-      {title}
+      <div>{isDragging ? "Dragging Right Now 🌿" : title}</div>
     </div>
   );
 };
