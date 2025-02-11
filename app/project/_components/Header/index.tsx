@@ -15,7 +15,7 @@ const Header = (props: Props) => {
         {isLoading ? (
           <Skeleton className="w-[500px] h-[40px] rounded-md" />
         ) : (
-          data.payload.name
+          data?.payload.name || "Project Name"
         )}
       </h1>
     </div>

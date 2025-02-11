@@ -1,5 +1,9 @@
 import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
 import React from "react";
+import Tabs from "./tabs";
+import Steps from "./steps";
+import EditorCode from "./editor";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 type Props = {
   handleOpen: () => void;
@@ -7,16 +11,17 @@ type Props = {
 
 const CodeBlock = ({ handleOpen }: Props) => {
   return (
-    <div className="w-full h-full">
-      <div className="relative  bg-slate-800 w-full h-full">
-        <div
-          className="absolute z-50 top-2 right-0 p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
-          onClick={handleOpen}
-        >
-          <PanelBottomClose />
-        </div>
-        CodeBlock
-      </div>
+    <div className="w-full h-full bg-slate-800">
+      <Tabs handleOpen={handleOpen} />
+      <PanelGroup direction="horizontal">
+        <Panel defaultSize={20} minSize={20} maxSize={50}>
+          <Steps />
+        </Panel>
+        <PanelResizeHandle />
+        <Panel defaultSize={80} minSize={20} maxSize={100}>
+          <EditorCode />
+        </Panel>
+      </PanelGroup>
     </div>
   );
 };

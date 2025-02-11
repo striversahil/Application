@@ -42,7 +42,7 @@ export const newProject = async () => {
   return response.data;
 };
 
-// +++++++++++++++++++++++         Project Actions                +++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++         Component Actions                +++++++++++++++++++++++++++++++++++++++
 
 export const getComponents = async () => {
   const response = await axios.get(`${source}/project`);
