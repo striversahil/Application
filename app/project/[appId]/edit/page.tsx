@@ -1,5 +1,5 @@
 "use client";
-import Editor from "../../_components/Editor";
+import EditorCanvas from "../../_components/EditorCanvas";
 
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import {
@@ -121,8 +121,8 @@ const page = (props: Props) => {
           <PanelGroup direction="horizontal">
             <Panel defaultSize={80} minSize={40}>
               <PanelGroup direction="vertical">
-                <Panel defaultSize={80} minSize={40}>
-                  <Editor data={Data} />
+                <Panel defaultSize={80}>
+                  <EditorCanvas data={Data} />
                 </Panel>
                 {openCode && (
                   <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
@@ -132,7 +132,6 @@ const page = (props: Props) => {
                     defaultSize={30}
                     collapsible
                     minSize={10}
-                    maxSize={40}
                     onCollapse={handleOpenCode}
                   >
                     <CodeBlock handleOpen={handleOpenCode} />

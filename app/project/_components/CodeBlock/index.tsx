@@ -17,7 +17,7 @@ const CodeBlock = ({ handleOpen }: Props) => {
         <Panel defaultSize={20} minSize={20} maxSize={50}>
           <Steps />
         </Panel>
-        <PanelResizeHandle />
+        <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
         <Panel defaultSize={80} minSize={20} maxSize={100}>
           <EditorCode />
         </Panel>

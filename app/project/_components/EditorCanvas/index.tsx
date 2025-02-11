@@ -46,7 +46,7 @@ const Draggable = ({ id, payload, x, y }: ComponentData) => {
   );
 };
 
-const Editor = ({ data }: Props) => {
+const EditorCanvas = ({ data }: Props) => {
   // This whole Component is a drag and drop zone
   const { isOver, setNodeRef } = useDroppable({
     id: "droppable",
@@ -67,4 +67,4 @@ const Editor = ({ data }: Props) => {
   );
 };
 
-export default Editor;
+export default EditorCanvas;

@@ -11,7 +11,7 @@ const EditorCode = (props: Props) => {
         <Panel defaultSize={50} minSize={20} maxSize={100}>
           <div>Editor</div>
         </Panel>
-        <PanelResizeHandle />
+        <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
         <Panel defaultSize={50} minSize={20} maxSize={100}>
           <Output />
         </Panel>
