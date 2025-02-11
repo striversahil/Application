@@ -1,3 +1,4 @@
+import { PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import React from "react";
 
 interface ComponentData {
@@ -10,12 +11,15 @@ interface ComponentData {
 const test: ComponentData[] = [];
 
 export const useDragEnd = () => {
-
   const [Data, setData] = React.useState<ComponentData[]>(test);
 
   const [activeId, setActiveId] = React.useState<string>("");
   const [IsDropped, setIsDropped] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
+  );
 
   const filterOperation = (event: any, mouseX: number, mouseY: number) => {
     const { active } = event;
@@ -69,5 +73,6 @@ export const useDragEnd = () => {
     setIsDropped,
     setIsDragging,
     handleDragEnd,
+    sensors,
   };
 };

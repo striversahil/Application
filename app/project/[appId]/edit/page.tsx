@@ -2,24 +2,14 @@
 import EditorCanvas from "../../_components/EditorCanvas";
 
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
-import {
-  PanelBottomClose,
-  PanelBottomOpen,
-  PanelRightOpen,
-} from "lucide-react";
+import { PanelRightOpen } from "lucide-react";
 
-import React, { useEffect, useState } from "react";
+import React, { use } from "react";
 import Sidebar from "../../_components/Sidebar";
-import {
-  SidebarProvider,
-  SidebarRail,
-  SidebarTrigger,
-} from "@components/ui/Sidebar/sidebar";
 import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
 import {
   DndContext,
-  DragOverlay,
   PointerSensor,
   useSensor,
   useSensors,
@@ -27,28 +17,22 @@ import {
 import Header from "../../_components/Header";
 import Tabs from "../../_components/CodeBlock/tabs";
 import { useDragEnd } from "@app/project/hooks/usedragEnd";
+import { useOpen } from "@app/project/hooks/useOpenCode";
 
 type Props = {};
 
 const page = (props: Props) => {
   // Data will be query from DB
-  const { Data, handleDragEnd, setActiveId, setIsDropped, setIsDragging } =
-    useDragEnd();
+  const {
+    Data,
+    handleDragEnd,
+    setActiveId,
+    setIsDropped,
+    setIsDragging,
+    sensors,
+  } = useDragEnd();
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
-  );
-
-  const [openCode, setOpenCode] = React.useState(true);
-  const [openConfig, setOpenConfig] = React.useState(true);
-
-  const handleOpenCode = () => {
-    setOpenCode(!openCode);
-  };
-
-  const handleOpenConfig = () => {
-    setOpenConfig(!openConfig);
-  };
+  const { openCode, openConfig, handleOpenCode, handleOpenConfig } = useOpen();
 
   return (
     <DndContext
