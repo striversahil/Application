@@ -8,7 +8,12 @@ type Props = {
 };
 
 const Tabs = (props: Props) => {
-  const HandleOpen = (props: Props): React.JSX.Element => {
+  const handleOpen = () => {
+    if (props.Open === false) {
+      props.handleOpen();
+    }
+  };
+  const HandleOpenIcon = (): React.JSX.Element => {
     return (
       <div
         className="absolute z-50 top-0 right-0 p-1 bg-red-500 rounded-md cursor-pointer hover:bg-red-500/50"
@@ -22,24 +27,13 @@ const Tabs = (props: Props) => {
   return (
     <div
       className={cn(
-        "relative w-full h-[3vh]  bg-black",
-        props.Open === true && "hidden"
+        "relative w-full h-[3vh] bg-black",
+        props.Open === false && "cursor-pointer"
       )}
+      onClick={handleOpen}
     >
-      <HandleOpen handleOpen={props.handleOpen} Open={props.Open} />
-      <div
-        className={cn(
-          "w-full h-full bg-black/50 ",
-          props.Open === false && "cursor-pointer"
-        )}
-        onClick={() => {
-          if (props.Open === false) {
-            props.handleOpen();
-          }
-        }}
-      >
-        Tabs
-      </div>
+      <HandleOpenIcon />
+      <div>Tabs</div>
     </div>
   );
 };

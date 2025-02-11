@@ -8,12 +8,7 @@ import React, { use } from "react";
 import Sidebar from "../../_components/Sidebar";
 import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
-import {
-  DndContext,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 import Header from "../../_components/Header";
 import Tabs from "../../_components/CodeBlock/tabs";
 import { useDragEnd } from "@app/project/hooks/usedragEnd";
@@ -22,7 +17,6 @@ import { useOpen } from "@app/project/hooks/useOpenCode";
 type Props = {};
 
 const page = (props: Props) => {
-  // Data will be query from DB
   const {
     Data,
     handleDragEnd,
