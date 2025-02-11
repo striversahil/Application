@@ -25,6 +25,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import Header from "../../_components/Header";
+import Tabs from "../../_components/CodeBlock/tabs";
 
 type Props = {};
 
@@ -97,6 +98,7 @@ const page = (props: Props) => {
 
   const handleOpenCode = () => {
     setOpenCode(!openCode);
+    console.log(openCode);
   };
 
   const handleOpenConfig = () => {
@@ -129,13 +131,16 @@ const page = (props: Props) => {
                 )}
                 {openCode && (
                   <Panel
-                    defaultSize={30}
+                    defaultSize={40}
+                    minSize={20}
                     collapsible
-                    minSize={10}
                     onCollapse={handleOpenCode}
                   >
                     <CodeBlock handleOpen={handleOpenCode} />
                   </Panel>
+                )}
+                {!openCode && (
+                  <Tabs handleOpen={handleOpenCode} Open={openCode} />
                 )}
               </PanelGroup>
             </Panel>
@@ -160,14 +165,6 @@ const page = (props: Props) => {
               </Panel>
             )}
           </PanelGroup>
-          {!openCode && (
-            <div
-              className="fixed bottom-2 right-[50%] p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
-              onClick={handleOpenCode}
-            >
-              <PanelBottomOpen />
-            </div>
-          )}
           {!openConfig && (
             <div
               className="fixed top-2 right-0 p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
