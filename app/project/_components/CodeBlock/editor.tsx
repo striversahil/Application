@@ -1,6 +1,7 @@
 import React from "react";
 import Output from "./output";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { Panel, PanelGroup } from "react-resizable-panels";
+import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 
 type Props = {};
 
@@ -11,7 +12,7 @@ const EditorCode = (props: Props) => {
         <Panel defaultSize={50} minSize={20} maxSize={100}>
           <div>Editor</div>
         </Panel>
-        <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
+        <PanelResizeHandleComp />
         <Panel defaultSize={50} minSize={20} maxSize={100}>
           <Output />
         </Panel>

@@ -13,6 +13,7 @@ import Header from "../../_components/Header";
 import Tabs from "../../_components/CodeBlock/tabs";
 import { useDragEnd } from "@app/project/hooks/usedragEnd";
 import { useOpen } from "@app/project/hooks/useOpenCode";
+import PanelResizeHandleComp from "@app/project/_components/utils/PanelResizeHandle";
 
 type Props = {};
 
@@ -40,18 +41,16 @@ const page = (props: Props) => {
     >
       <div className="relative flex min-h-screen bg-slate-950">
         <Sidebar />
-        <Header />
         <main className="relative flex-1 w-full">
           {/* Main Resizable Pannel Start's Here */}
           <PanelGroup direction="horizontal">
             <Panel defaultSize={80} minSize={40}>
               <PanelGroup direction="vertical">
                 <Panel defaultSize={60} minSize={40}>
+                  <Header />
                   <EditorCanvas data={Data} />
                 </Panel>
-                {openCode && (
-                  <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
-                )}
+                {openCode && <PanelResizeHandleComp />}
                 {openCode && (
                   <Panel
                     defaultSize={40}
