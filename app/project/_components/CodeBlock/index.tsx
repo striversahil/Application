@@ -17,7 +17,6 @@ const CodeBlock = ({}: Props) => {
     <>
       {openCode && <PanelResizeHandleComp />}
       <Tabs handleOpen={handleOpenCode} Open={openCode} />
-      {/* Here i Can Minimize the Size of CodeBlock after handle collapsible */}
       {openCode && (
         <Panel
           defaultSize={40}
