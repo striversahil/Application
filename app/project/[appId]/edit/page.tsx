@@ -27,7 +27,7 @@ const page = (props: Props) => {
     sensors,
   } = useDragEnd();
 
-  const { openCode, openConfig, handleOpenCode, handleOpenConfig } = useOpen();
+  const { openConfig, handleOpenConfig } = useOpen();
 
   return (
     <DndContext
@@ -50,20 +50,8 @@ const page = (props: Props) => {
                   <Header />
                   <EditorCanvas data={Data} />
                 </Panel>
-                {openCode && <PanelResizeHandleComp />}
-                {openCode && (
-                  <Panel
-                    defaultSize={40}
-                    minSize={20}
-                    collapsible
-                    onCollapse={handleOpenCode}
-                  >
-                    <CodeBlock handleOpen={handleOpenCode} />
-                  </Panel>
-                )}
-                {!openCode && (
-                  <Tabs handleOpen={handleOpenCode} Open={openCode} />
-                )}
+                <PanelResizeHandleComp />
+                <CodeBlock />
               </PanelGroup>
             </Panel>
             {openConfig && (
@@ -90,7 +78,7 @@ const page = (props: Props) => {
           {!openConfig && (
             <div
               className="fixed top-2 right-0 p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
-              onClick={handleOpenConfig}
+              onClick={() => handleOpenConfig()}
             >
               <PanelRightOpen />
             </div>
