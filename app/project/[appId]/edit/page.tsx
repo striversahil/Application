@@ -50,7 +50,7 @@ const page = (props: Props) => {
                   <Header />
                   <EditorCanvas data={Data} />
                 </Panel>
-                <PanelResizeHandleComp />
+
                 <CodeBlock />
               </PanelGroup>
             </Panel>

@@ -6,6 +6,7 @@ import EditorCode from "./editor";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Tabs as TabsRoot } from "@components/ui/tabs";
 import { useOpen } from "@app/project/hooks/useOpenCode";
+import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 
 type Props = {};
 
@@ -14,28 +15,31 @@ const CodeBlock = ({}: Props) => {
 
   return (
     <>
+      {openCode && <PanelResizeHandleComp />}
       <Tabs handleOpen={handleOpenCode} Open={openCode} />
-      <Panel
-        defaultSize={40}
-        minSize={20}
-        collapsible
-        onCollapse={handleOpenCode}
-      >
-        {/* Here i Can Minimize the Size of CodeBlock after handle collapsible */}
-        <div className="w-full h-full bg-slate-800">
-          <TabsRoot className="w-full h-full">
-            <PanelGroup direction="horizontal">
-              <Panel defaultSize={20} minSize={20} maxSize={50}>
-                <Steps />
-              </Panel>
-              <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
-              <Panel defaultSize={80} minSize={20} maxSize={80}>
-                <EditorCode />
-              </Panel>
-            </PanelGroup>
-          </TabsRoot>
-        </div>
-      </Panel>
+      {/* Here i Can Minimize the Size of CodeBlock after handle collapsible */}
+      {openCode && (
+        <Panel
+          defaultSize={40}
+          minSize={20}
+          collapsible
+          onCollapse={handleOpenCode}
+        >
+          <div className="w-full h-full bg-slate-800">
+            <TabsRoot className="w-full h-full">
+              <PanelGroup direction="horizontal">
+                <Panel defaultSize={20} minSize={20} maxSize={50}>
+                  <Steps />
+                </Panel>
+                <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
+                <Panel defaultSize={80} minSize={20} maxSize={80}>
+                  <EditorCode />
+                </Panel>
+              </PanelGroup>
+            </TabsRoot>
+          </div>
+        </Panel>
+      )}
     </>
   );
 };
