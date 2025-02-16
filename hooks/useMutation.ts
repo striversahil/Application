@@ -18,6 +18,23 @@ export const useMutationData = (
   const { mutate, isPending } = useMutation({
     mutationKey,
     mutationFn,
+    onMutate: async (variables) => {
+      await client.cancelQueries({
+        queryKey: [queryKey],
+        exact: true,
+      });
+      // Optimistic update to the cache
+      const previousData = client.getQueryData([queryKey]);
+      client.setQueryData([queryKey], (previousData: any) => ({
+        ...previousData,
+        payload: [...previousData.payload, variables],
+      }));
+      return { variables, previousData };
+    },
+
+    onError: (error, variables, context) => {
+      client.setQueryData([queryKey], context?.previousData);
+    },
     onSuccess(data) {
       if (onSuccess) onSuccess(); // Calling onSuccess if provided
 
@@ -25,8 +42,8 @@ export const useMutationData = (
         description: JSON.stringify(data),
       });
     },
-    onSettled: async () => {
-      return await client.invalidateQueries({
+    onSettled: () => {
+      return client.invalidateQueries({
         queryKey: [queryKey],
         exact: true,
       });

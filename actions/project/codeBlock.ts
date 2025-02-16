@@ -16,6 +16,11 @@ class CodeBlockAction {
     return response.data;
   }
 
+  static async getall() {
+    const response = await axios.get(`${source}/codeblock`);
+    return response.data;
+  }
+
   static async delete(payload: any) {
     const response = await axios.delete(`${source}/codeblock/${payload._id}`);
     return response.data;

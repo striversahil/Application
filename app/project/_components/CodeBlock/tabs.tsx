@@ -1,45 +1,60 @@
 import CodeBlockAction from "@actions/project/codeBlock";
 import ProjectAction from "@actions/project/project";
 import { Skeleton } from "@components/ui/skeleton";
+import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useMutationData } from "@hooks/useMutation";
 import { useQueryData } from "@hooks/useQueryData";
-import { CirclePlus, PanelBottomClose, PanelBottomOpen, X } from "lucide-react";
+import {
+  CirclePlus,
+  PanelBottomClose,
+  PanelBottomOpen,
+  Trash,
+  X,
+} from "lucide-react";
 import React from "react";
 
 type Props = {
   handleOpen: () => void;
   Open?: boolean;
-  BlockData: (data: any) => void;
+  // BlockData: (data: any) => void;
 };
 
 const Tabs = (props: Props) => {
-  const [codeBlock, setCodeBlock] = React.useState<Array<any>>([]);
+  // const [codeBlock, setCodeBlock] = React.useState<Array<any>>([]);
 
-  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
-  const { isPending, mutate } = useMutationData(
-    ["addCodeBlock"],
+  const { isLoading, data } = useQueryData(
+    "CodeBlockAction.getall",
+    CodeBlockAction.getall
+  );
+  const { mutate } = useMutationData(
+    ["CodeBlockAction.new"],
     CodeBlockAction.new,
-    "project"
+    "CodeBlockAction.getall"
   );
-  const { isPending: isPendingDelete, mutate: mutateDelete } = useMutationData(
-    ["deleteCodeBlock"],
+  const { mutate: mutateDelete } = useMutationData(
+    ["CodeBlockAction.delete"],
     CodeBlockAction.delete,
-    "project"
+    "CodeBlockAction.getall"
   );
 
-  React.useEffect(() => {
-    if (data) {
-      setCodeBlock(data.payload.codeBlocks);
-    }
-  }, [data]);
+  // React.useEffect(() => {
+  //   if (data) {
+  //     setCodeBlock(data.payload);
+  //   }
+  //   // codeBlock
+  // }, [data, isLoading]);
+
+  // React.useEffect(() => {
+  //   console.log(codeBlock);
+  // }, [codeBlock, isLoading]);
 
   // Todo : Move them to a separate component with React Context API
-  const handleOpen = (item: any) => {
-    if (props.Open === false) {
-      props.handleOpen();
-    }
-    props.BlockData(item);
-  };
+  // const handleOpen = (item: any) => {
+  //   if (props.Open === false) {
+  //     props.handleOpen();
+  //   }
+  //   props.BlockData(item);
+  // };
 
   const HandleOpenIcon = (): React.JSX.Element => {
     return (
@@ -66,22 +81,22 @@ const Tabs = (props: Props) => {
   return (
     <div className="relative w-full h-[40px] ">
       <HandleOpenIcon />
-      <div className="flex items-center justify-start gap-2 flex-wrap overflow-y-auto max-w-full">
+      <TabsList className="flex items-center justify-start gap-2 flex-wrap overflow-y-auto max-w-full">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
-        {codeBlock.map((item, index) => (
-          <div
+        {data?.payload.map((item: any, index: number) => (
+          <TabsTrigger
+            value={item}
             key={index}
-            className="relative bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30 select-none cursor-pointer inline-flex items-center gap-2"
-            onClick={() => handleOpen(item)}
+            className="relative bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30 select-none inline-flex items-center gap-2"
           >
             <span className="font-bold text-blue-400">{item.name}</span>
             <span
-              className=" bg-red-600 rounded-md cursor-pointer"
+              className=" bg-red-600 rounded-md cursor-pointer p-1"
               onClick={() => handleClose(item._id)}
             >
-              <X />
+              <Trash className="size-4" />
             </span>
-          </div>
+          </TabsTrigger>
         ))}
         <div
           className="bg-white/10 p-1 rounded-md border border-white/20 cursor-pointer inline-flex items-center gap-2"
@@ -89,7 +104,7 @@ const Tabs = (props: Props) => {
         >
           Add Tab <CirclePlus />
         </div>
-      </div>
+      </TabsList>
     </div>
   );
 };

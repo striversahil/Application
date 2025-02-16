@@ -12,9 +12,9 @@ type Props = {};
 
 const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
-  const [BlockData, setBlockData] = React.useState<any>({});
+  // const [BlockData, setBlockData] = React.useState<any>({});
 
-  console.log(BlockData);
+  // console.log(BlockData);
 
   return (
     <>
@@ -22,7 +22,7 @@ const CodeBlock = ({}: Props) => {
       <Tabs
         handleOpen={handleOpenCode}
         Open={openCode}
-        BlockData={(item) => setBlockData(item)}
+        // BlockData={(item) => setBlockData(item)}
       />
       {openCode && (
         <Panel
