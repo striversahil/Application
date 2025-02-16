@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import React from "react";
+import { useAddTab, useDeleteTab } from "@app/project/hooks/useOptimizedtab";
 
 type Props = {
   handleOpen: () => void;
@@ -20,41 +21,12 @@ type Props = {
 };
 
 const Tabs = (props: Props) => {
-  // const [codeBlock, setCodeBlock] = React.useState<Array<any>>([]);
-
   const { isLoading, data } = useQueryData(
     "CodeBlockAction.getall",
     CodeBlockAction.getall
   );
-  const { mutate } = useMutationData(
-    ["CodeBlockAction.new"],
-    CodeBlockAction.new,
-    "CodeBlockAction.getall"
-  );
-  const { mutate: mutateDelete } = useMutationData(
-    ["CodeBlockAction.delete"],
-    CodeBlockAction.delete,
-    "CodeBlockAction.getall"
-  );
-
-  // React.useEffect(() => {
-  //   if (data) {
-  //     setCodeBlock(data.payload);
-  //   }
-  //   // codeBlock
-  // }, [data, isLoading]);
-
-  // React.useEffect(() => {
-  //   console.log(codeBlock);
-  // }, [codeBlock, isLoading]);
-
-  // Todo : Move them to a separate component with React Context API
-  // const handleOpen = (item: any) => {
-  //   if (props.Open === false) {
-  //     props.handleOpen();
-  //   }
-  //   props.BlockData(item);
-  // };
+  const { mutateAdd } = useAddTab();
+  const { mutateDelete } = useDeleteTab();
 
   const HandleOpenIcon = (): React.JSX.Element => {
     return (
@@ -75,7 +47,7 @@ const Tabs = (props: Props) => {
 
   const handleAdd = () => {
     const random = Math.floor(Math.random() * 1000000);
-    mutate({ name: `Tab ${random}` });
+    mutateAdd({ name: `Tab ${random}` });
   };
 
   return (
