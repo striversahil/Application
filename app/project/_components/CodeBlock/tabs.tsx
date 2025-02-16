@@ -64,7 +64,7 @@ const Tabs = (props: Props) => {
   };
 
   return (
-    <div className="relative w-full h-[40px] bg-black">
+    <div className="relative w-full h-[40px] ">
       <HandleOpenIcon />
       <div className="flex items-center justify-start gap-2 flex-wrap overflow-y-auto max-w-full">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
