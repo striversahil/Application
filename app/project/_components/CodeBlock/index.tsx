@@ -12,11 +12,16 @@ type Props = {};
 
 const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
+  const [BlockData, setBlockData] = React.useState<any>({});
 
   return (
     <>
       {openCode && <PanelResizeHandleComp />}
-      <Tabs handleOpen={handleOpenCode} Open={openCode} />
+      <Tabs
+        handleOpen={handleOpenCode}
+        Open={openCode}
+        BlockData={(item) => setBlockData(item)}
+      />
       {openCode && (
         <Panel
           defaultSize={40}

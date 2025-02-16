@@ -9,7 +9,7 @@ export const useOpen = () => {
       setOpenCode(!openCode);
     }
 
-    if (event.key === "p" && event.ctrlKey) {
+    if (["m", "M"].includes(event.key) && event.ctrlKey) {
       setOpenConfig(!openConfig);
     }
   };

@@ -1,18 +1,42 @@
 import { cn } from "@/lib/utils";
-import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
+import CodeBlockAction from "@actions/project/codeBlock";
+import ProjectAction from "@actions/project/project";
+import { Skeleton } from "@components/ui/skeleton";
+import { useMutationData } from "@hooks/useMutation";
+import { useQueryData } from "@hooks/useQueryData";
+import { CirclePlus, PanelBottomClose, PanelBottomOpen } from "lucide-react";
 import React from "react";
 
 type Props = {
   handleOpen: () => void;
   Open?: boolean;
+  BlockData: (data: any) => void;
 };
 
 const Tabs = (props: Props) => {
-  const handleOpen = () => {
+  const [codeBlock, setCodeBlock] = React.useState<Array<any>>([]);
+
+  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
+  const { isPending, mutate } = useMutationData(
+    ["addCodeBlock"],
+    CodeBlockAction.new,
+    "project"
+  );
+
+  React.useEffect(() => {
+    if (data) {
+      setCodeBlock(data.payload.codeBlocks);
+    }
+  }, [data]);
+
+  // Todo : Move them to a separate component with React Context API
+  const handleOpen = (item: any) => {
     if (props.Open === false) {
       props.handleOpen();
     }
+    props.BlockData(item);
   };
+
   const HandleOpenIcon = (): React.JSX.Element => {
     return (
       <div
@@ -24,16 +48,32 @@ const Tabs = (props: Props) => {
     );
   };
 
+  const handleAdd = () => {
+    const random = Math.floor(Math.random() * 1000000);
+    mutate({ name: `Tab ${random}` });
+  };
+
   return (
-    <div
-      className={cn(
-        "relative w-full h-[3vh] bg-black",
-        props.Open === false && "cursor-pointer"
-      )}
-      onClick={handleOpen}
-    >
+    <div className="relative w-full h-[40px] bg-black">
       <HandleOpenIcon />
-      <div>Tabs</div>
+      <div className="flex items-center justify-start gap-2 flex-wrap overflow-auto">
+        {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
+        {codeBlock.map((item, index) => (
+          <div
+            key={index}
+            className="bg-white/10 p-1 rounded-md border border-white/20 select-none cursor-pointer"
+            onClick={() => handleOpen(item)}
+          >
+            {item.name}
+          </div>
+        ))}
+        <div
+          className="bg-white/10 p-1 rounded-md border border-white/20 cursor-pointer inline-flex items-center gap-2"
+          onClick={handleAdd}
+        >
+          Add Tab <CirclePlus />
+        </div>
+      </div>
     </div>
   );
 };

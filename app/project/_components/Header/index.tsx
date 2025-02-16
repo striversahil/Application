@@ -1,5 +1,5 @@
 "use client";
-import { getProjectInfo } from "@actions/user";
+import ProjectAction from "@actions/project/project";
 import { Input } from "@components/ui/input";
 import { Skeleton } from "@components/ui/skeleton";
 import { useQueryData } from "@hooks/useQueryData";
@@ -8,7 +8,7 @@ import React from "react";
 type Props = {};
 
 const Header = (props: Props) => {
-  const { isLoading, data } = useQueryData("project", getProjectInfo);
+  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
   return (
     <div className="relative top-0 w-full h-[5vh] bg-slate-900 text-center flex justify-center">
       <h1 className="flex items-center text-3xl text-white font-bold text-center">

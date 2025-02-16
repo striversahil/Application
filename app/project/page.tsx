@@ -1,5 +1,5 @@
 "use client";
-import { getProjectInfo } from "@actions/user";
+import ProjectAction from "@actions/project/project";
 import { Skeleton } from "@components/ui/skeleton";
 import { useQueryData } from "@hooks/useQueryData";
 import { redirect } from "next/navigation";
@@ -8,7 +8,7 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const { isLoading, data } = useQueryData("project", getProjectInfo);
+  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
 
   if (isLoading) {
     return (

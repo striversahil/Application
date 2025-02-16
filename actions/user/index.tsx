@@ -30,18 +30,6 @@ export const getWorkspaceInfo = async () => {
   return response.data;
 };
 
-// ++++++++++++++++++++++         Project Actions                +++++++++++++++++++++++++++++++++++++++
-
-export const getProjectInfo = async () => {
-  const response = await axios.get(`${source}/project`);
-  return response.data;
-};
-
-export const newProject = async () => {
-  const response = await axios.get(`${source}/project/new`);
-  return response.data;
-};
-
 // +++++++++++++++++++++++         Component Actions                +++++++++++++++++++++++++++++++++++++++
 
 export const getComponents = async () => {
