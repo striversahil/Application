@@ -10,8 +10,8 @@ import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
 import { DndContext } from "@dnd-kit/core";
 import Header from "../../_components/Header";
-import { useDragEnd } from "@app/project/hooks/usedragEnd";
-import { useOpen } from "@app/project/hooks/useOpenCode";
+import { useDragEnd } from "@app/project/_hooks/usedragEnd";
+import { useOpen } from "@app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "@app/project/_components/utils/PanelResizeHandle";
 import { Tabs as TabsRoot } from "@components/ui/tabs";
 

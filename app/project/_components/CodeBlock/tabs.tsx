@@ -12,7 +12,7 @@ import {
   X,
 } from "lucide-react";
 import React from "react";
-import { useAddTab, useDeleteTab } from "@app/project/hooks/useOptimizedtab";
+import { useAddTab, useDeleteTab } from "@app/project/_hooks/useOptimizedtab";
 
 type Props = {
   handleOpen: () => void;

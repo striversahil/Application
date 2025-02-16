@@ -11,6 +11,7 @@ export const useMutationData = (
   mutationKey: MutationKey,
   mutationFn: MutationFunction<any, any>,
   queryKey?: string,
+  OptimisticFn?: (previousData: any, variables: any) => void,
   onSuccess?: () => void
 ) => {
   // Creating a query client for Mutation
@@ -25,10 +26,15 @@ export const useMutationData = (
       });
       // Optimistic update to the cache
       const previousData = client.getQueryData([queryKey]);
-      client.setQueryData([queryKey], (previousData: any) => ({
-        ...previousData,
-        payload: [...previousData.payload, variables],
-      }));
+      client.setQueryData(
+        [queryKey],
+        OptimisticFn
+          ? OptimisticFn(previousData, variables)
+          : (previousData: any, variables: any) => ({
+              ...previousData,
+              ...variables,
+            })
+      );
       return { variables, previousData };
     },
 

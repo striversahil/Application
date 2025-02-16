@@ -5,7 +5,7 @@ import Steps from "./steps";
 import EditorCode from "./editor";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Tabs as TabsRoot } from "@components/ui/tabs";
-import { useOpen } from "@app/project/hooks/useOpenCode";
+import { useOpen } from "@app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 
 type Props = {};
