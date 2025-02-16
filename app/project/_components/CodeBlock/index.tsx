@@ -14,6 +14,8 @@ const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
   const [BlockData, setBlockData] = React.useState<any>({});
 
+  console.log(BlockData);
+
   return (
     <>
       {openCode && <PanelResizeHandleComp />}

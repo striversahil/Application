@@ -1,10 +1,9 @@
-import { cn } from "@/lib/utils";
 import CodeBlockAction from "@actions/project/codeBlock";
 import ProjectAction from "@actions/project/project";
 import { Skeleton } from "@components/ui/skeleton";
 import { useMutationData } from "@hooks/useMutation";
 import { useQueryData } from "@hooks/useQueryData";
-import { CirclePlus, PanelBottomClose, PanelBottomOpen } from "lucide-react";
+import { CirclePlus, PanelBottomClose, PanelBottomOpen, X } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -20,6 +19,11 @@ const Tabs = (props: Props) => {
   const { isPending, mutate } = useMutationData(
     ["addCodeBlock"],
     CodeBlockAction.new,
+    "project"
+  );
+  const { isPending: isPendingDelete, mutate: mutateDelete } = useMutationData(
+    ["deleteCodeBlock"],
+    CodeBlockAction.delete,
     "project"
   );
 
@@ -48,6 +52,12 @@ const Tabs = (props: Props) => {
     );
   };
 
+  const handleClose = (id: any) => {
+    mutateDelete({
+      _id: id,
+    });
+  };
+
   const handleAdd = () => {
     const random = Math.floor(Math.random() * 1000000);
     mutate({ name: `Tab ${random}` });
@@ -56,15 +66,21 @@ const Tabs = (props: Props) => {
   return (
     <div className="relative w-full h-[40px] bg-black">
       <HandleOpenIcon />
-      <div className="flex items-center justify-start gap-2 flex-wrap overflow-auto">
+      <div className="flex items-center justify-start gap-2 flex-wrap overflow-y-auto max-w-full">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
         {codeBlock.map((item, index) => (
           <div
             key={index}
-            className="bg-white/10 p-1 rounded-md border border-white/20 select-none cursor-pointer"
+            className="relative bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30 select-none cursor-pointer inline-flex items-center gap-2"
             onClick={() => handleOpen(item)}
           >
-            {item.name}
+            <span className="font-bold text-blue-400">{item.name}</span>
+            <span
+              className=" bg-red-600 rounded-md cursor-pointer"
+              onClick={() => handleClose(item._id)}
+            >
+              <X />
+            </span>
           </div>
         ))}
         <div

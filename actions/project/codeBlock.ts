@@ -16,8 +16,8 @@ class CodeBlockAction {
     return response.data;
   }
 
-  static async delete(id: string) {
-    const response = await axios.delete(`${source}/codeblock/${id}`);
+  static async delete(payload: any) {
+    const response = await axios.delete(`${source}/codeblock/${payload._id}`);
     return response.data;
   }
 }
