@@ -25,6 +25,14 @@ class CodeBlockAction {
     const response = await axios.delete(`${source}/codeblock/${payload._id}`);
     return response.data;
   }
+
+  static async nameChange(payload: any) {
+    const response = await axios.post(
+      `${source}/codeblock/${payload._id}/name`,
+      payload
+    );
+    return response.data;
+  }
 }
 
 export default CodeBlockAction;

@@ -23,6 +23,11 @@ class ProjectAction {
     const response = await axios.put(`${source}/project`);
     return response.data;
   }
+
+  static async updatename() {
+    const response = await axios.put(`${source}/project`);
+    return response.data;
+  }
 }
 
 export default ProjectAction;

@@ -4,7 +4,7 @@ import { Panel, PanelGroup } from "react-resizable-panels";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 
 type Props = {
-  value?: string;
+  value?: any;
 };
 
 const EditorCode = (props: Props) => {
@@ -12,7 +12,7 @@ const EditorCode = (props: Props) => {
     <div className="h-full w-full">
       <PanelGroup direction="vertical">
         <Panel defaultSize={50} minSize={20} maxSize={100}>
-          <div>{props.value}</div>
+          <div>{props.value.name}</div>
         </Panel>
         <PanelResizeHandleComp />
         <Panel defaultSize={50} minSize={20} maxSize={100}>

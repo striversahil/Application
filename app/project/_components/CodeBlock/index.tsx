@@ -48,11 +48,11 @@ const CodeBlock = ({}: Props) => {
                   >
                     <PanelGroup direction="horizontal">
                       <Panel defaultSize={20} minSize={20} maxSize={50}>
-                        <Steps value={item.name} />
+                        <Steps value={item} />
                       </Panel>
                       <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
                       <Panel defaultSize={80} minSize={20} maxSize={80}>
-                        <EditorCode value={item.name} />
+                        <EditorCode value={item} />
                       </Panel>
                     </PanelGroup>
                   </TabsContent>
