@@ -88,6 +88,7 @@ const Tabs = (props: Props) => {
             value={item._id}
             key={index}
             className="relative bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30 select-none inline-flex items-center gap-2"
+            onClick={() => localStorage.setItem("currentStep", "0")}
           >
             <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />
             <span className="font-bold text-sm text-blue-400">{item.name}</span>

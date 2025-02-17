@@ -22,7 +22,7 @@ const Steps = (props: Props) => {
   return (
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={props.value} />
-      <div className="flex flex-col overscroll-auto items-center justify-start w-full h-full gap-2 p-2">
+      <div className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
         {props.value.steps.map((item: any, index: number) => {
           return (
             <div key={index} className="w-full">
