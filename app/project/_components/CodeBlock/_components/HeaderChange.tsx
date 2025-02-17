@@ -10,8 +10,6 @@ type Props = {
 };
 
 const HeaderChange = (props: Props) => {
-  const [header, setHeader] = React.useState<string>(props.value.name);
-
   const { mutate } = useMutationData(
     ["CodeBlockAction.nameChange"],
     CodeBlockAction.nameChange,
@@ -19,29 +17,22 @@ const HeaderChange = (props: Props) => {
   );
 
   const Mutation = () => {
-    if (header === "") {
-      setHeader(props.value.name);
-      return;
-    }
-    if (header !== props.value.name) {
-      mutate({ _id: props.value._id, name: header });
-    }
+    mutate({ _id: props.value._id, name: value });
   };
-  const { mount, setMount, ref, EnterClick } = useClickOutsideEnter(Mutation);
+  const { mount, setMount, ref, EnterClick, ValueChange, value } =
+    useClickOutsideEnter(Mutation, props.value.name);
 
   return (
     <div>
-      {!mount && <h1 onClick={() => setMount(true)}>{header}</h1>}
+      {!mount && <h1 onClick={() => setMount(true)}>{value}</h1>}
       {mount && (
         <Input
           type="text"
           ref={ref}
-          value={header}
+          value={value}
           autoFocus
           onKeyDown={EnterClick}
-          onChange={(e) => {
-            setHeader(e.target.value);
-          }}
+          onChange={(e) => ValueChange(e)}
           className="bg-transparent border-none text-blue-400"
         />
       )}
