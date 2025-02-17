@@ -77,7 +77,7 @@ const Tabs = (props: Props) => {
           >
             <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />
             <span className="font-bold text-sm text-blue-400">{item.name}</span>
-            <div className=" bg-red-600 rounded-md cursor-pointer p-[1px]  hover:bg-red-600/50">
+            <div className=" bg-red-600 rounded-md cursor-pointer p-[px]  hover:bg-red-600/50">
               <Popover>
                 <PopoverTrigger>
                   <span className="">

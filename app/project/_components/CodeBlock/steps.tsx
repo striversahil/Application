@@ -5,17 +5,17 @@ import { useClickOutside } from "@mantine/hooks";
 import React from "react";
 import HeaderChange from "./_components/HeaderChange";
 import { useMutationData } from "@/hooks/useMutation";
+import { PlusCircle } from "lucide-react";
+import { useaddSteps } from "../../_hooks/useaddSteps";
 
 type Props = {
   value?: any;
 };
 
 const Steps = (props: Props) => {
-  const { mutate } = useMutationData(
-    ["CodeBlockAction.addstep"],
-    () => CodeBlockAction.addstep(props.value._id),
-    "CodeBlockAction.getall"
-  );
+  console.log(props.value);
+
+  const { mutate } = useaddSteps();
 
   return (
     <div className=" border-r border-slate-500 w-full h-full">
@@ -29,9 +29,44 @@ const Steps = (props: Props) => {
                   <span className="text-sm">{item.name}</span>
                 </div>
               </div>
+              <div
+                className="w-full flex justify-center cursor-pointer"
+                onClick={() =>
+                  mutate({
+                    metadata: { _id: props.value._id, step: index + 1 },
+                    slug: {
+                      name: "Python",
+                      code: 'console.log("Hello World")',
+                      language: "javascript",
+                      output: "Hello World",
+                    },
+                  })
+                }
+              >
+                <PlusCircle className="size-2 hover:size-6 duration-200 active:rotate-90" />
+              </div>
             </div>
           );
         })}
+        <div
+          className="w-full flex justify-center cursor-pointer"
+          onClick={() =>
+            mutate({
+              metadata: {
+                _id: props.value._id,
+                step: props.value.steps.length,
+              },
+              slug: {
+                name: "JavaScrip",
+                code: 'console.log("Hello World")',
+                language: "javascript",
+                output: "Hello World",
+              },
+            })
+          }
+        >
+          <PlusCircle className="size-6 duration-200 active:rotate-90" />
+        </div>
       </div>
     </div>
   );
