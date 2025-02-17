@@ -30,6 +30,14 @@ class CodeBlockAction {
     const response = await axios.post(`${source}/${payload._id}/name`, payload);
     return response.data;
   }
+
+  static async addstep(payload: any) {
+    const response = await axios.post(
+      `${source}/${payload._id}/step/new`,
+      payload
+    );
+    return response.data;
+  }
 }
 
 export default CodeBlockAction;
