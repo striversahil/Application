@@ -9,7 +9,7 @@ type Props = {
 
 const EditorCode = (props: Props) => {
   return (
-    <div className="h-full w-full bg-slate-900">
+    <div className="h-full w-full ">
       <PanelGroup direction="vertical">
         <Panel defaultSize={50} minSize={20} maxSize={100}>
           <div>{props.value.name}</div>

@@ -4,7 +4,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   Sidebar as SidebarLayout,
-} from "@components/ui/Sidebar/sidebar";
+} from "@/components/ui/Sidebar/sidebar";
 import React, { useState } from "react";
 import Highlights from "./Highlight/Highlights";
 import Subitems from "./Subitems";

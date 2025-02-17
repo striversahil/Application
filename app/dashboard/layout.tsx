@@ -1,5 +1,4 @@
 "use client";
-import { getUserInfo } from "@actions/user";
 import { redirect } from "next/navigation";
 import React from "react";
 

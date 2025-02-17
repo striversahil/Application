@@ -1,7 +1,7 @@
 "use client";
-import ProjectAction from "@actions/project/project";
-import { Skeleton } from "@components/ui/skeleton";
-import { useQueryData } from "@hooks/useQueryData";
+import ProjectAction from "@/actions/project/project";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQueryData } from "@/hooks/useQueryData";
 import { redirect } from "next/navigation";
 import React from "react";
 

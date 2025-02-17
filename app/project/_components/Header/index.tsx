@@ -30,7 +30,9 @@ const Header = (props: Props) => {
       >
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
 
-        {!isLoading && !mount && <h1>{data?.payload.name}</h1>}
+        {!isLoading && !mount && (
+          <span className="font-bold text-2xl">{data?.payload.name}</span>
+        )}
         {!isLoading && mount && (
           <Input
             className="w-[200px] h-[40px] bg-inherit rounded-md"

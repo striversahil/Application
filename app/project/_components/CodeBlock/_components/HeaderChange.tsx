@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import {
   TooltipContent,
   TooltipTrigger,
+  Tooltip,
 } from "@/components/ui/Tooltip/tooltip";
 import { useMutationData } from "@/hooks/useMutation";
-import { Tooltip } from "@radix-ui/react-tooltip";
 import { Pencil } from "lucide-react";
 import React from "react";
 
@@ -35,15 +35,17 @@ const HeaderChange = (props: Props) => {
           className="flex cursor-pointer w-full p-2 text-base text-center bg-blue-400 rounded-md shadow-lg"
           onClick={() => setMount(true)}
         >
-          <h1 className="flex-1">
+          <span className="flex-1">
             <span className=" font-bold">{value}</span>
-          </h1>
-          <Tooltip>
-            <TooltipTrigger>
-              <Pencil className=" fill-green-400 " />
-            </TooltipTrigger>
-            <TooltipContent>Change Name</TooltipContent>
-          </Tooltip>
+          </span>
+          <div className="">
+            <Tooltip>
+              <TooltipTrigger>
+                <Pencil className=" duration-100 fill-green-400 " />
+              </TooltipTrigger>
+              <TooltipContent>Change Name</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       )}
       {mount && (

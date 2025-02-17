@@ -1,4 +1,4 @@
-import { useQueryData } from "@hooks/useQueryData";
+import { useQueryData } from "@/hooks/useQueryData";
 import { redirect, useRouter } from "next/navigation";
 import { useCallback } from "react";
 

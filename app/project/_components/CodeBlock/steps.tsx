@@ -16,7 +16,7 @@ const Steps = (props: Props) => {
   );
 
   return (
-    <div className="bg-slate-900 border-r border-slate-500 w-full h-full">
+    <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={props.value} />
     </div>
   );
