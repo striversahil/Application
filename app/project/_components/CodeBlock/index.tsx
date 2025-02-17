@@ -50,7 +50,7 @@ const CodeBlock = ({}: Props) => {
                       <Panel defaultSize={20} minSize={20} maxSize={50}>
                         <Steps value={item} />
                       </Panel>
-                      <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
+                      <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
                       <Panel defaultSize={80} minSize={20} maxSize={80}>
                         <EditorCode value={item} />
                       </Panel>

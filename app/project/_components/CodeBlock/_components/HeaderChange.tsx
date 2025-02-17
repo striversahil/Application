@@ -1,8 +1,13 @@
 import CodeBlockAction from "@/actions/project/codeBlock";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
 import { Input } from "@/components/ui/input";
+import {
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/Tooltip/tooltip";
 import { useMutationData } from "@/hooks/useMutation";
-import { useClickOutside } from "@mantine/hooks";
+import { Tooltip } from "@radix-ui/react-tooltip";
+import { Pencil } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -21,10 +26,26 @@ const HeaderChange = (props: Props) => {
   };
   const { mount, setMount, ref, EnterClick, ValueChange, value } =
     useClickOutsideEnter(Mutation, props.value.name);
+  ref.current?.focus();
 
   return (
     <div>
-      {!mount && <h1 onClick={() => setMount(true)}>{value}</h1>}
+      {!mount && (
+        <div
+          className="flex cursor-pointer w-full p-2 text-base text-center bg-blue-400 rounded-md shadow-lg"
+          onClick={() => setMount(true)}
+        >
+          <h1 className="flex-1">
+            <span className=" font-bold">{value}</span>
+          </h1>
+          <Tooltip>
+            <TooltipTrigger>
+              <Pencil className=" fill-green-400 " />
+            </TooltipTrigger>
+            <TooltipContent>Change Name</TooltipContent>
+          </Tooltip>
+        </div>
+      )}
       {mount && (
         <Input
           type="text"
@@ -32,8 +53,8 @@ const HeaderChange = (props: Props) => {
           value={value}
           autoFocus
           onKeyDown={EnterClick}
-          onChange={(e) => ValueChange(e)}
-          className="bg-transparent border-none text-blue-400"
+          onChange={ValueChange}
+          className="bg-transparent border-none text-center bg-black text-white"
         />
       )}
     </div>

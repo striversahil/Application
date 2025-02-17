@@ -24,8 +24,8 @@ class ProjectAction {
     return response.data;
   }
 
-  static async updatename() {
-    const response = await axios.put(`${source}/project`);
+  static async updatename(payload: any) {
+    const response = await axios.post(`${source}/project/name`, payload);
     return response.data;
   }
 }

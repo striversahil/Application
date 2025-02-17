@@ -3,11 +3,11 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@components/ui/collapsible";
-import { Input } from "@components/ui/input";
+} from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
 import { useDraggable } from "@dnd-kit/core";
 import React, { useState } from "react";
-import { ReferenceSidebarComponents } from "@packages/common/referenceSidebarComponents";
+import { ReferenceSidebarComponents } from "@/packages/common/referenceSidebarComponents";
 import { cn } from "@/lib/utils";
 
 type SidebarProps = {

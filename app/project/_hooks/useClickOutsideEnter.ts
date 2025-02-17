@@ -8,19 +8,10 @@ export const useClickOutsideEnter = (
   const [mount, setMount] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>(initialValue ?? "");
 
-  function SetCheck(changedValue: string) {
-    if (changedValue === "") {
-      return;
-    }
-    if (changedValue === value) {
-      return;
-    }
-    setValue(changedValue);
-  }
-
   function Mutate() {
     setMount(false);
     if (value === "") {
+      setValue(initialValue ?? "");
       return;
     }
     if (value === initialValue) {
@@ -37,7 +28,7 @@ export const useClickOutsideEnter = (
     }
   };
   const ValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    SetCheck(e.target.value);
+    setValue(e.target.value);
   };
   return { ref, mount, setMount, EnterClick, ValueChange, value };
 };
