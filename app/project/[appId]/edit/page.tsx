@@ -10,11 +10,11 @@ import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
 import { DndContext } from "@dnd-kit/core";
 import Header from "../../_components/Header";
-import { useDragEnd } from "@app/project/_hooks/usedragEnd";
-import { useOpen } from "@app/project/_hooks/useOpenCode";
-import PanelResizeHandleComp from "@app/project/_components/utils/PanelResizeHandle";
-import { Tabs as TabsRoot } from "@components/ui/tabs";
-import useTabFallback from "@app/project/_components/utils/TabFallback";
+import { useDragEnd } from "@/app/project/_hooks/usedragEnd";
+import { useOpen } from "@/app/project/_hooks/useOpenCode";
+import PanelResizeHandleComp from "@/app/project/_components/utils/PanelResizeHandle";
+import { Tabs as TabsRoot } from "@/components/ui/tabs";
+import useTabFallback from "@/app/project/_components/utils/TabFallback";
 
 type Props = {};
 
@@ -29,7 +29,7 @@ const page = (props: Props) => {
   } = useDragEnd();
 
   const { openConfig, handleOpenConfig } = useOpen();
-  const { fallback } = useTabFallback();
+  const { fallback, setFallback } = useTabFallback();
 
   return (
     <DndContext
@@ -41,7 +41,7 @@ const page = (props: Props) => {
       }}
       sensors={sensors}
     >
-      <TabsRoot defaultValue={fallback}>
+      <TabsRoot defaultValue={fallback} onValueChange={setFallback}>
         <div className="relative flex min-h-screen bg-slate-950">
           <Sidebar />
           <main className="relative flex-1 w-full">

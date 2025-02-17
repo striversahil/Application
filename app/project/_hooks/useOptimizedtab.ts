@@ -1,5 +1,5 @@
-import CodeBlockAction from "@actions/project/codeBlock";
-import { useMutationData } from "@hooks/useMutation";
+import CodeBlockAction from "@/actions/project/codeBlock";
+import { useMutationData } from "@/hooks/useMutation";
 
 export const useAddTab = () => {
   const OptimisticFn = (previousData: any, variables: any) => {

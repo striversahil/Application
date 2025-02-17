@@ -38,9 +38,9 @@ export const useMutationData = (
       return { variables, previousData };
     },
 
-    onError: (error, variables, context) => {
-      client.setQueryData([queryKey], context?.previousData);
-    },
+    // onError: (error, variables, context) => {
+    //   client.setQueryData([queryKey], context?.previousData);
+    // },
     onSuccess(data) {
       if (onSuccess) onSuccess(); // Calling onSuccess if provided
 

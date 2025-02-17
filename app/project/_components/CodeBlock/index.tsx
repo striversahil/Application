@@ -4,11 +4,11 @@ import Tabs from "./tabs";
 import Steps from "./steps";
 import EditorCode from "./editor";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import { Tabs as TabsRoot } from "@components/ui/tabs";
-import { useOpen } from "@app/project/_hooks/useOpenCode";
+import { Tabs as TabsRoot } from "@/components/ui/tabs";
+import { useOpen } from "@/app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
-import { useQueryData } from "@hooks/useQueryData";
-import CodeBlockAction from "@actions/project/codeBlock";
+import { useQueryData } from "@/hooks/useQueryData";
+import CodeBlockAction from "@/actions/project/codeBlock";
 import { TabsContent } from "@radix-ui/react-tabs";
 
 type Props = {};

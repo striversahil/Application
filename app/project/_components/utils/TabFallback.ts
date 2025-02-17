@@ -1,5 +1,3 @@
-import CodeBlockAction from "@actions/project/codeBlock";
-import { useQueryData } from "@hooks/useQueryData";
 import React from "react";
 
 const useTabFallback = () => {
