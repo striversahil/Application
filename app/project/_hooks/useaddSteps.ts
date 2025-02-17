@@ -26,5 +26,5 @@ export const useaddSteps = () => {
     "CodeBlockAction.getall",
     OptimisticFn
   );
-  return { mutate };
+  return { mutateStepAdd: mutate };
 };

@@ -61,13 +61,27 @@ const Tabs = (props: Props) => {
     setFallback(data.payload[0]._id);
   };
 
+  const [open, setOpen] = React.useState(false);
+
   return (
     <div className="relative w-full h-[36px] ">
       <HandleOpenIcon />
       <TabsList className="flex items-center justify-start gap-2 flex-wrap overflow-y-auto max-w-full">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
         <div>
-          <ComboPopAPI />
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <div
+                //     variant="secondary"
+                //     role="combobox"
+                //     aria-expanded={open}
+                className="bg-white/10 p-1 rounded-md border border-white/20 cursor-pointer inline-flex items-center gap-2"
+              >
+                Add Tab <CirclePlus />
+              </div>
+            </PopoverTrigger>
+            <ComboPopAPI open={open} setOpen={setOpen} />
+          </Popover>
         </div>
         {data?.payload.map((item: any, index: number) => (
           <TabsTrigger
