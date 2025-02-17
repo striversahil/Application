@@ -8,7 +8,7 @@ import Protected_Route from "../_protected";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Apotza",
+  title: "Apotza | Into the Realm of Automation",
   description: "Apotza Internal Tooling",
 };
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head suppressHydrationWarning>
-        <link rel="icon" href="apotzalogo.jpg" />
+        <link rel="icon" href="/apotzalogo.jpg" />
       </head>
       <body suppressHydrationWarning>
         <ReactQueryProvider>

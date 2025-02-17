@@ -21,6 +21,7 @@ interface ComponentData {
   // Add more configurable properties as needed
 }
 
+// Configur Each Component Based on it's type and it's configuration
 const ConfigPanel = ({
   selectedItem,
   updateItem,
@@ -34,6 +35,7 @@ const ConfigPanel = ({
     <div className="fixed right-0 top-0 h-screen w-64 bg-white shadow-lg p-4">
       <h2 className="text-lg font-bold mb-4">Component Settings</h2>
       <div className="space-y-4">
+        {/* I will Create this Config Panel Saparately for each Component */}
         <div>
           <label>Padding</label>
           <input
@@ -179,6 +181,7 @@ const DroppableArea = () => {
         <h3 className="font-bold mb-4">Components</h3>
         <button
           onClick={() => handleAddComponent("button")}
+          // This way we can Add Multiple Components by Mapping over the Array of Component
           className="mb-2 p-2 w-full bg-gray-100 rounded"
         >
           Add Button
@@ -213,7 +216,7 @@ const DroppableArea = () => {
           </SortableContext>
         </DndContext>
       </div>
-
+      {/* I will get the Element Id and will render the Config Panel by Component Nature */}
       <ConfigPanel
         selectedItem={items.find((item) => item.id === selectedId) || null}
         updateItem={updateItem}

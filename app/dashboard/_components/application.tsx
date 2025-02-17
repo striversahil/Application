@@ -1,6 +1,6 @@
-import { useQueryData } from "@hooks/useQueryData";
-import { getWorkspaceInfo } from "./_hooks/useWorkflowsinfo";
-import { redirect } from "next/navigation";
+import { useQueryData } from "@/hooks/useQueryData";
+import { redirect, useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 interface WorkspaceData {
   data: {
@@ -10,6 +10,7 @@ interface WorkspaceData {
 }
 
 export const ApplicationSelectionBoxes = ({ data, isLoading }: any) => {
+  const router = useRouter();
   const applications = [
     {
       id: 1,
@@ -41,10 +42,9 @@ export const ApplicationSelectionBoxes = ({ data, isLoading }: any) => {
 
   const handleClick = () => {
     if (data) {
-      redirect(
-        `/dashboard/${data.data._id}/application/${data.data.projects[0]._id}`
-      );
+      router.push(`/project/${data.payload.projects[0]}`);
     }
+    console.log(data.payload._id);
   };
 
   return (
@@ -58,7 +58,7 @@ export const ApplicationSelectionBoxes = ({ data, isLoading }: any) => {
           <div className="text-4xl mb-4">{app.icon}</div>
           <h2 className="text-xl font-semibold mb-2">{app.name}</h2>
           <p className="text-gray-600 text-center">{app.description}</p>
-          <p className="text-gray-600 text-center">{data?.data.name}</p>
+          <p className="text-gray-600 text-center">{data?.payload.name}</p>
         </div>
       ))}
     </div>

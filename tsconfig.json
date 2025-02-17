@@ -26,14 +26,14 @@
     "allowJs": true,
     "noEmit": true,
     "paths": {
-      "@app/*": ["./app/*"],
-      "@components/*": ["./components/*"],
-      "@packages/*": ["./packages/*"],
-      "@actions/*": ["./actions/*"],
-      "@utils/*": ["./utils/*"],
-      "@hooks/*": ["./hooks/*"],
+      "@/app/*": ["./app/*"],
+      "@/components/*": ["./components/*"],
+      "@/packages/*": ["./packages/*"],
+      "@/actions/*": ["./actions/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/hooks/*": ["./hooks/*"],
       "@/lib/*": ["./lib/*"],
-      "@types/*": ["./types/*"]
+      "@/types/*": ["./types/*"]
     }
   },
   "include": [

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useMemo } from "react";
 import { redirect } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { useMutationData } from "../../../../hooks/useMutation";
 import { useLogin } from "../hooks/useLogin";
 
