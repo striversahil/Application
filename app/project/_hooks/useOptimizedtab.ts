@@ -1,15 +1,7 @@
 import CodeBlockAction from "@actions/project/codeBlock";
 import { useMutationData } from "@hooks/useMutation";
-import {
-  MutationFunction,
-  MutationKey,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { toast } from "sonner";
 
 export const useAddTab = () => {
-  // Creating a query client for Mutation
   const OptimisticFn = (previousData: any, variables: any) => {
     return {
       ...previousData,
@@ -28,7 +20,6 @@ export const useAddTab = () => {
 };
 
 export const useDeleteTab = () => {
-  // Creating a query client for Mutation
   const OptimisticFn = (previousData: any, variables: any) => {
     return {
       ...previousData,

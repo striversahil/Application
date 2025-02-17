@@ -14,6 +14,7 @@ import { useDragEnd } from "@app/project/_hooks/usedragEnd";
 import { useOpen } from "@app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "@app/project/_components/utils/PanelResizeHandle";
 import { Tabs as TabsRoot } from "@components/ui/tabs";
+import useTabFallback from "@app/project/_components/utils/TabFallback";
 
 type Props = {};
 
@@ -28,6 +29,7 @@ const page = (props: Props) => {
   } = useDragEnd();
 
   const { openConfig, handleOpenConfig } = useOpen();
+  const { fallback } = useTabFallback();
 
   return (
     <DndContext
@@ -39,7 +41,7 @@ const page = (props: Props) => {
       }}
       sensors={sensors}
     >
-      <TabsRoot>
+      <TabsRoot defaultValue={fallback}>
         <div className="relative flex min-h-screen bg-slate-950">
           <Sidebar />
           <main className="relative flex-1 w-full">

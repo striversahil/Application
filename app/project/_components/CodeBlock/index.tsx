@@ -7,23 +7,28 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Tabs as TabsRoot } from "@components/ui/tabs";
 import { useOpen } from "@app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
+import { useQueryData } from "@hooks/useQueryData";
+import CodeBlockAction from "@actions/project/codeBlock";
+import { TabsContent } from "@radix-ui/react-tabs";
 
 type Props = {};
 
 const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
-  // const [BlockData, setBlockData] = React.useState<any>({});
 
-  // console.log(BlockData);
+  const { isLoading, data } = useQueryData(
+    "CodeBlockAction.getall",
+    CodeBlockAction.getall
+  );
 
   return (
     <>
-      {openCode && <PanelResizeHandleComp />}
       <Tabs
         handleOpen={handleOpenCode}
         Open={openCode}
         // BlockData={(item) => setBlockData(item)}
       />
+      {openCode && <PanelResizeHandleComp />}
       {openCode && (
         <Panel
           defaultSize={40}
@@ -32,17 +37,27 @@ const CodeBlock = ({}: Props) => {
           onCollapse={handleOpenCode}
         >
           <div className="w-full h-full bg-slate-800">
-            <TabsRoot className="w-full h-full">
-              <PanelGroup direction="horizontal">
-                <Panel defaultSize={20} minSize={20} maxSize={50}>
-                  <Steps />
-                </Panel>
-                <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
-                <Panel defaultSize={80} minSize={20} maxSize={80}>
-                  <EditorCode />
-                </Panel>
-              </PanelGroup>
-            </TabsRoot>
+            {!isLoading &&
+              data &&
+              data.payload.map((item: any, index: number) => {
+                return (
+                  <TabsContent
+                    key={index}
+                    value={item._id}
+                    className="w-full h-full"
+                  >
+                    <PanelGroup direction="horizontal">
+                      <Panel defaultSize={20} minSize={20} maxSize={50}>
+                        <Steps value={item.name} />
+                      </Panel>
+                      <PanelResizeHandle className="p-[2px] cursor-row-resize hover:bg-blue-500" />
+                      <Panel defaultSize={80} minSize={20} maxSize={80}>
+                        <EditorCode value={item.name} />
+                      </Panel>
+                    </PanelGroup>
+                  </TabsContent>
+                );
+              })}
           </div>
         </Panel>
       )}
