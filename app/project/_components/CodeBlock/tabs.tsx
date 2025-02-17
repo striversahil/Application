@@ -17,6 +17,12 @@ import { useAddTab, useDeleteTab } from "@/app/project/_hooks/useOptimizedtab";
 import useTabFallback from "../utils/TabFallback";
 import { cn } from "@/lib/utils";
 import { ComboPopAPI } from "./_components/PopOverSelect";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   handleOpen: () => void;
@@ -71,12 +77,35 @@ const Tabs = (props: Props) => {
           >
             <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />
             <span className="font-bold text-sm text-blue-400">{item.name}</span>
-            <span
-              className=" bg-red-600 rounded-md cursor-pointer p-[2px] hover:bg-red-600/50"
-              onClick={() => handleClose(item._id)}
-            >
-              <Trash className="size-4" />
-            </span>
+            <div className=" bg-red-600 rounded-md cursor-pointer p-[1px]  hover:bg-red-600/50">
+              <Popover>
+                <PopoverTrigger>
+                  <span className="">
+                    <Trash className="size-4" />
+                  </span>
+                </PopoverTrigger>
+                <PopoverContent className="w-fit text-sm flex flex-col gap-4 rounded-md">
+                  <div>
+                    Are You Sure <br />
+                    You Want To Delete
+                    <span className="p-2 text-md  font-bold text-red-500 underline">
+                      {item.name}
+                    </span>
+                    Tab ?
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <Button variant={"secondary"}>Cancel</Button>
+                    <Button
+                      onClick={() => handleClose(item._id)}
+                      className="bg-red-600 rounded-md cursor-pointer hover:bg-red-600/50"
+                      variant={"destructive"}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
           </TabsTrigger>
         ))}
       </TabsList>
