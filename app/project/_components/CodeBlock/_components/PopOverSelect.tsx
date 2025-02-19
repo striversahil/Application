@@ -69,7 +69,7 @@ export function ComboPopAPI(props: PopOver) {
   const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
 
   return (
-    <PopoverContent className="w-[200px] p-0 border-[1px] shadow-lg rounded-md">
+    <PopoverContent className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md">
       <Command className="bg-[#1e1e1e]">
         <CommandInput placeholder="Search Provider..." />
         <CommandList>

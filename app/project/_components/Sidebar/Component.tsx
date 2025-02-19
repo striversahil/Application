@@ -20,57 +20,6 @@ type SidebarProps = {
   children?: React.ReactNode;
 };
 
-const test = [
-  {
-    id: 11,
-    name: "Dashboard",
-    icon: "📊",
-    description: "View and manage your analytics and reports.",
-  },
-  {
-    id: 21,
-    name: "CRM",
-    icon: "📇",
-    description: "Manage customer relationships and interactions.",
-  },
-  {
-    id: 31,
-    name: "Project Management",
-    icon: "📅",
-    description: "Organize and track your projects and tasks.",
-  },
-  {
-    id: 41,
-    name: "Marketing",
-    icon: "📢",
-    description: "Plan and execute marketing campaigns.",
-  },
-  {
-    id: 51,
-    name: "Dashboard",
-    icon: "📊",
-    description: "View and manage your analytics and reports.",
-  },
-  {
-    id: 61,
-    name: "CRM",
-    icon: "📇",
-    description: "Manage customer relationships and interactions.",
-  },
-  {
-    id: 71,
-    name: "Project Management",
-    icon: "📅",
-    description: "Organize and track your projects and tasks.",
-  },
-  {
-    id: 81,
-    name: "Marketing",
-    icon: "📢",
-    description: "Plan and execute marketing campaigns.",
-  },
-];
-
 // Draggable Component
 const Draggable = ({ id, title, target }: any) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -91,7 +40,7 @@ const Draggable = ({ id, title, target }: any) => {
       {...attributes}
       {...listeners}
       className={cn(
-        "bg-white/20 p-2 rounded-lg text-center",
+        "bg-white/20 p-2 rounded-lg text-center ",
         isDragging ? "cursor-grabbing" : "cursor-grab"
       )}
     >
@@ -119,7 +68,7 @@ const CompSidebar = ({ children }: SidebarProps) => {
           </PopoverTrigger>
           <TooltipContent>Components</TooltipContent>
         </Tooltip>
-        <PopoverContent className="w-full h-full z-50">
+        <PopoverContent className="w-[300px] translate-x-16 h-full z-50">
           <div className="bg-gray-800 w-full h-full rounded-md">
             <div className="flex items-center justify-center">
               <Input

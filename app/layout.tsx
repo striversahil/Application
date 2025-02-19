@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Providers from "../_app";
+import { Provider } from "react-redux";
 import ReactQueryProvider from "../providers/react_query,";
 import { Toaster } from "sonner";
 import Protected_Route from "../_protected";
 import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Apotza | Into the Realm of Automation",
-  description: "Apotza Internal Tooling",
-};
+// export const metadata: Metadata = {
+//   title: "Apotza | Into the Realm of Automation",
+//   description: "Apotza Internal Tooling",
+// };
 
 export default function RootLayout({
   children,
@@ -26,9 +26,10 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ReactQueryProvider>
-          {/* <Protected_Route> */}
           {children}
+
           <Toaster />
+          {/* <Protected_Route> */}
           {/* </Protected_Route> */}
         </ReactQueryProvider>
       </body>
