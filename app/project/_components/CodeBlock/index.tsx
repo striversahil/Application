@@ -8,7 +8,7 @@ import { Tabs as TabsRoot } from "@/components/ui/tabs";
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 import { useQueryData } from "@/hooks/useQueryData";
-import CodeBlockAction from "@/actions/project/codeBlock";
+import CodeBlockAction from "../../../../api/project/codeBlock";
 import { TabsContent } from "@radix-ui/react-tabs";
 
 type Props = {};

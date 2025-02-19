@@ -1,5 +1,5 @@
-import CodeBlockAction from "@/actions/project/codeBlock";
-import ProjectAction from "@/actions/project/project";
+import CodeBlockAction from "../../../../api/project/codeBlock";
+import ProjectAction from "../../../../api/project/project";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useMutationData } from "@/hooks/useMutation";
@@ -66,7 +66,7 @@ const Tabs = (props: Props) => {
   return (
     <div className="relative w-full h-[36px] ">
       <HandleOpenIcon />
-      <TabsList className="flex items-center justify-start gap-2 flex-wrap overflow-y-auto max-w-full">
+      <TabsList className="flex items-center justify-start gap-2 flex-wrap overflow-x-auto max-w-full">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
         <div>
           <Popover open={open} onOpenChange={setOpen}>

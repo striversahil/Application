@@ -29,6 +29,7 @@
       "@/app/*": ["./app/*"],
       "@/components/*": ["./components/*"],
       "@/packages/*": ["./packages/*"],
+      "@/api/*": ["./api/*"],
       "@/actions/*": ["./actions/*"],
       "@/utils/*": ["./utils/*"],
       "@/hooks/*": ["./hooks/*"],

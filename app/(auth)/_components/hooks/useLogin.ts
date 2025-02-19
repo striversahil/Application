@@ -2,7 +2,7 @@ import useZodForm from "@/hooks/useZodForm";
 import { formSchema } from "../Logins/schema";
 import { useMutationData } from "@/hooks/useMutation";
 import { useQuery } from "@/tanstack/react-query";
-import { userLogin } from "@/actions/user";
+import { userLogin } from "../../../../api/user";
 
 interface formData {
   name: string;

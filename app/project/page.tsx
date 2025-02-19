@@ -1,5 +1,5 @@
 "use client";
-import ProjectAction from "@/actions/project/project";
+import ProjectAction from "../../api/project/project";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQueryData } from "@/hooks/useQueryData";
 import { redirect } from "next/navigation";

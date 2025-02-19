@@ -92,7 +92,7 @@ export function ComboPopAPI(props: PopOver) {
                           step: props.step,
                         },
                         slug: {
-                          name: "Lodash",
+                          name: `${framework.label}`,
                           code: 'console.log("Hello World")',
                           language: "javascript",
                           output: "Hello World",

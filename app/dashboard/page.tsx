@@ -2,7 +2,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
-import { getUserInfo } from "@/actions/user";
+import { getUserInfo } from "../../api/user";
 import { useQueryData } from "@/hooks/useQueryData";
 
 type Props = {};

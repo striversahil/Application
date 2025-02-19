@@ -1,4 +1,4 @@
-import CodeBlockAction from "@/actions/project/codeBlock";
+import CodeBlockAction from "../../../../../api/project/codeBlock";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
 import { Input } from "@/components/ui/input";
 import {

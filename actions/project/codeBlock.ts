@@ -1,50 +1,55 @@
-import axios from "axios";
+import CodeBlockAPI from "@/api/project/codeBlock";
+import { useMutationData } from "@/hooks/useMutation";
 
-axios.defaults.withCredentials = true; // Global axios config to enable cookies
-const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
+// ++++++++++++++++++++++++++++++++++++++++++++++ Optimistic Updated API +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 class CodeBlockAction {
-  constructor() {}
-  static async new(payload: any) {
-    console.log(payload);
-    const response = await axios.post(`${source}/`, payload);
-    return response.data;
+  static useAddTab() {
+    const OptimisticFn = (previousData: any, variables: any) => {
+      return {
+        ...previousData,
+        payload: [...previousData.payload, variables],
+      };
+    };
+
+    const { mutate: mutateAdd } = useMutationData(
+      ["CodeBlockAction.add"],
+      CodeBlockAPI.new,
+      "CodeBlockAction.getall",
+      OptimisticFn
+    );
+
+    return { mutateAdd };
   }
 
-  static async getOne(id: string) {
-    const response = await axios.get(`${source}/${id}`);
-    return response.data;
-  }
+  static useDeleteTab = () => {
+    const OptimisticFn = (previousData: any, variables: any) => {
+      return {
+        ...previousData,
+        payload: [...previousData.payload].filter(
+          (item: any) => item._id !== variables._id
+        ),
+      };
+    };
 
-  static async getall() {
-    const response = await axios.get(`${source}`);
-    return response.data;
-  }
+    const { mutate: mutateDelete, isPending } = useMutationData(
+      ["CodeBlockAction.delete"],
+      CodeBlockAPI.delete,
+      "CodeBlockAction.getall",
+      OptimisticFn
+    );
 
-  static async delete(payload: any) {
-    const response = await axios.delete(`${source}/${payload._id}`);
-    return response.data;
-  }
+    return { mutateDelete, isPending };
+  };
+  // +++++++++++++++++++++++++++++++++++++++++++++ Steps API +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  static async nameChange(payload: any) {
-    const response = await axios.post(`${source}/${payload._id}/name`, payload);
-    return response.data;
-  }
-
-  static async addstep(payload: any) {
-    const response = await axios.post(`${source}/step/new`, payload);
-    return response.data;
-  }
-
-  static async deleteStep(payload: any) {
-    const response = await axios.post(`${source}/step/delete`, payload);
-    return response.data;
-  }
-
-  static async duplicateStep(payload: any) {
-    const response = await axios.post(`${source}/step/duplicate`, payload);
-    return response.data;
+  static nameChange(payload: any) {
+    const { mutate } = useMutationData(
+      ["CodeBlockAction.nameChange"],
+      CodeBlockAPI.nameChange,
+      "CodeBlockAction.getall"
+    );
+    return mutate(payload);
   }
 }
-
 export default CodeBlockAction;

@@ -1,10 +1,10 @@
 import { Popover } from "@/components/ui/popover";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { AlignJustify, PlusCircle } from "lucide-react";
+import { AlignJustify, Copy, PlusCircle, Trash2 } from "lucide-react";
 import React from "react";
 import { ComboPopAPI } from "./PopOverSelect";
 import { useMutationData } from "@/hooks/useMutation";
-import CodeBlockAction from "@/actions/project/codeBlock";
+import CodeBlockAction from "../../../../../api/project/codeBlock";
 
 type Props = {
   value: any;
@@ -47,18 +47,24 @@ const InStepPopOver = (props: Props) => {
           <PopoverContent className="w-auto p-0">
             <div className="flex flex-col p-2 rounded-md gap-2">
               <div
-                className="bg-white/40 text-sm hover:bg-white/20 p-1 rounded-md cursor-pointer"
+                className="bg-white/40 flex items-center hover:bg-white/20 p-1 rounded-md cursor-pointer"
                 onClick={() => mutate({ id: props.id, step: props.index })}
               >
-                Duplicate Step
+                <Copy className="size-4" />
+                <div className="text-sm ml-2 border-l border-l-gray-200 pl-2">
+                  Duplicate Step
+                </div>
               </div>
               <div
-                className="bg-red-800 text-sm hover:bg-red-900 p-1 rounded-md cursor-pointer"
+                className="bg-red-800 text-sm flex items-center hover:bg-red-900 p-1 rounded-md cursor-pointer"
                 onClick={() =>
                   mutateDelete({ id: props.id, step: props.index })
                 }
               >
-                Delete Step
+                <Trash2 className="size-4" />
+                <div className="text-sm ml-2 border-l border-l-gray-200 pl-2">
+                  Delete Step
+                </div>
               </div>
             </div>
           </PopoverContent>
