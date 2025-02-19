@@ -26,7 +26,7 @@ const DeleteTab = (props: Props) => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
           <span className="">
-            <Trash className="size-4" />
+            <Trash size={13} />
           </span>
         </PopoverTrigger>
         <PopoverContent className="w-fit text-sm flex flex-col gap-4 rounded-md">

@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Cable, CirclePlus, PanelBottomClose, Trash } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import useTabFallback from "../utils/TabFallback";
 import { cn } from "@/lib/utils";
 import { ComboPopAPI } from "./_components/PopOverSelect";
@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import TabBlockAction from "@/actions/project/tabBlock";
 import ProjectAction from "@/actions/project";
 import DeleteTab from "./_components/DeleteTab";
+import { useUtility } from "../../../../contexts/utils";
 
 type Props = {
   handleOpen: () => void;
@@ -23,6 +24,11 @@ type Props = {
 
 const Tabs = (props: Props) => {
   const { isLoading, data } = ProjectAction.getCodeBlocks();
+
+  const [currentTab, setCurrentTab] = useState("");
+
+  const Utility = useUtility();
+  // const currentTab = Utility?.currentTab;
 
   const [open, setOpen] = React.useState(false);
 
@@ -43,19 +49,25 @@ const Tabs = (props: Props) => {
         {data &&
           data.payload.map((item: any, index: number) => (
             <div
-              className="flex bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2"
+              className={cn(
+                `flex bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2`,
+                currentTab === item._id &&
+                  "bg-white/20 font-bold text-blue-400 border-b-[3px] border-l-[3px] border-blue-700"
+              )}
               key={index}
             >
               <TabsTrigger
                 value={item._id}
-                className=" inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2"
+                onClick={() => {
+                  localStorage.setItem("currentTab", item._id);
+                  setCurrentTab(item._id);
+                }}
               >
                 <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />
-                <span className="font-bold text-sm text-blue-400">
-                  {item.name}
-                </span>
+                <span className=" text-sm ">{item.name}</span>
               </TabsTrigger>
-              <div className=" bg-gray-600 rounded-md cursor-pointer p-[px] px-1 hover:bg-red-600/50">
+              <div className=" bg-gray-600 rounded-md cursor-pointer px-1 hover:bg-red-600/50">
                 <DeleteTab item={item} />
               </div>
             </div>

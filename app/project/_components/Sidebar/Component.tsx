@@ -68,7 +68,7 @@ const CompSidebar = ({ children }: SidebarProps) => {
           </PopoverTrigger>
           <TooltipContent>Components</TooltipContent>
         </Tooltip>
-        <PopoverContent className="w-[300px] translate-x-16 h-full z-50">
+        <PopoverContent side="right" className="w-[300px]  h-full z-50">
           <div className="bg-gray-800 w-full h-full rounded-md">
             <div className="flex items-center justify-center">
               <Input
