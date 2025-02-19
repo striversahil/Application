@@ -5,6 +5,7 @@ import React from "react";
 import { ComboPopAPI } from "./PopOverSelect";
 import { useMutationData } from "@/hooks/useMutation";
 import CodeBlockAction from "../../../../../api/project/codeBlock";
+import StepsBlockAction from "@/actions/project/StepsBlock";
 
 type Props = {
   value: any;
@@ -15,17 +16,9 @@ type Props = {
 const InStepPopOver = (props: Props) => {
   const [open, setOpen] = React.useState(false);
 
-  const { mutate } = useMutationData(
-    ["CodeBlockAction.duplicateStep"],
-    CodeBlockAction.duplicateStep,
-    "CodeBlockAction.getall"
-  );
+  const { mutate } = StepsBlockAction.useduplicate();
 
-  const { mutate: mutateDelete } = useMutationData(
-    ["CodeBlockAction.deleteStep"],
-    CodeBlockAction.deleteStep,
-    "CodeBlockAction.getall"
-  );
+  const { mutate: mutateDelete } = StepsBlockAction.usedelete();
 
   const handleClick = () => {
     window.localStorage.setItem("currentStep", JSON.stringify(props.index));

@@ -1,8 +1,12 @@
 import CodeBlockAPI from "@/api/project/codeBlock";
 import { useMutationData } from "@/hooks/useMutation";
+import axios from "axios";
+
+axios.defaults.withCredentials = true; // Global axios config to enable cookies
+const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
 class StepsBlockAction {
-  static useaddSteps() {
+  static useadd() {
     const OptimisticFn = (previousData: any, variables: any) => {
       return {
         ...previousData,
@@ -23,29 +27,38 @@ class StepsBlockAction {
 
     const { mutate } = useMutationData(
       ["CodeBlockAction.addstep"],
-      CodeBlockAPI.addstep,
+      async (payload: any) => {
+        const response = await axios.post(`${source}/step/new`, payload);
+        return response.data;
+      },
       "CodeBlockAction.getall",
       OptimisticFn
     );
-    return { mutateStepAdd: mutate };
+    return { mutate };
   }
 
-  static duplicateStep() {
+  static useduplicate() {
     const { mutate } = useMutationData(
       ["CodeBlockAction.duplicateStep"],
-      CodeBlockAPI.duplicateStep,
+      async (payload: any) => {
+        const response = await axios.post(`${source}/step/duplicate`, payload);
+        return response.data;
+      },
       "CodeBlockAction.getall"
     );
-    return mutate;
+    return { mutate };
   }
 
-  static deleteStep(payload: any) {
+  static usedelete() {
     const { mutate } = useMutationData(
       ["CodeBlockAction.deleteStep"],
-      CodeBlockAPI.deleteStep,
+      async (payload: any) => {
+        const response = await axios.post(`${source}/step/delete`, payload);
+        return response.data;
+      },
       "CodeBlockAction.getall"
     );
-    return mutate(payload);
+    return { mutate };
   }
 }
 

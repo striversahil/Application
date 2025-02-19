@@ -13,7 +13,6 @@ import {
   X,
 } from "lucide-react";
 import React from "react";
-import { useAddTab, useDeleteTab } from "@/app/project/_hooks/useOptimizedtab";
 import useTabFallback from "../utils/TabFallback";
 import { cn } from "@/lib/utils";
 import { ComboPopAPI } from "./_components/PopOverSelect";
@@ -23,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import TabBlockAction from "@/actions/project/tabBlock";
 
 type Props = {
   handleOpen: () => void;
@@ -36,7 +36,7 @@ const Tabs = (props: Props) => {
     CodeBlockAction.getall
   );
 
-  const { mutateDelete } = useDeleteTab();
+  const { mutate: mutateDelete } = TabBlockAction.useDelete();
   const { setFallback } = useTabFallback();
 
   const HandleOpenIcon = (): React.JSX.Element => {

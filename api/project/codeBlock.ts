@@ -31,16 +31,6 @@ class CodeBlockAPI {
     return response.data;
   }
 
-  static async addstep(payload: any) {
-    const response = await axios.post(`${source}/step/new`, payload);
-    return response.data;
-  }
-
-  static async deleteStep(payload: any) {
-    const response = await axios.post(`${source}/step/delete`, payload);
-    return response.data;
-  }
-
   static async duplicateStep(payload: any) {
     const response = await axios.post(`${source}/step/duplicate`, payload);
     return response.data;

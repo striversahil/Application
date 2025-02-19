@@ -19,8 +19,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Image from "next/image";
-import { useAddTab } from "@/app/project/_hooks/useOptimizedtab";
-import { useaddSteps } from "@/app/project/_hooks/useaddSteps";
+import StepsBlockAction from "@/actions/project/StepsBlock";
+import TabBlockAction from "@/actions/project/tabBlock";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
@@ -65,9 +65,9 @@ const frameworks = [
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
 
-  const { mutateAdd } = useAddTab();
+  const { mutate: mutateAdd } = TabBlockAction.useAdd();
 
-  const { mutateStepAdd } = useaddSteps();
+  const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
 
   return (
     <PopoverContent className="w-[200px] p-0 ">
@@ -120,4 +120,7 @@ export function ComboPopAPI(props: PopOver) {
       </Command>
     </PopoverContent>
   );
+}
+function useaddSteps(): { mutateStepAdd: any } {
+  throw new Error("Function not implemented.");
 }
