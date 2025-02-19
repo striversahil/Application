@@ -1,5 +1,3 @@
-import CodeBlockAction from "../../../../api/project/codeBlock";
-import ProjectAction from "../../../../api/project/project";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useMutationData } from "@/hooks/useMutation";
@@ -23,6 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import TabBlockAction from "@/actions/project/tabBlock";
+import ProjectAction from "@/actions/project";
 
 type Props = {
   handleOpen: () => void;
@@ -31,10 +30,7 @@ type Props = {
 };
 
 const Tabs = (props: Props) => {
-  const { isLoading, data } = useQueryData(
-    "CodeBlockAction.getall",
-    CodeBlockAction.getall
-  );
+  const { isLoading, data } = ProjectAction.getCodeBlock();
 
   const { mutate: mutateDelete } = TabBlockAction.useDelete();
   const { setFallback } = useTabFallback();

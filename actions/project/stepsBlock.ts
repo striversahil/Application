@@ -1,4 +1,3 @@
-import CodeBlockAPI from "@/api/project/codeBlock";
 import { useMutationData } from "@/hooks/useMutation";
 import axios from "axios";
 
@@ -31,7 +30,7 @@ class StepsBlockAction {
         const response = await axios.post(`${source}/step/new`, payload);
         return response.data;
       },
-      "CodeBlockAction.getall",
+      ["CodeBlockAction.getCodeBlock"],
       OptimisticFn
     );
     return { mutate };
@@ -44,7 +43,7 @@ class StepsBlockAction {
         const response = await axios.post(`${source}/step/duplicate`, payload);
         return response.data;
       },
-      "CodeBlockAction.getall"
+      ["CodeBlockAction.getCodeBlock"]
     );
     return { mutate };
   }
@@ -56,7 +55,7 @@ class StepsBlockAction {
         const response = await axios.post(`${source}/step/delete`, payload);
         return response.data;
       },
-      "CodeBlockAction.getall"
+      ["CodeBlockAction.getCodeBlock"]
     );
     return { mutate };
   }

@@ -19,7 +19,7 @@ class TabBlockAction {
         const response = await axios.post(`${source}/`, payload);
         return response;
       },
-      "CodeBlockAction.getall",
+      ["CodeBlockAction.getCodeBlock"],
       OptimisticFn
     );
 
@@ -42,7 +42,7 @@ class TabBlockAction {
         const response = await axios.delete(`${source}/${payload._id}`);
         return response;
       },
-      "CodeBlockAction.getall",
+      ["CodeBlockAction.getCodeBlock"],
       OptimisticFn
     );
 
@@ -60,7 +60,7 @@ class TabBlockAction {
         );
         return response;
       },
-      "CodeBlockAction.getall"
+      ["CodeBlockAction.getCodeBlock"]
     );
     return { mutate };
   }

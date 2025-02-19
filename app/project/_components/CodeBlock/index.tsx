@@ -10,16 +10,15 @@ import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 import { useQueryData } from "@/hooks/useQueryData";
 import CodeBlockAction from "../../../../api/project/codeBlock";
 import { TabsContent } from "@radix-ui/react-tabs";
+import ProjectAction from "@/actions/project";
 
 type Props = {};
 
 const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
 
-  const { isLoading, data } = useQueryData(
-    "CodeBlockAction.getall",
-    CodeBlockAction.getall
-  );
+  const { isLoading, data } = ProjectAction.getCodeBlock();
+  console.log(isLoading, data);
 
   return (
     <>

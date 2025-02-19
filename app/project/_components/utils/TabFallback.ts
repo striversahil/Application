@@ -2,8 +2,8 @@ import React from "react";
 
 const useTabFallback = () => {
   //   const { isLoading, data } = useQueryData(
-  //     "CodeBlockAction.getall",
-  //     CodeBlockAction.getall
+  //     "CodeBlockAction.getCodeBlock",
+  //     CodeBlockAction.getCodeBlock
   //   );
 
   const [fallback, setFallback] = React.useState<string>("");

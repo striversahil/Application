@@ -1,6 +1,7 @@
 import {
   MutationFunction,
   MutationKey,
+  QueryKey,
   useMutation,
   useMutationState,
   useQueryClient,
@@ -10,7 +11,7 @@ import { toast } from "sonner";
 export const useMutationData = (
   mutationKey: MutationKey,
   mutationFn: MutationFunction<any, any>,
-  queryKey?: string,
+  queryKey?: QueryKey,
   OptimisticFn?: (previousData: any, variables: any) => void,
   onSuccess?: () => void
 ) => {
@@ -21,7 +22,7 @@ export const useMutationData = (
     mutationFn,
     onMutate: async (variables) => {
       await client.cancelQueries({
-        queryKey: [queryKey],
+        queryKey: queryKey,
         exact: true,
       });
       // Optimistic update to the cache
@@ -50,7 +51,7 @@ export const useMutationData = (
     },
     onSettled: () => {
       return client.invalidateQueries({
-        queryKey: [queryKey],
+        queryKey: queryKey,
         exact: true,
       });
     },

@@ -5,7 +5,7 @@ import React from "react";
 import { ComboPopAPI } from "./PopOverSelect";
 import { useMutationData } from "@/hooks/useMutation";
 import CodeBlockAction from "../../../../../api/project/codeBlock";
-import StepsBlockAction from "@/actions/project/StepsBlock";
+import StepsBlockAction from "@/actions/project/stepsBlock";
 
 type Props = {
   value: any;
