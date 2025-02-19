@@ -7,38 +7,15 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/Tooltip/tooltip";
+import {
+  PopoverContent,
+  PopoverTrigger,
+  Popover,
+} from "@radix-ui/react-popover";
 
 type Props = {};
 
-const Reference = [
-  {
-    title: "Component",
-    icon: <Component />,
-  },
-  {
-    title: "Workflow",
-    icon: <LaptopMinimal />,
-  },
-  {
-    title: "Preview",
-    icon: <LaptopMinimal />,
-  },
-];
-
-// Add no. of Sidebar as per need
-const Navigators = Array(3).fill(false);
-
 const Sidebar = (props: Props) => {
-  const [State, setState] = React.useState(Navigators);
-
-  const handleClick = (index: number | undefined) => {
-    const newState = [...Navigators];
-    if (index !== undefined && !State[index]) {
-      newState[index] = !newState[index];
-    }
-    setState(newState);
-  };
-
   return (
     <div className="flex z-10 duration-1000">
       <div className="w-fit h-full bg-inherit flex-col bg-slate-900 space-y-10 border-r border-slate-700">
@@ -56,38 +33,33 @@ const Sidebar = (props: Props) => {
           <TooltipContent>Apotza</TooltipContent>
         </Tooltip>
         {/* Todo : Add Navigations as per need */}
-        {Reference.map((item, index) => (
-          <div key={index} className="w-full flex justify-center">
-            <Tooltip>
-              <TooltipTrigger>
-                <div
-                  className="w-fit justify-center cursor-pointer hover:bg-white/10 p-2 duration-200 rounded-md"
-                  onClick={() => handleClick(index)}
-                >
-                  {State[index] ? <PanelLeftClose /> : item.icon}
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>{item.title}</TooltipContent>
-            </Tooltip>
-          </div>
-        ))}
-      </div>
-      {/* Add Custom Sidebar's for Different Usecases */}
-      {State.includes(true) && (
-        <div className="absolute top-[10%] left-[3%] h-[70vh] w-[20%] border-outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md">
-          {State[0] && <CompSidebar />}
-          {State[1] && <CompSidebar />}
-          {State[2] && <CompSidebar />}
-          <div
-            className="absolute top-0 -right-[12%] p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
-            onClick={() => handleClick(undefined)}
-          >
-            <PanelLeftClose />
-          </div>
+        <div className="w-full flex flex-col justify-center items-center gap-5">
+          <CompSidebar />
+          <CompSidebar />
+          <CompSidebar />
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
 export default Sidebar;
+
+{
+  /* Add Custom Sidebar's for Different Usecases */
+}
+{
+  /* {State.includes(true) && (
+    <div className="absolute top-[10%] left-[3%] h-[70vh] w-[20%] border-outline p-5 bg-slate-800 outline-blue-300 shadow-lg   rounded-md">
+      {State[0] && <CompSidebar />}
+      {State[1] && <CompSidebar />}
+      {State[2] && <CompSidebar />}
+      <div
+        className="absolute top-0 -right-[12%] p-2 bg-black/50 rounded-md cursor-pointer hover:bg-white/10"
+        onClick={() => handleClick(undefined)}
+      >
+        <PanelLeftClose />
+      </div>
+    </div>
+  )} */
+}

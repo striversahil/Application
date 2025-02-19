@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 interface ComponentData {

@@ -14,32 +14,42 @@ import InStepPopOver from "./_components/InStepPopOver";
 type Props = {
   value?: any;
 };
+// Space Left Because Wanna Introduce Drag n Drop Feature here
+
+const handleClick = (index: number) => {
+  window.localStorage.setItem("currentStep", JSON.stringify(index));
+};
 
 const Steps = (props: Props) => {
   const [open, setOpen] = React.useState(false);
-
   return (
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={props.value} />
       <div className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
         {props.value.steps.map((item: any, index: number) => {
           return (
-            <div key={index} className="w-full">
+            <div
+              key={index}
+              className="w-full"
+              onClick={() => handleClick(index)}
+            >
               <InStepPopOver value={item} id={props.value._id} index={index} />
             </div>
           );
         })}
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger className="w-full flex justify-center cursor-pointer">
-            <PlusCircle className="size-6 duration-200 active:rotate-90" />
-          </PopoverTrigger>
-          <ComboPopAPI
-            setOpen={setOpen}
-            open={open}
-            _id={props.value._id}
-            step={props.value.steps.length}
-          />
-        </Popover>
+        {props.value.steps.length === 0 && (
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger className=" flex flex-col justify-center items-center cursor-pointer bg-white/20 rounded-lg px-5">
+              Click to Add First API
+              <PlusCircle className=" size-6 duration-200 active:rotate-90" />
+            </PopoverTrigger>
+            <ComboPopAPI
+              setOpen={setOpen}
+              _id={props.value._id}
+              step={props.value.steps.length}
+            />
+          </Popover>
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import Tabs from "./tabs";
 import Steps from "./steps";
 import EditorCode from "./editor";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import { Tabs as TabsRoot } from "@/components/ui/tabs";
+
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
 import { useQueryData } from "@/hooks/useQueryData";
@@ -35,7 +35,7 @@ const CodeBlock = ({}: Props) => {
           collapsible
           onCollapse={handleOpenCode}
         >
-          <div className="w-full h-full bg-slate-800">
+          <div className="ml-1 h-full bg-slate-800">
             {!isLoading &&
               data &&
               data.payload.map((item: any, index: number) => {
@@ -45,7 +45,7 @@ const CodeBlock = ({}: Props) => {
                     value={item._id}
                     className="w-full h-full"
                   >
-                    <PanelGroup direction="horizontal">
+                    <PanelGroup direction="horizontal" className="">
                       <Panel defaultSize={20} minSize={20} maxSize={50}>
                         <Steps value={item} />
                       </Panel>

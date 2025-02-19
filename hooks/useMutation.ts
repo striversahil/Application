@@ -43,11 +43,13 @@ export const useMutationData = (
     //   client.setQueryData([queryKey], context?.previousData);
     // },
     onSuccess(data) {
-      if (onSuccess) onSuccess(); // Calling onSuccess if provided
-
-      return toast("Success", {
-        description: JSON.stringify(data),
-      });
+      if (onSuccess)
+        onSuccess(); // Calling onSuccess if provided
+      else {
+        return toast("Success", {
+          description: JSON.stringify(data),
+        });
+      }
     },
     onSettled: () => {
       return client.invalidateQueries({

@@ -6,13 +6,6 @@ const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
 const TabBlockAction = {
   useAdd: () => {
-    const OptimisticFn = (previousData: any, variables: any) => {
-      return {
-        ...previousData,
-        payload: [...previousData.payload, variables],
-      };
-    };
-
     const { mutate } = useMutationData(
       ["CodeBlockAction.add"],
       async (payload: any) => {
@@ -20,22 +13,18 @@ const TabBlockAction = {
         return response;
       },
       ["ProjectAction.getCodeBlocks"],
-      OptimisticFn
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: [...previousData.payload, variables],
+        };
+      }
     );
 
     return { mutate };
   },
 
   useDelete: () => {
-    const OptimisticFn = (previousData: any, variables: any) => {
-      return {
-        ...previousData,
-        payload: [...previousData.payload].filter(
-          (item: any) => item._id !== variables._id
-        ),
-      };
-    };
-
     const { mutate, isPending } = useMutationData(
       ["CodeBlockAction.delete"],
       async (payload: any) => {
@@ -43,7 +32,14 @@ const TabBlockAction = {
         return response;
       },
       ["ProjectAction.getCodeBlocks"],
-      OptimisticFn
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: [...previousData.payload].filter(
+            (item: any) => item._id !== variables._id
+          ),
+        };
+      }
     );
 
     return { mutate, isPending };

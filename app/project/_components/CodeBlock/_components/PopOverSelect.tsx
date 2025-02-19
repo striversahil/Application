@@ -24,7 +24,6 @@ import TabBlockAction from "@/actions/project/tabBlock";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
-  open: boolean;
   _id?: string;
   step?: number;
 };
@@ -70,8 +69,8 @@ export function ComboPopAPI(props: PopOver) {
   const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
 
   return (
-    <PopoverContent className="w-[200px] p-0 ">
-      <Command className="bg-slate-800">
+    <PopoverContent className="w-[200px] p-0 border-[1px] shadow-lg rounded-md">
+      <Command className="bg-[#1e1e1e]">
         <CommandInput placeholder="Search Provider..." />
         <CommandList>
           <CommandEmpty>No API Provider found.</CommandEmpty>

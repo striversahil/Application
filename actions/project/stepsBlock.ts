@@ -1,5 +1,6 @@
 import { useMutationData } from "@/hooks/useMutation";
 import axios from "axios";
+import { toast } from "sonner";
 
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
@@ -41,7 +42,9 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/step/duplicate`, payload);
         return response.data;
       },
-      ["ProjectAction.getCodeBlocks"]
+      ["ProjectAction.getCodeBlocks"],
+      undefined,
+      () => toast("Success", { description: "Successfully duplicated step" })
     );
     return { mutate };
   },
@@ -53,7 +56,9 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/step/delete`, payload);
         return response.data;
       },
-      ["ProjectAction.getCodeBlocks"]
+      ["ProjectAction.getCodeBlocks"],
+      undefined,
+      () => toast("Success", { description: "Successfully deleted step" })
     );
     return { mutate };
   },
