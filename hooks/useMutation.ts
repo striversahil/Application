@@ -26,9 +26,9 @@ export const useMutationData = (
         exact: true,
       });
       // Optimistic update to the cache
-      const previousData = client.getQueryData(queryKey);
+      const previousData = client.getQueryData([queryKey]);
       client.setQueryData(
-        queryKey,
+        [queryKey],
         OptimisticFn
           ? OptimisticFn(previousData, variables)
           : (previousData: any, variables: any) => ({
@@ -51,7 +51,7 @@ export const useMutationData = (
     },
     onSettled: () => {
       return client.invalidateQueries({
-        queryKey: queryKey,
+        queryKey: [queryKey],
         exact: true,
       });
     },

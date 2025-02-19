@@ -46,7 +46,7 @@ const ProjectAction = {
         const response = await axios.post(`${project}/name`, payload);
         return response;
       },
-      ["CodeBlockAction.getCodeBlock", "ProjectAction.getProject"],
+      ["ProjectAction.getProject"],
       (previousData: any, variables: any) => {
         return { ...previousData, variables };
       }
