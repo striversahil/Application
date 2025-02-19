@@ -4,8 +4,8 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
-class StepsBlockAction {
-  static useadd() {
+const StepsBlockAction = {
+  useadd: () => {
     const OptimisticFn = (previousData: any, variables: any) => {
       return {
         ...previousData,
@@ -34,9 +34,9 @@ class StepsBlockAction {
       OptimisticFn
     );
     return { mutate };
-  }
+  },
 
-  static useduplicate() {
+  useduplicate: () => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.duplicateStep"],
       async (payload: any) => {
@@ -46,9 +46,9 @@ class StepsBlockAction {
       ["CodeBlockAction.getCodeBlock"]
     );
     return { mutate };
-  }
+  },
 
-  static usedelete() {
+  usedelete: () => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.deleteStep"],
       async (payload: any) => {
@@ -58,7 +58,7 @@ class StepsBlockAction {
       ["CodeBlockAction.getCodeBlock"]
     );
     return { mutate };
-  }
-}
+  },
+};
 
 export default StepsBlockAction;

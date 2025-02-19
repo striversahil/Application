@@ -4,8 +4,8 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
-class TabBlockAction {
-  static useAdd() {
+const TabBlockAction = {
+  useAdd: () => {
     const OptimisticFn = (previousData: any, variables: any) => {
       return {
         ...previousData,
@@ -24,9 +24,9 @@ class TabBlockAction {
     );
 
     return { mutate };
-  }
+  },
 
-  static useDelete = () => {
+  useDelete: () => {
     const OptimisticFn = (previousData: any, variables: any) => {
       return {
         ...previousData,
@@ -47,10 +47,10 @@ class TabBlockAction {
     );
 
     return { mutate, isPending };
-  };
+  },
   // +++++++++++++++++++++++++++++++++++++++++++++ Steps API +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  static useNameChange() {
+  useNameChange: () => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChange"],
       async (payload: any) => {
@@ -63,7 +63,7 @@ class TabBlockAction {
       ["CodeBlockAction.getCodeBlock"]
     );
     return { mutate };
-  }
-}
+  },
+};
 
 export default TabBlockAction;

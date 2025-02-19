@@ -3,6 +3,6 @@ import { useMutationData } from "@/hooks/useMutation";
 
 // ++++++++++++++++++++++++++++++++++++++++++++++ Optimistic Updated API +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-class EditorBlockAction {}
+const EditorBlockAction = {};
 // This will be Absolute Code Handling API
 export default EditorBlockAction;

@@ -11,7 +11,7 @@ import { toast } from "sonner";
 export const useMutationData = (
   mutationKey: MutationKey,
   mutationFn: MutationFunction<any, any>,
-  queryKey?: QueryKey,
+  queryKey: QueryKey,
   OptimisticFn?: (previousData: any, variables: any) => void,
   onSuccess?: () => void
 ) => {
@@ -26,9 +26,9 @@ export const useMutationData = (
         exact: true,
       });
       // Optimistic update to the cache
-      const previousData = client.getQueryData([queryKey]);
+      const previousData = client.getQueryData(queryKey);
       client.setQueryData(
-        [queryKey],
+        queryKey,
         OptimisticFn
           ? OptimisticFn(previousData, variables)
           : (previousData: any, variables: any) => ({
