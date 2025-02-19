@@ -38,8 +38,6 @@ export const ApplicationSelectionBoxes = ({ data, isLoading }: any) => {
     },
   ];
 
-  console.log(data, isLoading);
-
   const handleClick = () => {
     if (data) {
       router.push(`/project/${data.payload.projects[0]}`);

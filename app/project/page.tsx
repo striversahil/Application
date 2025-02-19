@@ -8,7 +8,7 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
+  const { isLoading, data } = useQueryData(["project"], ProjectAction.getOne);
 
   if (isLoading) {
     return (
@@ -17,8 +17,6 @@ const page = (props: Props) => {
       </div>
     );
   }
-
-  console.log(data);
 
   if (data && data.statusCode === 401) {
     redirect("/login");

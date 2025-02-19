@@ -1,8 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Cable, CirclePlus, PanelBottomClose, Trash } from "lucide-react";
-import React, { useState } from "react";
-import useTabFallback from "../utils/TabFallback";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ComboPopAPI } from "./_components/PopOverSelect";
 import {
@@ -14,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import TabBlockAction from "@/actions/project/tabBlock";
 import ProjectAction from "@/actions/project";
 import DeleteTab from "./_components/DeleteTab";
-import { useUtility } from "../../../../contexts/utils";
 
 type Props = {
   handleOpen: () => void;
@@ -27,14 +25,16 @@ const Tabs = (props: Props) => {
 
   const [currentTab, setCurrentTab] = useState("");
 
-  const Utility = useUtility();
-  // const currentTab = Utility?.currentTab;
+  useEffect(() => {
+    const defaultTab = localStorage.getItem("currentTab") as string;
+    setCurrentTab(defaultTab);
+  }, []);
 
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="flex h-[36px] mx-1">
-      <TabsList className="relative flex flex-1 items-center justify-start gap-2 flex-wrap overflow-y-scroll max-w-full">
+    <div className="flex h-[36px] mx-1 ">
+      <TabsList className="relative flex flex-1 items-center justify-start gap-2 flex-wrap overflow-y-scroll max-w-full bg-transparent">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
         <div>
           <Popover open={open} onOpenChange={setOpen}>
@@ -50,7 +50,7 @@ const Tabs = (props: Props) => {
           data.payload.map((item: any, index: number) => (
             <div
               className={cn(
-                `flex bg-white/10 p-1 rounded-md border border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2`,
+                `flex bg-white/10 p-1 rounded-md border  border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2`,
                 currentTab === item._id &&
                   "bg-white/20 font-bold text-blue-400 border-b-[3px] border-l-[3px] border-blue-700"
               )}
@@ -60,8 +60,8 @@ const Tabs = (props: Props) => {
                 value={item._id}
                 className="inline-flex items-center gap-2"
                 onClick={() => {
-                  localStorage.setItem("currentTab", item._id);
                   setCurrentTab(item._id);
+                  localStorage.setItem("currentTab", item._id);
                 }}
               >
                 <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />

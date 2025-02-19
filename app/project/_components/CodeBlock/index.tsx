@@ -1,5 +1,5 @@
 import React from "react";
-import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
+import { Tabs as TabRoot } from "@radix-ui/react-tabs";
 import Tabs from "./tabs";
 import Steps from "./steps";
 import EditorCode from "./editor";
@@ -18,7 +18,6 @@ const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
 
   const { isLoading, data } = ProjectAction.getCodeBlocks();
-  console.log(isLoading, data);
 
   return (
     <>
@@ -45,15 +44,17 @@ const CodeBlock = ({}: Props) => {
                     value={item._id}
                     className="w-full h-full"
                   >
-                    <PanelGroup direction="horizontal" className="">
-                      <Panel defaultSize={20} minSize={20} maxSize={50}>
-                        <Steps value={item} />
-                      </Panel>
-                      <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
-                      <Panel defaultSize={80} minSize={20} maxSize={80}>
-                        <EditorCode value={item} />
-                      </Panel>
-                    </PanelGroup>
+                    <TabRoot>
+                      <PanelGroup direction="horizontal" className="">
+                        <Panel defaultSize={20} minSize={20} maxSize={50}>
+                          <Steps value={item} />
+                        </Panel>
+                        <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
+                        <Panel defaultSize={80} minSize={20} maxSize={80}>
+                          <EditorCode value={item} />
+                        </Panel>
+                      </PanelGroup>
+                    </TabRoot>
                   </TabsContent>
                 );
               })}

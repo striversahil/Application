@@ -1,18 +1,15 @@
-import { CodeiumEditor } from "@codeium/react-code-editor";
 import React from "react";
+import { CodeiumEditor as IDE } from "@codeium/react-code-editor";
 
-type Props = {
-  value?: any;
-};
+type Props = {};
 
-export const IdeWithAutocomplete = (props: Props) => {
+const IDEeditor = (props: Props) => {
   function handleEditorChange(value: any, event: any) {
     console.log("Content changed:", value);
   }
-
   return (
-    <div className="relative w-full h-full">
-      <CodeiumEditor
+    <div className="w-full h-full">
+      <IDE
         language="javascript"
         theme="vs-dark"
         path="/editor.ts"
@@ -21,7 +18,8 @@ export const IdeWithAutocomplete = (props: Props) => {
         loading="Loading..."
         onChange={handleEditorChange}
       />
-      <div className="absolute w-12 h-full z-10 top-0  right-0 bg-[#1e1e1e]"></div>
     </div>
   );
 };
+
+export default IDEeditor;

@@ -10,6 +10,7 @@ import { Popover } from "@/components/ui/popover";
 import { PopoverTrigger } from "@radix-ui/react-popover";
 import { ComboPopAPI } from "./_components/PopOverSelect";
 import InStepPopOver from "./_components/InStepPopOver";
+import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 type Props = {
   value?: any;
@@ -26,17 +27,26 @@ const Steps = (props: Props) => {
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={props.value} />
       <div className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
-        {props.value.steps.map((item: any, index: number) => {
-          return (
-            <div
-              key={index}
-              className="w-full"
-              onClick={() => handleClick(index)}
-            >
-              <InStepPopOver value={item} id={props.value._id} index={index} />
-            </div>
-          );
-        })}
+        <TabsList>
+          {props.value.steps?.map((item: any, index: number) => {
+            console.log(item);
+            return (
+              <div
+                key={index}
+                className="w-full"
+                onClick={() => handleClick(index)}
+              >
+                <TabsTrigger value={item._id}>
+                  <InStepPopOver
+                    value={item}
+                    id={props.value._id}
+                    index={index}
+                  />
+                </TabsTrigger>
+              </div>
+            );
+          })}
+        </TabsList>
         {props.value.steps.length === 0 && (
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger className=" flex flex-col justify-center items-center cursor-pointer bg-white/20 rounded-lg px-5">
