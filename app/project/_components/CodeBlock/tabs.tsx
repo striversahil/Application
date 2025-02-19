@@ -1,7 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { useMutationData } from "@/hooks/useMutation";
-import { useQueryData } from "@/hooks/useQueryData";
 import {
   Cable,
   CirclePlus,
@@ -30,7 +28,7 @@ type Props = {
 };
 
 const Tabs = (props: Props) => {
-  const { isLoading, data } = ProjectAction.getCodeBlock();
+  const { isLoading, data } = ProjectAction.getCodeBlocks();
 
   const { mutate: mutateDelete } = TabBlockAction.useDelete();
   const { setFallback } = useTabFallback();

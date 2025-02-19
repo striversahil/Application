@@ -6,32 +6,30 @@ const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
 const StepsBlockAction = {
   useadd: () => {
-    const OptimisticFn = (previousData: any, variables: any) => {
-      return {
-        ...previousData,
-        payload: [...previousData.payload].map((item: any) => {
-          if (item._id === variables._id) {
-            return {
-              ...item,
-              steps: [
-                ...item.steps,
-                { name: "Loading... " + item.steps.length + 1 },
-              ],
-            };
-          }
-          return item;
-        }),
-      };
-    };
-
     const { mutate } = useMutationData(
       ["CodeBlockAction.addstep"],
       async (payload: any) => {
         const response = await axios.post(`${source}/step/new`, payload);
         return response.data;
       },
-      ["CodeBlockAction.getCodeBlock"],
-      OptimisticFn
+      ["ProjectAction.getCodeBlocks"],
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: [...previousData.payload].map((item: any) => {
+            if (item._id === variables._id) {
+              return {
+                ...item,
+                steps: [
+                  ...item.steps,
+                  { name: "Loading... " + item.steps.length + 1 },
+                ],
+              };
+            }
+            return item;
+          }),
+        };
+      }
     );
     return { mutate };
   },
@@ -43,7 +41,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/step/duplicate`, payload);
         return response.data;
       },
-      ["CodeBlockAction.getCodeBlock"]
+      ["ProjectAction.getCodeBlocks"]
     );
     return { mutate };
   },
@@ -55,7 +53,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/step/delete`, payload);
         return response.data;
       },
-      ["CodeBlockAction.getCodeBlock"]
+      ["ProjectAction.getCodeBlocks"]
     );
     return { mutate };
   },

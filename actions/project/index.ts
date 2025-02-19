@@ -21,7 +21,7 @@ const ProjectAction = {
   },
   getOneCodeBlock: (id: string) => {
     const { isLoading, data } = useQueryData(
-      ["CodeBlockAction.getOneCodeBlock"],
+      ["ProjectAction.getOneCodeBlock"],
       async () => {
         const response = await axios.get(`${codeBlock}/${id}`);
         return response.data;
@@ -29,9 +29,9 @@ const ProjectAction = {
     );
     return { isLoading, data };
   },
-  getCodeBlock: () => {
+  getCodeBlocks: () => {
     const { isLoading, data } = useQueryData(
-      ["CodeBlockAction.getCodeBlock"],
+      ["ProjectAction.getCodeBlocks"],
       async () => {
         const response = await axios.get(`${codeBlock}`);
         return response.data;
@@ -41,7 +41,7 @@ const ProjectAction = {
   },
   useNameChange: () => {
     const { mutate } = useMutationData(
-      ["CodeBlockAction.nameChange"],
+      ["ProjectAction.nameChange"],
       async (payload: any) => {
         const response = await axios.post(`${project}/name`, payload);
         return response;

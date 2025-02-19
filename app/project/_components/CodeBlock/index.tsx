@@ -17,7 +17,7 @@ type Props = {};
 const CodeBlock = ({}: Props) => {
   const { openCode, handleOpenCode } = useOpen();
 
-  const { isLoading, data } = ProjectAction.getCodeBlock();
+  const { isLoading, data } = ProjectAction.getCodeBlocks();
   console.log(isLoading, data);
 
   return (

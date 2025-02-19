@@ -19,7 +19,7 @@ const TabBlockAction = {
         const response = await axios.post(`${source}/`, payload);
         return response;
       },
-      ["CodeBlockAction.getCodeBlock"],
+      ["ProjectAction.getCodeBlocks"],
       OptimisticFn
     );
 
@@ -42,13 +42,12 @@ const TabBlockAction = {
         const response = await axios.delete(`${source}/${payload._id}`);
         return response;
       },
-      ["CodeBlockAction.getCodeBlock"],
+      ["ProjectAction.getCodeBlocks"],
       OptimisticFn
     );
 
     return { mutate, isPending };
   },
-  // +++++++++++++++++++++++++++++++++++++++++++++ Steps API +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   useNameChange: () => {
     const { mutate } = useMutationData(
@@ -60,7 +59,7 @@ const TabBlockAction = {
         );
         return response;
       },
-      ["CodeBlockAction.getCodeBlock"]
+      ["ProjectAction.getCodeBlocks"]
     );
     return { mutate };
   },

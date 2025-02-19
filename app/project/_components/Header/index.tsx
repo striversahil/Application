@@ -1,10 +1,8 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQueryData } from "@/hooks/useQueryData";
 import React from "react";
 import { useClickOutsideEnter } from "../../_hooks/useClickOutsideEnter";
-import { useMutationData } from "@/hooks/useMutation";
 import ProjectAction from "@/actions/project";
 
 type Props = {};
