@@ -21,6 +21,7 @@ const DeleteTab = (props: Props) => {
       _id: id,
     });
     localStorage.removeItem(`currentTab-${id}`);
+    setOpen(false);
   };
   return (
     <div className="w-full h-full   rounded-md cursor-pointer p-[px]  hover:bg-red-600/50">

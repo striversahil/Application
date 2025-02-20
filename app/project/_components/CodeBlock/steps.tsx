@@ -26,23 +26,17 @@ const Steps = (props: Props) => {
         <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
           {props.value.steps?.map((item: any, index: number) => {
             return (
-              <TabsTrigger
-                value={item._id}
+              <div
                 className="w-full"
                 key={index}
-                onClick={() =>
-                  localStorage.setItem(
-                    `currentTab-${props.value._id}`,
-                    item._id
-                  )
-                }
+                
               >
                 <InStepPopOver
                   value={item}
                   id={props.value._id}
                   index={index}
                 />
-              </TabsTrigger>
+              </div>
             );
           })}
         </TabsList>

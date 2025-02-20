@@ -14,23 +14,24 @@ const StepsBlockAction = {
         return response.data;
       },
       ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload].map((item: any) => {
-            if (item._id === variables._id) {
-              return {
-                ...item,
-                steps: [
-                  ...item.steps,
-                  { name: "Loading... " + item.steps.length + 1 },
-                ],
-              };
-            }
-            return item;
-          }),
-        };
-      }
+      undefined
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload].map((item: any) => {
+      //       if (item._id === variables._id) {
+      //         return {
+      //           ...item,
+      //           steps: [
+      //             ...item.steps,
+      //             { name: "Loading... " + item.steps.length + 1 },
+      //           ],
+      //         };
+      //       }
+      //       return item;
+      //     }),
+      //   };
+      // }
     );
     return { mutate };
   },
@@ -43,7 +44,22 @@ const StepsBlockAction = {
         return response.data;
       },
       ["ProjectAction.getCodeBlocks"],
-      undefined,
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: [...previousData.payload].map((item: any) => {
+            if (item._id === variables.id) {
+              return {
+                ...item,
+                steps: [...item.steps].splice(variables.step, 0, {
+                  name: "Loading... " + item.steps.length + 1,
+                }),
+              };
+            }
+            return item;
+          }),
+        };
+      },
       () => toast("Success", { description: "Successfully duplicated step" })
     );
     return { mutate };
@@ -57,7 +73,22 @@ const StepsBlockAction = {
         return response.data;
       },
       ["ProjectAction.getCodeBlocks"],
-      undefined,
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: [...previousData.payload].map((item: any) => {
+            if (item._id === variables.id) {
+              return {
+                ...item,
+                steps: [...item.steps].filter(
+                  (_, index) => index !== variables.step
+                ),
+              };
+            }
+            return item;
+          }),
+        };
+      },
       () => toast("Success", { description: "Successfully deleted step" })
     );
     return { mutate };

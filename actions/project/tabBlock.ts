@@ -16,7 +16,7 @@ const TabBlockAction = {
       (previousData: any, variables: any) => {
         return {
           ...previousData,
-          payload: [...previousData.payload, variables],
+          payload: [...previousData.payload, variables.metadata.name],
         };
       }
     );

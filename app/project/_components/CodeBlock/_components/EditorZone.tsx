@@ -15,7 +15,7 @@ export const EditorZone = (props: Props) => {
   // useClickOutsideEnter();
   return (
     <div className="relative w-full h-full items-center">
-      <div className="h-[50px] w-full flex gap-5">
+      <div className="h-[50px] w-full flex gap-5 shadow-2xl bg-gradient-to-r from-slate-800 to-slate-600">
         <Image
           className="ml-5 shadow-2xl my-3 hover:bg-white/50 bg-white/30 rounded-md cursor-pointer"
           src={
