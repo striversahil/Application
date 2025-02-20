@@ -1,22 +1,16 @@
 "use client";
-import ProjectAction from "@/actions/project/project";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQueryData } from "@/hooks/useQueryData";
 import React from "react";
 import { useClickOutsideEnter } from "../../_hooks/useClickOutsideEnter";
-import { useMutationData } from "@/hooks/useMutation";
+import ProjectAction from "@/actions/project";
 
 type Props = {};
 
 const Header = (props: Props) => {
-  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
+  const { isLoading, data } = ProjectAction.getProject();
 
-  const { mutate } = useMutationData(
-    ["ProjectAction.updatename"],
-    ProjectAction.updatename,
-    "project"
-  );
+  const { mutate } = ProjectAction.useNameChange();
 
   const { ref, mount, setMount, EnterClick, ValueChange, value } =
     useClickOutsideEnter(() => mutate({ name: value }), data?.payload.name);

@@ -4,7 +4,7 @@ import EditorCanvas from "../../_components/EditorCanvas";
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import { PanelRightOpen } from "lucide-react";
 
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
 import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
@@ -30,7 +30,18 @@ const page = (props: Props) => {
   } = useDragEnd();
 
   const { openConfig, handleOpenConfig } = useOpen();
-  const { fallback, setFallback } = useTabFallback();
+
+  const [currentTab, setCurrentTab] = useState("");
+
+  useEffect(() => {
+    const defaultTab = localStorage.getItem("currentTab") as string;
+    if (!defaultTab) setCurrentTab("1");
+    setCurrentTab(defaultTab);
+  }, []);
+
+  if (!currentTab) {
+    return null;
+  }
 
   return (
     <DndContext
@@ -42,7 +53,7 @@ const page = (props: Props) => {
       }}
       sensors={sensors}
     >
-      <TabsRoot defaultValue={fallback} onValueChange={setFallback}>
+      <TabsRoot defaultValue={currentTab}>
         <TooltipProvider>
           <div className="relative flex min-h-screen bg-slate-950">
             <Sidebar />

@@ -1,4 +1,5 @@
-import CodeBlockAction from "@/actions/project/codeBlock";
+import TabBlockAction from "@/actions/project/tabBlock";
+import CodeBlockAction from "../../../../../api/project/codeBlock";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
 import { Input } from "@/components/ui/input";
 import {
@@ -15,11 +16,7 @@ type Props = {
 };
 
 const HeaderChange = (props: Props) => {
-  const { mutate } = useMutationData(
-    ["CodeBlockAction.nameChange"],
-    CodeBlockAction.nameChange,
-    "CodeBlockAction.getall"
-  );
+  const { mutate } = TabBlockAction.useNameChange();
 
   const Mutation = () => {
     mutate({ _id: props.value._id, name: value });
@@ -32,7 +29,7 @@ const HeaderChange = (props: Props) => {
     <div>
       {!mount && (
         <div
-          className="flex cursor-pointer w-full p-2 text-base text-center bg-blue-400 rounded-md shadow-lg"
+          className="flex cursor-pointer w-full p-2 text-md text-center bg-blue-400 rounded-md shadow-lg"
           onClick={() => setMount(true)}
         >
           <span className="flex-1">

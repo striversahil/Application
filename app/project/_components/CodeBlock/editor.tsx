@@ -2,6 +2,8 @@ import React from "react";
 import Output from "./output";
 import { Panel, PanelGroup } from "react-resizable-panels";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
+import { EditorZone } from "./_components/EditorZone";
+import { TabsContent } from "@radix-ui/react-tabs";
 
 type Props = {
   value?: any;
@@ -10,15 +12,33 @@ type Props = {
 const EditorCode = (props: Props) => {
   return (
     <div className="h-full w-full ">
-      <PanelGroup direction="vertical">
-        <Panel defaultSize={50} minSize={20} maxSize={100}>
-          <div>{props.value.name}</div>
-        </Panel>
-        <PanelResizeHandleComp />
-        <Panel defaultSize={50} minSize={20} maxSize={100}>
-          <Output />
-        </Panel>
-      </PanelGroup>
+      <div className="w-full h-full">
+        {props.value.steps?.map((item: any, index: number) => {
+          console.log(item);
+          return (
+            <TabsContent value={item._id} className="w-full h-full" key={index}>
+              {item._id}
+              <div
+                key={index}
+                className="w-full h-full"
+                onClick={() =>
+                  localStorage.setItem("currentStep", JSON.stringify(index))
+                }
+              >
+                <PanelGroup direction="vertical" key={index}>
+                  <Panel defaultSize={50} minSize={20} maxSize={100}>
+                    <EditorZone />
+                  </Panel>
+                  <PanelResizeHandleComp />
+                  <Panel defaultSize={50} minSize={20} maxSize={100}>
+                    <Output />
+                  </Panel>
+                </PanelGroup>
+              </div>
+            </TabsContent>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
-class CodeBlockAction {
+class CodeBlockAPI {
   constructor() {}
   static async new(payload: any) {
     console.log(payload);
@@ -31,10 +31,10 @@ class CodeBlockAction {
     return response.data;
   }
 
-  static async addstep(payload: any) {
-    const response = await axios.post(`${source}/step/new`, payload);
+  static async duplicateStep(payload: any) {
+    const response = await axios.post(`${source}/step/duplicate`, payload);
     return response.data;
   }
 }
 
-export default CodeBlockAction;
+export default CodeBlockAPI;

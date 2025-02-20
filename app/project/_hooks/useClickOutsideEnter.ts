@@ -19,16 +19,20 @@ export const useClickOutsideEnter = (
     }
     Mutation();
   }
+
   const ref = useClickOutside(() => {
     Mutate();
   });
+
   const EnterClick = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       Mutate();
     }
   };
+
   const ValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+
   return { ref, mount, setMount, EnterClick, ValueChange, value };
 };

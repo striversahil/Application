@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { getWorkspaceInfo } from "@/actions/user";
+import { getWorkspaceInfo } from "../../../api/user";
 import { ApplicationSelectionBoxes } from "@/app/dashboard/_components/application";
 import React from "react";
 import Sidebar from "@/app/dashboard/_components/Sidebar";

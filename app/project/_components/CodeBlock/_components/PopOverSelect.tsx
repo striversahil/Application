@@ -19,12 +19,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Image from "next/image";
-import { useAddTab } from "@/app/project/_hooks/useOptimizedtab";
-import { useaddSteps } from "@/app/project/_hooks/useaddSteps";
+import StepsBlockAction from "@/actions/project/stepsBlock";
+import TabBlockAction from "@/actions/project/tabBlock";
+import { useStepAdd } from "@/app/project/_hooks/useStepadd";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
-  open: boolean;
   _id?: string;
   step?: number;
 };
@@ -64,14 +64,10 @@ const frameworks = [
 
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
-
-  const { mutateAdd } = useAddTab();
-
-  const { mutateStepAdd } = useaddSteps();
-
+  const { mutateTab, mutateStep } = useStepAdd();
   return (
-    <PopoverContent className="w-[200px] p-0 ">
-      <Command className="bg-slate-800">
+    <PopoverContent className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md">
+      <Command className="bg-[#1e1e1e]">
         <CommandInput placeholder="Search Provider..." />
         <CommandList>
           <CommandEmpty>No API Provider found.</CommandEmpty>
@@ -84,23 +80,15 @@ export function ComboPopAPI(props: PopOver) {
                   onSelect={(currentValue: any) => {
                     setValue(currentValue === value ? "" : currentValue);
                     props.setOpen(false);
-                    if (props._id) {
-                      console.log(props.step);
-                      mutateStepAdd({
-                        metadata: {
-                          _id: props._id,
-                          step: props.step,
-                        },
-                        slug: {
-                          name: "Lodash",
-                          code: 'console.log("Hello World")',
-                          language: "javascript",
-                          output: "Hello World",
-                        },
-                      });
-                    }
                     if (!props._id) {
-                      mutateAdd({ name: `API : ${framework.label}` });
+                      mutateTab({ label: framework.label });
+                    }
+                    if (props._id) {
+                      mutateStep({
+                        _id: props._id,
+                        label: framework.label,
+                        step: props.step,
+                      });
                     }
                   }}
                   className=" p-1 py-2 rounded-md border-none cursor-pointer flex items-center gap-2"
@@ -120,4 +108,7 @@ export function ComboPopAPI(props: PopOver) {
       </Command>
     </PopoverContent>
   );
+}
+function useaddSteps(): { mutateStepAdd: any } {
+  throw new Error("Function not implemented.");
 }

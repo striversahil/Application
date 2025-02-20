@@ -1,5 +1,5 @@
 "use client";
-import ProjectAction from "@/actions/project/project";
+import ProjectAction from "../../api/project/project";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQueryData } from "@/hooks/useQueryData";
 import { redirect } from "next/navigation";
@@ -8,7 +8,7 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const { isLoading, data } = useQueryData("project", ProjectAction.getOne);
+  const { isLoading, data } = useQueryData(["project"], ProjectAction.getOne);
 
   if (isLoading) {
     return (
@@ -17,8 +17,6 @@ const page = (props: Props) => {
       </div>
     );
   }
-
-  console.log(data);
 
   if (data && data.statusCode === 401) {
     redirect("/login");

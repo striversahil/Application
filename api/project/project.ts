@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = process.env.NEXT_PUBLIC_BASE_URL;
 
-class ProjectAction {
+class ProjectAPI {
   static async getOne() {
     const response = await axios.get(`${source}/project`);
     return response.data;
@@ -30,4 +30,4 @@ class ProjectAction {
   }
 }
 
-export default ProjectAction;
+export default ProjectAPI;

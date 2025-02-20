@@ -1,8 +1,14 @@
 import { Popover } from "@/components/ui/popover";
-import { PopoverTrigger } from "@radix-ui/react-popover";
-import { PlusCircle } from "lucide-react";
+import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { AlignJustify, Copy, PlusCircle, Trash2 } from "lucide-react";
 import React from "react";
 import { ComboPopAPI } from "./PopOverSelect";
+import StepsBlockAction from "@/actions/project/stepsBlock";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/Tooltip/tooltip";
 
 type Props = {
   value: any;
@@ -12,23 +18,59 @@ type Props = {
 
 const InStepPopOver = (props: Props) => {
   const [open, setOpen] = React.useState(false);
+
+  const { mutate } = StepsBlockAction.useduplicate();
+
+  const { mutate: mutateDelete } = StepsBlockAction.usedelete();
+
   return (
     <div>
-      <Popover open={open} onOpenChange={setOpen}>
-        <div className="bg-white/20 w-full p-2 rounded-md flex items-center justify-center">
-          <div className="font-bold">
-            <span className="text-sm">{props.value.name}</span>
-          </div>
+      <div className="bg-white/20 w-full p-2 rounded-md flex items-center justify-center">
+        <div className="font-bold flex-1 w-full text-center cursor-pointer">
+          <span className="text-sm ">{props.value.name}</span>
         </div>
+        <Popover>
+          <PopoverTrigger className="">
+            <AlignJustify className="size-4 " />
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0">
+            <div className="flex flex-col p-2 rounded-md gap-2">
+              <div
+                className="bg-white/40 flex items-center hover:bg-white/20 p-1 rounded-md cursor-pointer"
+                onClick={() => mutate({ id: props.id, step: props.index })}
+              >
+                <Copy className="size-4" />
+                <div className="text-sm ml-2 border-l border-l-gray-200 pl-2">
+                  Duplicate Step
+                </div>
+              </div>
+              <div
+                className="bg-red-800 text-sm flex items-center hover:bg-red-900 p-1 rounded-md cursor-pointer"
+                onClick={() =>
+                  mutateDelete({ id: props.id, step: props.index })
+                }
+              >
+                <Trash2 className="size-4" />
+                <div className="text-sm ml-2 border-l border-l-gray-200 pl-2">
+                  Delete Step
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger className="w-full flex justify-center cursor-pointer">
-          <PlusCircle className="size-2 hover:size-6 duration-200 active:rotate-90" />
+          <Tooltip>
+            <TooltipTrigger>
+              <PlusCircle className="size-4 hover:size-6 duration-200 active:rotate-90" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <span className="text-sm">Add Step</span>
+            </TooltipContent>
+          </Tooltip>
         </PopoverTrigger>
-        <ComboPopAPI
-          setOpen={setOpen}
-          open={open}
-          _id={props.id}
-          step={props.index + 1}
-        />
+        <ComboPopAPI setOpen={setOpen} _id={props.id} step={props.index + 1} />
       </Popover>
     </div>
   );

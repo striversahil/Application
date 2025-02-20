@@ -1,6 +1,8 @@
+import { data } from "@/packages/common/Json";
 import {
   MutationFunction,
   MutationKey,
+  QueryKey,
   useMutation,
   useMutationState,
   useQueryClient,
@@ -10,18 +12,18 @@ import { toast } from "sonner";
 export const useMutationData = (
   mutationKey: MutationKey,
   mutationFn: MutationFunction<any, any>,
-  queryKey?: string,
+  queryKey: QueryKey,
   OptimisticFn?: (previousData: any, variables: any) => void,
   onSuccess?: () => void
 ) => {
   // Creating a query client for Mutation
   const client = useQueryClient();
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey,
     mutationFn,
     onMutate: async (variables) => {
       await client.cancelQueries({
-        queryKey: [queryKey],
+        queryKey: queryKey,
         exact: true,
       });
       // Optimistic update to the cache
@@ -42,11 +44,13 @@ export const useMutationData = (
     //   client.setQueryData([queryKey], context?.previousData);
     // },
     onSuccess(data) {
-      if (onSuccess) onSuccess(); // Calling onSuccess if provided
-
-      return toast("Success", {
-        description: JSON.stringify(data),
-      });
+      if (onSuccess)
+        onSuccess(); // Calling onSuccess if provided
+      else {
+        return toast("Success", {
+          description: JSON.stringify(data),
+        });
+      }
     },
     onSettled: () => {
       return client.invalidateQueries({
@@ -56,7 +60,7 @@ export const useMutationData = (
     },
   });
 
-  return { mutate, isPending };
+  return { mutate, isPending, data };
 };
 
 // Example usage
