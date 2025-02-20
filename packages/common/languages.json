@@ -24,14 +24,14 @@
     "value": "graphql",
     "label": "GraphQL",
     "icon_href": "/assets/languages/graphql.svg",
-    "code": "console.log('Hello World')",
+    "code": "query {\n  user(id: \"1\") {\n    id\n    name\n    email\n  }\n}",
     "output": "Hello World"
   },
   {
     "value": "mysql",
     "label": "SQL",
     "icon_href": "/assets/languages/mysql.svg",
-    "code": "console.log('Hello World')",
+    "code": "SELECT * FROM test_table WHERE id = 1 AND name = 'John'",
     "output": "Hello World"
   },
   {

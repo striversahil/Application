@@ -24,11 +24,11 @@ const EditorCode = (props: Props) => {
                 }
               >
                 <PanelGroup direction="vertical" key={index}>
-                  <Panel defaultSize={50} minSize={20} maxSize={100}>
+                  <Panel defaultSize={70} minSize={20} maxSize={100}>
                     <EditorZone value={item} />
                   </Panel>
                   <PanelResizeHandleComp />
-                  <Panel defaultSize={50} minSize={20} maxSize={100}>
+                  <Panel defaultSize={30} minSize={20} maxSize={100}>
                     <Output value={item} />
                   </Panel>
                 </PanelGroup>

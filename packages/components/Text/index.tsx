@@ -1,6 +1,6 @@
 import React from "react";
 import { TextComponentData } from "../_types/text";
-import { Input } from "@components/ui/input";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 const TextComponent = ({

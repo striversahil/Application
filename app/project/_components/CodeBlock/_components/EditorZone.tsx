@@ -30,7 +30,7 @@ export const EditorZone = (props: Props) => {
           {props.value.name}
         </div>
       </div>
-      <IDEeditor />
+      <IDEeditor value={props.value} />
     </div>
   );
 };

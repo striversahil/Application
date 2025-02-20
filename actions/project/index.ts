@@ -5,6 +5,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const codeBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 const project = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/project";
+const component = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";
 
 // Here the Index i.e. Most Used Common Get Actions will be Handled for Project
 
@@ -34,6 +35,26 @@ const ProjectAction = {
       ["ProjectAction.getCodeBlocks"],
       async () => {
         const response = await axios.get(`${codeBlock}`);
+        return response.data;
+      }
+    );
+    return { isLoading, data };
+  },
+  getComponents: () => {
+    const { isLoading, data } = useQueryData(
+      ["ProjectAction.getComponents"],
+      async () => {
+        const response = await axios.get(`${component}`);
+        return response.data;
+      }
+    );
+    return { isLoading, data };
+  },
+  getOneComponent: (id: string) => {
+    const { isLoading, data } = useQueryData(
+      ["ProjectAction.getOneComponent"],
+      async () => {
+        const response = await axios.get(`${component}/${id}`);
         return response.data;
       }
     );
