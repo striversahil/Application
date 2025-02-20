@@ -40,16 +40,19 @@ const DeleteTab = (props: Props) => {
             Tab ?
           </div>
           <div className="w-full flex justify-between">
-            <Button variant={"secondary"} onClick={() => setOpen(false)}>
+            <div
+              onClick={() => setOpen(false)}
+              className="bg-white/50 p-1 px-2 rounded-md cursor-pointer hover:bg-white/30"
+            >
               Cancel
-            </Button>
-            <Button
+            </div>
+            <div
               onClick={() => handleClose(props.item._id)}
-              className="bg-red-600 rounded-md cursor-pointer hover:bg-red-600/50"
-              variant={"destructive"}
+              className="bg-red-600 rounded-md p-1 px-2  cursor-pointer hover:bg-red-600/50"
+              // variant={"destructive"}
             >
               Delete
-            </Button>
+            </div>
           </div>
         </PopoverContent>
       </Popover>

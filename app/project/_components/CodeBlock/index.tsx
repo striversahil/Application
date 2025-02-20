@@ -12,6 +12,7 @@ import CodeBlockAction from "../../../../api/project/codeBlock";
 import { TabsContent } from "@radix-ui/react-tabs";
 import ProjectAction from "@/actions/project";
 import StepEditorRoot from "./_components/StepEditorRoot";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {};
 
@@ -24,9 +25,6 @@ const CodeBlock = ({}: Props) => {
 
   useEffect(() => {
     const defaultTab = localStorage.getItem("currentTab") as string;
-    const defaultStep = localStorage.getItem(
-      `currentTab-${defaultTab}`
-    ) as string;
     setCurrentTab(defaultTab);
   }, [currentTab]);
 
@@ -58,6 +56,16 @@ const CodeBlock = ({}: Props) => {
                     value={item._id}
                   >
                     {currentTab === item._id && <StepEditorRoot value={item} />}
+                    {currentTab !== item._id && (
+                      <>
+                        <div className="flex">
+                          <div className="w-[25%]">
+                            <Steps value={item} />
+                          </div>
+                          <Skeleton className="w-full h-full" />
+                        </div>
+                      </>
+                    )}
                   </TabsContent>
                 );
               })}

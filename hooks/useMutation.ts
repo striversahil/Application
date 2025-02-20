@@ -1,3 +1,4 @@
+import { data } from "@/packages/common/Json";
 import {
   MutationFunction,
   MutationKey,
@@ -17,7 +18,7 @@ export const useMutationData = (
 ) => {
   // Creating a query client for Mutation
   const client = useQueryClient();
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey,
     mutationFn,
     onMutate: async (variables) => {
@@ -59,7 +60,7 @@ export const useMutationData = (
     },
   });
 
-  return { mutate, isPending };
+  return { mutate, isPending, data };
 };
 
 // Example usage

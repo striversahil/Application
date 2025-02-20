@@ -21,6 +21,7 @@ import {
 import Image from "next/image";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import TabBlockAction from "@/actions/project/tabBlock";
+import { useStepAdd } from "@/app/project/_hooks/useStepadd";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
@@ -63,11 +64,7 @@ const frameworks = [
 
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
-
-  const { mutate: mutateAdd } = TabBlockAction.useAdd();
-
-  const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
-
+  const { mutateTab, mutateStep } = useStepAdd();
   return (
     <PopoverContent className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md">
       <Command className="bg-[#1e1e1e]">
@@ -83,23 +80,15 @@ export function ComboPopAPI(props: PopOver) {
                   onSelect={(currentValue: any) => {
                     setValue(currentValue === value ? "" : currentValue);
                     props.setOpen(false);
-                    if (props._id) {
-                      console.log(props.step);
-                      mutateStepAdd({
-                        metadata: {
-                          _id: props._id,
-                          step: props.step,
-                        },
-                        slug: {
-                          name: `${framework.label}`,
-                          code: 'console.log("Hello World")',
-                          language: "javascript",
-                          output: "Hello World",
-                        },
-                      });
-                    }
                     if (!props._id) {
-                      mutateAdd({ name: `API : ${framework.label}` });
+                      mutateTab({ label: framework.label });
+                    }
+                    if (props._id) {
+                      mutateStep({
+                        _id: props._id,
+                        label: framework.label,
+                        step: props.step,
+                      });
                     }
                   }}
                   className=" p-1 py-2 rounded-md border-none cursor-pointer flex items-center gap-2"

@@ -53,11 +53,7 @@ const Steps = (props: Props) => {
               Click to Add First API
               <PlusCircle className=" size-6 duration-200 active:rotate-90" />
             </PopoverTrigger>
-            <ComboPopAPI
-              setOpen={setOpen}
-              _id={props.value._id}
-              step={props.value.steps.length}
-            />
+            <ComboPopAPI setOpen={setOpen} _id={props.value._id} />
           </Popover>
         )}
       </div>

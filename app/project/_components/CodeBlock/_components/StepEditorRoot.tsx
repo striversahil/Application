@@ -24,7 +24,6 @@ const StepEditorRoot = (props: Props) => {
     <div>
       {currentStep && (
         <TabRoot defaultValue={currentStep}>
-          {currentStep}
           <PanelGroup direction="horizontal" className="">
             <Panel defaultSize={20} minSize={20} maxSize={50}>
               <Steps value={props.value} />

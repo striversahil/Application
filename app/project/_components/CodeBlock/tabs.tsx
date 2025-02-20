@@ -9,7 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import TabBlockAction from "@/actions/project/tabBlock";
 import ProjectAction from "@/actions/project";
 import DeleteTab from "./_components/DeleteTab";

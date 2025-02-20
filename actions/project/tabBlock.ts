@@ -6,7 +6,7 @@ const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
 const TabBlockAction = {
   useAdd: () => {
-    const { mutate } = useMutationData(
+    const { mutate, data, isPending } = useMutationData(
       ["CodeBlockAction.add"],
       async (payload: any) => {
         const response = await axios.post(`${source}/`, payload);
@@ -21,7 +21,7 @@ const TabBlockAction = {
       }
     );
 
-    return { mutate };
+    return { mutate, data, isPending };
   },
 
   useDelete: () => {
