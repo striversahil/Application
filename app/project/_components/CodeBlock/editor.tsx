@@ -14,10 +14,8 @@ const EditorCode = (props: Props) => {
     <div className="h-full w-full ">
       <div className="w-full h-full">
         {props.value.steps?.map((item: any, index: number) => {
-          console.log(item);
           return (
             <TabsContent value={item._id} className="w-full h-full" key={index}>
-              {item._id}
               <div
                 key={index}
                 className="w-full h-full"
@@ -27,11 +25,11 @@ const EditorCode = (props: Props) => {
               >
                 <PanelGroup direction="vertical" key={index}>
                   <Panel defaultSize={50} minSize={20} maxSize={100}>
-                    <EditorZone />
+                    <EditorZone value={item} />
                   </Panel>
                   <PanelResizeHandleComp />
                   <Panel defaultSize={50} minSize={20} maxSize={100}>
-                    <Output />
+                    <Output value={item} />
                   </Panel>
                 </PanelGroup>
               </div>

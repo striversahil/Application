@@ -15,6 +15,8 @@ type Props = {
   index: number;
   id: string;
 };
+import languages from "@/packages/common/languages.json";
+import Image from "next/image";
 
 const InStepPopOver = (props: Props) => {
   const [open, setOpen] = React.useState(false);
@@ -26,8 +28,18 @@ const InStepPopOver = (props: Props) => {
   return (
     <div>
       <div className="bg-white/20 w-full p-2 rounded-md flex items-center justify-center">
-        <div className="font-bold flex-1 w-full text-center cursor-pointer">
-          <span className="text-sm ">{props.value.name}</span>
+        <div className="font-bold flex-1 flex w-full text-center cursor-pointer">
+          <Image
+            src={
+              languages.find((item) => item.value === props.value.language)
+                ?.icon_href || ""
+            }
+            width={25}
+            height={25}
+            alt="Image"
+            className="p-[1px] shadow-2xl hover:bg-white/50 bg-white/30 rounded-md"
+          />
+          <div className="text-sm flex-1 text-center  ">{props.value.name}</div>
         </div>
         <Popover>
           <PopoverTrigger className="">

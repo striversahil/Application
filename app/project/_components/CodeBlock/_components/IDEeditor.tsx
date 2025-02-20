@@ -8,7 +8,7 @@ const IDEeditor = (props: Props) => {
     console.log("Content changed:", value);
   }
   return (
-    <div className="w-full h-full">
+    <div className="relative w-full h-full">
       <IDE
         language="javascript"
         theme="vs-dark"
@@ -18,6 +18,7 @@ const IDEeditor = (props: Props) => {
         loading="Loading..."
         onChange={handleEditorChange}
       />
+      <div className="absolute w-12 h-full z-10 top-0  right-0 bg-[#1e1e1e]"></div>
     </div>
   );
 };

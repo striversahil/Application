@@ -1,0 +1,44 @@
+[
+  {
+    "value": "python",
+    "label": "Python",
+    "icon_href": "/assets/languages/python.svg",
+    "code": "print('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "javascript",
+    "label": "JavaScript",
+    "icon_href": "/assets/languages/javascript.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "typescript",
+    "label": "TypeScript",
+    "icon_href": "/assets/languages/typescript.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "graphql",
+    "label": "GraphQL",
+    "icon_href": "/assets/languages/graphql.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "mysql",
+    "label": "SQL",
+    "icon_href": "/assets/languages/mysql.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "restapi",
+    "label": "REST API",
+    "icon_href": "/assets/languages/restapi.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  }
+]

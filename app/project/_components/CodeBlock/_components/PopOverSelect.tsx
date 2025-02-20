@@ -22,45 +22,13 @@ import Image from "next/image";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import TabBlockAction from "@/actions/project/tabBlock";
 import { useStepAdd } from "@/app/project/_hooks/useStepadd";
+import languages from "@/packages/common/languages.json";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
   _id?: string;
   step?: number;
 };
-
-const frameworks = [
-  {
-    value: "python",
-    label: "Python",
-    icon_href: "/assets/languages/python.svg",
-  },
-  {
-    value: "javascript",
-    label: "JavaScript",
-    icon_href: "/assets/languages/javascript.svg",
-  },
-  {
-    value: "typescript",
-    label: "TypeScript",
-    icon_href: "/assets/languages/typescript.svg",
-  },
-  {
-    value: "graphql",
-    label: "GraphQL",
-    icon_href: "/assets/languages/graphql.svg",
-  },
-  {
-    value: "mysql",
-    label: "SQL",
-    icon_href: "/assets/languages/mysql.svg",
-  },
-  {
-    value: "restapi",
-    label: "REST API",
-    icon_href: "/assets/languages/restapi.svg",
-  },
-];
 
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
@@ -73,20 +41,20 @@ export function ComboPopAPI(props: PopOver) {
           <CommandEmpty>No API Provider found.</CommandEmpty>
           <CommandGroup className="">
             <div className="flex flex-col ">
-              {frameworks.map((framework) => (
+              {languages.map((language) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={language.value}
+                  value={language.value}
                   onSelect={(currentValue: any) => {
                     setValue(currentValue === value ? "" : currentValue);
                     props.setOpen(false);
                     if (!props._id) {
-                      mutateTab({ label: framework.label });
+                      mutateTab({ language: language });
                     }
                     if (props._id) {
                       mutateStep({
                         _id: props._id,
-                        label: framework.label,
+                        language: language,
                         step: props.step,
                       });
                     }
@@ -94,12 +62,13 @@ export function ComboPopAPI(props: PopOver) {
                   className=" p-1 py-2 rounded-md border-none cursor-pointer flex items-center gap-2"
                 >
                   <Image
-                    src={framework.icon_href}
-                    alt={framework.label}
+                    src={language.icon_href}
+                    alt={language.label}
                     width={20}
                     height={20}
+                    priority
                   />
-                  <span className="w-full text-left">{framework.label}</span>
+                  <span className="w-full text-left">{language.label}</span>
                 </CommandItem>
               ))}
             </div>
