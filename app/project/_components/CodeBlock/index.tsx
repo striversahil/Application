@@ -1,5 +1,5 @@
-import React from "react";
-import { Tabs as TabRoot } from "@radix-ui/react-tabs";
+import React, { useEffect, useState } from "react";
+
 import Tabs from "./tabs";
 import Steps from "./steps";
 import EditorCode from "./editor";
@@ -11,6 +11,7 @@ import { useQueryData } from "@/hooks/useQueryData";
 import CodeBlockAction from "../../../../api/project/codeBlock";
 import { TabsContent } from "@radix-ui/react-tabs";
 import ProjectAction from "@/actions/project";
+import StepEditorRoot from "./_components/StepEditorRoot";
 
 type Props = {};
 
@@ -19,11 +20,23 @@ const CodeBlock = ({}: Props) => {
 
   const { isLoading, data } = ProjectAction.getCodeBlocks();
 
+  const [currentTab, setCurrentTab] = useState("");
+
+  useEffect(() => {
+    const defaultTab = localStorage.getItem("currentTab") as string;
+    const defaultStep = localStorage.getItem(
+      `currentTab-${defaultTab}`
+    ) as string;
+    setCurrentTab(defaultTab);
+  }, [currentTab]);
+
   return (
     <>
       <Tabs
         handleOpen={handleOpenCode}
         Open={openCode}
+        currentTab={currentTab}
+        setCurrentTab={setCurrentTab}
         // BlockData={(item) => setBlockData(item)}
       />
       {openCode && <PanelResizeHandleComp />}
@@ -41,20 +54,10 @@ const CodeBlock = ({}: Props) => {
                 return (
                   <TabsContent
                     key={index}
-                    value={item._id}
                     className="w-full h-full"
+                    value={item._id}
                   >
-                    <TabRoot>
-                      <PanelGroup direction="horizontal" className="">
-                        <Panel defaultSize={20} minSize={20} maxSize={50}>
-                          <Steps value={item} />
-                        </Panel>
-                        <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
-                        <Panel defaultSize={80} minSize={20} maxSize={80}>
-                          <EditorCode value={item} />
-                        </Panel>
-                      </PanelGroup>
-                    </TabRoot>
+                    {currentTab === item._id && <StepEditorRoot value={item} />}
                   </TabsContent>
                 );
               })}

@@ -17,33 +17,33 @@ type Props = {
 };
 // Space Left Because Wanna Introduce Drag n Drop Feature here
 
-const handleClick = (index: number) => {
-  window.localStorage.setItem("currentStep", JSON.stringify(index));
-};
-
 const Steps = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   return (
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={props.value} />
-      <div className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
-        <TabsList>
+      <div className="w-full h-full">
+        <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
           {props.value.steps?.map((item: any, index: number) => {
             console.log(item);
             return (
-              <div
-                key={index}
+              <TabsTrigger
+                value={item._id}
                 className="w-full"
-                onClick={() => handleClick(index)}
+                key={index}
+                onClick={() =>
+                  localStorage.setItem(
+                    `currentTab-${props.value._id}`,
+                    item._id
+                  )
+                }
               >
-                <TabsTrigger value={item._id}>
-                  <InStepPopOver
-                    value={item}
-                    id={props.value._id}
-                    index={index}
-                  />
-                </TabsTrigger>
-              </div>
+                <InStepPopOver
+                  value={item}
+                  id={props.value._id}
+                  index={index}
+                />
+              </TabsTrigger>
             );
           })}
         </TabsList>

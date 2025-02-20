@@ -7,10 +7,10 @@ import { Toaster } from "sonner";
 import Protected_Route from "../_protected";
 import { redirect } from "next/navigation";
 
-// export const metadata: Metadata = {
-//   title: "Apotza | Into the Realm of Automation",
-//   description: "Apotza Internal Tooling",
-// };
+export const metadata: Metadata = {
+  title: "Apotza | Into the Realm of Automation",
+  description: "Apotza Internal Tooling",
+};
 
 export default function RootLayout({
   children,

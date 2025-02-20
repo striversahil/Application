@@ -17,18 +17,13 @@ import DeleteTab from "./_components/DeleteTab";
 type Props = {
   handleOpen: () => void;
   Open?: boolean;
+  currentTab: string;
+  setCurrentTab: (tab: string) => void;
   // BlockData: (data: any) => void;
 };
 
 const Tabs = (props: Props) => {
   const { isLoading, data } = ProjectAction.getCodeBlocks();
-
-  const [currentTab, setCurrentTab] = useState("");
-
-  useEffect(() => {
-    const defaultTab = localStorage.getItem("currentTab") as string;
-    setCurrentTab(defaultTab);
-  }, []);
 
   const [open, setOpen] = React.useState(false);
 
@@ -51,7 +46,7 @@ const Tabs = (props: Props) => {
             <div
               className={cn(
                 `flex bg-white/10 p-1 rounded-md border  border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2`,
-                currentTab === item._id &&
+                props.currentTab === item._id &&
                   "bg-white/20 font-bold text-blue-400 border-b-[3px] border-l-[3px] border-blue-700"
               )}
               key={index}
@@ -60,8 +55,17 @@ const Tabs = (props: Props) => {
                 value={item._id}
                 className="inline-flex items-center gap-2"
                 onClick={() => {
-                  setCurrentTab(item._id);
+                  props.setCurrentTab(item._id);
                   localStorage.setItem("currentTab", item._id);
+                  const currentStep = localStorage.getItem(
+                    `currentTab-${item._id}`
+                  );
+                  if (!currentStep) {
+                    localStorage.setItem(
+                      `currentTab-${item._id}`,
+                      item.steps.length > 0 ? item.steps[0]._id : "Slug"
+                    );
+                  }
                 }}
               >
                 <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />

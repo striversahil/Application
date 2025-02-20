@@ -20,6 +20,7 @@ const DeleteTab = (props: Props) => {
     mutateDelete({
       _id: id,
     });
+    localStorage.removeItem(`currentTab-${id}`);
   };
   return (
     <div className="w-full h-full   rounded-md cursor-pointer p-[px]  hover:bg-red-600/50">

@@ -16,15 +16,16 @@ const EditorCode = (props: Props) => {
         {props.value.steps?.map((item: any, index: number) => {
           console.log(item);
           return (
-            <div
-              key={index}
-              className="w-full"
-              onClick={() =>
-                localStorage.setItem("currentStep", JSON.stringify(index))
-              }
-            >
-              <TabsContent value={item._id}>
-                <PanelGroup direction="vertical">
+            <TabsContent value={item._id} className="w-full h-full" key={index}>
+              {item._id}
+              <div
+                key={index}
+                className="w-full h-full"
+                onClick={() =>
+                  localStorage.setItem("currentStep", JSON.stringify(index))
+                }
+              >
+                <PanelGroup direction="vertical" key={index}>
                   <Panel defaultSize={50} minSize={20} maxSize={100}>
                     <EditorZone />
                   </Panel>
@@ -33,8 +34,8 @@ const EditorCode = (props: Props) => {
                     <Output />
                   </Panel>
                 </PanelGroup>
-              </TabsContent>
-            </div>
+              </div>
+            </TabsContent>
           );
         })}
       </div>
