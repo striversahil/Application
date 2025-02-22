@@ -1,21 +1,16 @@
 import React from "react";
-import { TextComponentData } from "../_types/text";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-const TextComponent = ({
-  padding = 0,
-  content = "Some Demo Text",
-  alignment = "left",
-}: TextComponentData): JSX.Element => {
+const TextComponent = ({ configuration, payload }: any): JSX.Element => {
   return (
     <div>
       <Input
-        value={content}
+        value={payload.text}
         className={cn(
           "h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
-          `p-${padding}px`,
-          `text-${alignment}`
+          `p-${configuration.padding}px`,
+          `text-${configuration.fontSize}px`
         )}
       />
     </div>
