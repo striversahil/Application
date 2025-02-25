@@ -21,10 +21,21 @@ const ComponentAction = {
     const { mutate } = useMutationData(
       ["ComponentAction.add"],
       async (payload: any) => {
-        const response = await axios.post(`${source}/new`, payload);
+        const response = await axios.post(`${source}`, payload);
         return response.data;
       },
-      ["ComponentAction.getall"]
+      ["ProjectAction.getall"]
+    );
+    return { mutate };
+  },
+  update: () => {
+    const { mutate } = useMutationData(
+      ["ComponentAction.update"],
+      async (payload: any) => {
+        const response = await axios.post(`${source}/update`, payload);
+        return response.data;
+      },
+      ["ProjectAction.getall"]
     );
     return { mutate };
   },
