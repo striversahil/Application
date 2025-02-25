@@ -4,7 +4,7 @@ import EditorCanvas from "../../_components/EditorCanvas";
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import { PanelRightOpen } from "lucide-react";
 
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
 import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
@@ -12,9 +12,7 @@ import { DndContext } from "@dnd-kit/core";
 import Header from "../../_components/Header";
 import { useDragEnd } from "@/app/project/_hooks/usedragEnd";
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
-import PanelResizeHandleComp from "@/app/project/_components/utils/PanelResizeHandle";
 import { Tabs as TabsRoot } from "@/components/ui/tabs";
-import useTabFallback from "@/app/project/_components/utils/TabFallback";
 import { TooltipProvider } from "@/components/ui/Tooltip/tooltip";
 
 type Props = {};
@@ -24,6 +22,7 @@ const page = (props: Props) => {
     Data,
     handleDragEnd,
     setActiveId,
+    activeId,
     setIsDropped,
     setIsDragging,
     sensors,
@@ -81,13 +80,10 @@ const page = (props: Props) => {
                     onCollapse={handleOpenConfig}
                     maxSize={40}
                   >
-                    <ConfigFolder handleOpen={handleOpenConfig}>
-                      {/* Add Here Config Individual component with   
-                  selectedItem={items.find((item) => item.id === selectedId) || null}
-                  updateItem={updateItem}
-                  
-                  */}
-                    </ConfigFolder>
+                    <ConfigFolder
+                      handleOpen={handleOpenConfig}
+                      selectedItem={activeId}
+                    />
                   </Panel>
                 )}
               </PanelGroup>

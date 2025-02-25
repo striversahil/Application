@@ -15,7 +15,7 @@ type Props = {
   index: number;
   id: string;
 };
-import languages from "@/packages/common/languages.json";
+import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
 import { TabsTrigger } from "@radix-ui/react-tabs";
 

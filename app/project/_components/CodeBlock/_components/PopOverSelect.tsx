@@ -22,7 +22,7 @@ import Image from "next/image";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import TabBlockAction from "@/actions/project/tabBlock";
 import { useStepAdd } from "@/app/project/_hooks/useStepadd";
-import languages from "@/packages/common/languages.json";
+import languages from "@/packages/common/Json/languages.json";
 
 type PopOver = {
   setOpen: (open: boolean) => void;

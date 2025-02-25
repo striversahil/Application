@@ -1,12 +1,15 @@
 import React from "react";
 import { PanelRightClose, PanelRightOpen } from "lucide-react";
+import ConfigRoute from "./ConfigRoute";
 
 type Props = {
   handleOpen: () => void;
-  children?: React.ReactNode;
+  selectedItem: any;
 };
 
-const ConfigFolder = ({ handleOpen, children }: Props) => {
+// Selected Component == Object Detect and pass as Value
+
+const ConfigFolder = ({ handleOpen }: Props) => {
   return (
     <div className="relative w-full h-full bg-slate-900 border-l border-slate-500 ">
       <div
@@ -16,8 +19,8 @@ const ConfigFolder = ({ handleOpen, children }: Props) => {
         <PanelRightClose />
       </div>
       ConfigFolder
-      {children}
-      {/* I will make the handle change configuration as ones and will update it based on the click outside and update*/}
+      <ConfigRoute value={Object} />
+      {/* I will Set the Config route with that Object Access which to Rendered */}
     </div>
   );
 };
