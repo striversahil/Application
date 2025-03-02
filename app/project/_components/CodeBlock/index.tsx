@@ -25,6 +25,7 @@ const CodeBlock = ({}: Props) => {
 
   useEffect(() => {
     const defaultTab = localStorage.getItem("currentTab") as string;
+
     setCurrentTab(defaultTab);
   }, [currentTab]);
 

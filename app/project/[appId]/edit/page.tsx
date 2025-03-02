@@ -19,7 +19,6 @@ type Props = {};
 
 const page = (props: Props) => {
   const {
-    Data,
     handleDragEnd,
     setActiveId,
     activeId,
@@ -62,8 +61,10 @@ const page = (props: Props) => {
                 <Panel defaultSize={80} minSize={40}>
                   <PanelGroup direction="vertical">
                     <Panel defaultSize={60} minSize={40}>
-                      <Header />
-                      <EditorCanvas data={Data} />
+                      <TabsRoot>
+                        <Header />
+                        <EditorCanvas />
+                      </TabsRoot>
                     </Panel>
 
                     <CodeBlock />
