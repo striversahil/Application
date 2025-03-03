@@ -51,13 +51,12 @@ export const useDragEnd = () => {
       if (!active || !data) return null;
       const PresentElement = Data.find((item) => item._id === active.id);
       const PresentElementCoordinates = PresentElement?.coordinates as number[];
-      console.log(PresentElementCoordinates[0], PresentElementCoordinates[1]);
 
       // If the active item is not in the array, add it
       if (!PresentElement) {
         mutateAdd({
           metadata: {
-            dnd_id: Date.now(),
+            name: "Component " + Date.now(),
             coordinates: [mouseX, mouseY],
             configuration: {
               type: "component",
