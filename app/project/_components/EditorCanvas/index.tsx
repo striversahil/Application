@@ -37,7 +37,7 @@ const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
       className="bg-white rounded shadow-md touch-none w-fit text-black"
     >
       {/* Your content here */}
-      <div>Hello There</div>
+      <div>Hello There {_id}</div>
     </div>
   );
 };

@@ -4,21 +4,16 @@ import { PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import React, { useEffect } from "react";
 
 export interface ComponentDataInteface {
+  _id: number; //Database ID
+  name: string;
+  coordinates: number[];
   metadata: {
-    _id: number; //Database ID
-    dnd_id: number; //Unique ID for Drag and Drop
-    coordinates: {
-      x: number;
-      y: number;
-    };
     configuration: {
       type: string;
       name: string;
     };
-    payload: any;
   };
-  x: number;
-  y: number;
+
   payload: any;
   // Add more configurable properties as needed
 }
@@ -36,9 +31,10 @@ export const useDragEnd = () => {
 
   useEffect(() => {
     if (data) {
-      setData(data);
+      setData(data.payload);
     }
   }, [data]);
+  console.log(Data);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -48,12 +44,14 @@ export const useDragEnd = () => {
     if (event.over?.id === "droppable") {
       const mouseX = event.activatorEvent.clientX;
       const mouseY = event.activatorEvent.clientY;
+      console.log(event);
+
       const { active } = event;
       // Check if the active item is already in the array
       if (!active || !data) return null;
-      const PresentElement = Data.find(
-        (item) => item.metadata.dnd_id === Number(active.id)
-      );
+      const PresentElement = Data.find((item) => item._id === active.id);
+      const PresentElementCoordinates = PresentElement?.coordinates as number[];
+      console.log(PresentElementCoordinates[0], PresentElementCoordinates[1]);
 
       // If the active item is not in the array, add it
       if (!PresentElement) {
@@ -71,11 +69,18 @@ export const useDragEnd = () => {
         // Else We are modifying it from the Array
       } else {
         mutateUpdate({
-          ...PresentElement,
           metadata: {
-            ...PresentElement.metadata,
-            _id: PresentElement.metadata._id,
+            _id: PresentElement._id,
+            name: PresentElement.name,
+            coordinates: [
+              PresentElementCoordinates[0] + event.delta.x,
+              PresentElementCoordinates[1] + event.delta.y,
+            ],
+            configuration: {
+              type: "component",
+            },
           },
+          payload: { Json_Data: "Component " + Date.now() },
         });
       }
       setIsDropped(true);
