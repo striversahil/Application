@@ -61,7 +61,10 @@ const page = (props: Props) => {
                 <Panel defaultSize={80} minSize={40}>
                   <PanelGroup direction="vertical">
                     <Panel defaultSize={60} minSize={40}>
-                      <TabsRoot>
+                      <TabsRoot
+                        defaultValue={currentTab}
+                        className="h-full w-full"
+                      >
                         <Header />
                         <EditorCanvas />
                       </TabsRoot>

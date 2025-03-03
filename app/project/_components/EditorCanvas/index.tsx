@@ -5,19 +5,16 @@ import { useEffect, useState } from "react";
 
 export interface ComponentInterface {
   name: string;
-  dnd_id: string;
+  _id: string;
   payload: string; // Here my Component Payload i.e. Data will Come
   configuration: object; // This will Contain Component Configuration
-  coordinates: {
-    x: number;
-    y: number;
-  };
+  coordinates: number[];
 }
 
-const Draggable = ({ dnd_id, payload, coordinates }: ComponentInterface) => {
+const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
-      id: dnd_id,
+      id: _id,
     });
 
   const style = {
@@ -25,8 +22,8 @@ const Draggable = ({ dnd_id, payload, coordinates }: ComponentInterface) => {
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     position: "absolute" as const,
-    left: coordinates?.x || 10,
-    top: coordinates?.y || 10,
+    left: coordinates[0],
+    top: coordinates[1],
     opacity: isDragging ? 0.5 : 1,
     background: isDragging ? "lightgreen" : undefined,
   };
@@ -46,19 +43,21 @@ const Draggable = ({ dnd_id, payload, coordinates }: ComponentInterface) => {
 };
 
 const EditorCanvas = () => {
-  const [components, setComponents] = useState<ComponentInterface[]>([]);
+  const [components, setComponents] = useState<any>([]);
   const { isLoading, data } = ProjectAction.getComponents();
   const { isOver, setNodeRef } = useDroppable({
     id: "droppable",
   });
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setComponents(Array<ComponentInterface>(data));
-  //   }
-  // });
+  useEffect(() => {
+    if (data) {
+      setComponents(data.payload);
+    }
+  }, [data]);
 
-  if (isLoading) return null;
+  if (!components) return null;
+  console.log(components);
+
   // This whole Component is a drag and drop zone
   return (
     <div className="w-full overflow-auto">
@@ -67,7 +66,7 @@ const EditorCanvas = () => {
         ref={setNodeRef}
       >
         <div className="relative w-full h-full">
-          {components.map((item, index) => (
+          {components.map((item: any, index: number) => (
             <Draggable key={index} {...item}></Draggable>
           ))}
         </div>

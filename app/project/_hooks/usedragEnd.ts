@@ -50,6 +50,7 @@ export const useDragEnd = () => {
       const mouseY = event.activatorEvent.clientY;
       const { active } = event;
       // Check if the active item is already in the array
+      if (!active || !data) return null;
       const PresentElement = Data.find(
         (item) => item.metadata.dnd_id === Number(active.id)
       );
@@ -59,7 +60,7 @@ export const useDragEnd = () => {
         mutateAdd({
           metadata: {
             dnd_id: Date.now(),
-            coordinates: { x: mouseX, y: mouseY },
+            coordinates: [mouseX, mouseY],
             configuration: {
               type: "component",
               name: "Component " + Date.now(),
@@ -67,7 +68,6 @@ export const useDragEnd = () => {
           },
           payload: { Json_Data: "Component " + Date.now() },
         });
-        return null;
         // Else We are modifying it from the Array
       } else {
         mutateUpdate({
