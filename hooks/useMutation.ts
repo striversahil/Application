@@ -1,4 +1,3 @@
-import { data } from "@/packages/common/Json";
 import {
   MutationFunction,
   MutationKey,

@@ -46,10 +46,9 @@ export const useDragEnd = () => {
       const mouseY = event.activatorEvent.clientY;
       console.log(event);
 
-      const { active } = event;
       // Check if the active item is already in the array
-      if (!active || !data) return null;
-      const PresentElement = Data.find((item) => item._id === active.id);
+      if (!event.active || !data) return null;
+      const PresentElement = Data.find((item) => item._id === event.active.id);
       const PresentElementCoordinates = PresentElement?.coordinates as number[];
 
       // If the active item is not in the array, add it
