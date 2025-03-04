@@ -34,7 +34,10 @@ export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
   const { mutateTab, mutateStep } = useStepAdd();
   return (
-    <PopoverContent className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md">
+    <PopoverContent
+      className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md"
+      side="right"
+    >
       <Command className="bg-[#1e1e1e]">
         <CommandInput placeholder="Search Provider..." />
         <CommandList>

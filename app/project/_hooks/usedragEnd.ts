@@ -3,23 +3,8 @@ import ComponentAction from "@/actions/project/component";
 import { PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import React, { useEffect } from "react";
 
-export interface ComponentDataInteface {
-  _id: number; //Database ID
-  name: string;
-  coordinates: number[];
-  metadata: {
-    configuration: {
-      type: string;
-      name: string;
-    };
-  };
-
-  payload: any;
-  // Add more configurable properties as needed
-}
-
 export const useDragEnd = () => {
-  const [Data, setData] = React.useState<ComponentDataInteface[]>([]);
+  const [Data, setData] = React.useState<Record<string, any>[]>([]);
 
   const [activeId, setActiveId] = React.useState<string>("");
   const [IsDropped, setIsDropped] = React.useState(false);

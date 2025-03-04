@@ -20,9 +20,9 @@ const ProjectAction = {
     );
     return { isLoading, data };
   },
-  getOneCodeBlock: (id: string) => {
+  getCodeBlock: (id: string) => {
     const { isLoading, data } = useQueryData(
-      ["ProjectAction.getOneCodeBlock"],
+      [`ProjectAction.getOneCodeBlock-${id}`],
       async () => {
         const response = await axios.get(`${codeBlock}/${id}`);
         return response.data;
@@ -40,21 +40,21 @@ const ProjectAction = {
     );
     return { isLoading, data };
   },
-  getComponents: () => {
+  getComponent: (id: string) => {
     const { isLoading, data } = useQueryData(
-      ["ProjectAction.getComponents"],
+      [`ProjectAction.getComponent-${id}`],
       async () => {
-        const response = await axios.get(`${component}`);
+        const response = await axios.get(`${component}/${id}`);
         return response.data;
       }
     );
     return { isLoading, data };
   },
-  getOneComponent: (id: string) => {
+  getComponents: () => {
     const { isLoading, data } = useQueryData(
-      ["ProjectAction.getOneComponent"],
+      ["ProjectAction.getComponents"],
       async () => {
-        const response = await axios.get(`${component}/${id}`);
+        const response = await axios.get(`${component}`);
         return response.data;
       }
     );
