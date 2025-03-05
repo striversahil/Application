@@ -18,7 +18,7 @@ const DeleteTab = (props: Props) => {
 
   const handleClose = (id: any) => {
     mutateDelete({
-      _id: id,
+      id: id,
     });
     localStorage.removeItem(`currentTab-${id}`);
     setOpen(false);
@@ -48,7 +48,7 @@ const DeleteTab = (props: Props) => {
               Cancel
             </div>
             <div
-              onClick={() => handleClose(props.item._id)}
+              onClick={() => handleClose(props.item.id)}
               className="bg-red-600 rounded-md p-1 px-2  cursor-pointer hover:bg-red-600/50"
               // variant={"destructive"}
             >

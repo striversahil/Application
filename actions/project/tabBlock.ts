@@ -28,7 +28,7 @@ const TabBlockAction = {
     const { mutate, isPending } = useMutationData(
       ["CodeBlockAction.delete"],
       async (payload: any) => {
-        const response = await axios.delete(`${source}/${payload._id}`);
+        const response = await axios.delete(`${source}/${payload.id}`);
         return response;
       },
       ["ProjectAction.getCodeBlocks"],

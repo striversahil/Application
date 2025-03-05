@@ -44,7 +44,7 @@ const Tabs = (props: Props) => {
             <div
               className={cn(
                 `flex bg-white/10 p-1 rounded-md border  border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2`,
-                props.currentTab === item._id &&
+                props.currentTab === item.id &&
                   "bg-white/20 font-bold text-blue-400 border-b-[3px] border-l-[3px] border-blue-700"
               )}
               key={index}

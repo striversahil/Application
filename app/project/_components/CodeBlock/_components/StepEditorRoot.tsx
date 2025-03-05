@@ -10,20 +10,11 @@ type Props = {
 };
 
 const StepEditorRoot = (props: Props) => {
-  const [currentStep, setCurrentStep] = useState("");
+  // const [currentStep, setCurrentStep] = useState("");
 
   const { isLoading, data } = ProjectAction.getCodeBlock(props.value.id);
 
   console.log(isLoading, data);
-
-  useEffect(() => {
-    const defaultTab = localStorage.getItem("currentTab") as string;
-    const defaultStep = localStorage.getItem(
-      `currentTab-${defaultTab}`
-    ) as string;
-
-    setCurrentStep(defaultStep);
-  }, [currentStep]);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -31,21 +22,23 @@ const StepEditorRoot = (props: Props) => {
 
   if (data) {
     const codeBlock = data.payload;
+    const currentStep = codeBlock.steps[0]._id;
+
     return (
       <div className="w-full h-full">
-        {/* {currentStep && ( */}
-        <TabRoot defaultValue={currentStep} className="w-full h-full">
-          <PanelGroup direction="horizontal" className="">
-            <Panel defaultSize={20} minSize={20} maxSize={50}>
-              <Steps value={codeBlock} />
-            </Panel>
-            <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
-            <Panel defaultSize={80} minSize={20} maxSize={80}>
-              <EditorCode value={codeBlock} />
-            </Panel>
-          </PanelGroup>
-        </TabRoot>
-        {/* )} */}
+        {currentStep && (
+          <TabRoot defaultValue={currentStep} className="w-full h-full">
+            <PanelGroup direction="horizontal" className="">
+              <Panel defaultSize={20} minSize={20} maxSize={50}>
+                <Steps value={codeBlock} />
+              </Panel>
+              <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
+              <Panel defaultSize={80} minSize={20} maxSize={80}>
+                <EditorCode value={codeBlock} />
+              </Panel>
+            </PanelGroup>
+          </TabRoot>
+        )}
       </div>
     );
   }

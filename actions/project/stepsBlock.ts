@@ -5,15 +5,18 @@ import { toast } from "sonner";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 
+// const currentTab = localStorage.getItem("currentTab") as string;
+
 const StepsBlockAction = {
   useadd: () => {
+    const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.addstep"],
       async (payload: any) => {
         const response = await axios.post(`${source}/step/new`, payload);
         return response.data;
       },
-      ["ProjectAction.getCodeBlocks"],
+      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
       undefined
       // (previousData: any, variables: any) => {
       //   return {
@@ -37,88 +40,94 @@ const StepsBlockAction = {
   },
 
   useNameChange: () => {
+    const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChangeStep"],
       async (payload: any) => {
         const response = await axios.post(`${source}/step/update`, payload);
         return response.data;
       },
-      ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload].map((item: any) => {
-            if (item._id === variables.id) {
-              return {
-                ...item,
-                steps: [...item.steps].map((step: any, index: number) => {
-                  if (index === variables.step) {
-                    return { ...step, name: variables.name };
-                  }
-                  return step;
-                }),
-              };
-            }
-          }),
-        };
-      }
+      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      undefined
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload].map((item: any) => {
+      //       if (item._id === variables.id) {
+      //         return {
+      //           ...item,
+      //           steps: [...item.steps].map((step: any, index: number) => {
+      //             if (index === variables.step) {
+      //               return { ...step, name: variables.name };
+      //             }
+      //             return step;
+      //           }),
+      //         };
+      //       }
+      //     }),
+      //   };
+      // }
     );
     return { mutate };
   },
 
   useduplicate: () => {
+    const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.duplicateStep"],
       async (payload: any) => {
         const response = await axios.post(`${source}/step/duplicate`, payload);
         return response.data;
       },
-      ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload].map((item: any) => {
-            if (item._id === variables.id) {
-              return {
-                ...item,
-                steps: [...item.steps].splice(variables.step, 0, {
-                  name: "Loading... " + item.steps.length + 1,
-                }),
-              };
-            }
-            return item;
-          }),
-        };
-      },
+      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      undefined,
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload].map((item: any) => {
+      //       if (item._id === variables.id) {
+      //         return {
+      //           ...item,
+      //           steps: [...item.steps].splice(variables.step, 0, {
+      //             name: "Loading... " + item.steps.length + 1,
+      //           }),
+      //         };
+      //       }
+      //       return item;
+      //     }),
+      //   };
+      // },
       () => toast("Success", { description: "Successfully duplicated step" })
     );
     return { mutate };
   },
 
   usedelete: () => {
+    const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.deleteStep"],
       async (payload: any) => {
         const response = await axios.post(`${source}/step/delete`, payload);
         return response.data;
       },
-      ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload].map((item: any) => {
-            if (item._id === variables.id) {
-              return {
-                ...item,
-                steps: [...item.steps].filter(
-                  (_, index) => index !== variables.step
-                ),
-              };
-            }
-            return item;
-          }),
-        };
-      },
+      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      undefined,
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload].map((item: any) => {
+      //       if (item._id === variables.id) {
+      //         return {
+      //           ...item,
+      //           steps: [...item.steps].filter(
+      //             (_, index) => index !== variables.step
+      //           ),
+      //         };
+      //       }
+      //       return item;
+      //     }),
+      //   };
+      // },
       () => toast("Success", { description: "Successfully deleted step" })
     );
     return { mutate };
