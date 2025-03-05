@@ -51,7 +51,7 @@ const Draggable = ({ id, title, target }: any) => {
 
 const CompSidebar = ({ children }: SidebarProps) => {
   const [open, setOpen] = React.useState(false);
-  console.log("Rendered CompSidebar");
+  // console.log("Rendered CompSidebar");
   return (
     <div>
       <Popover open={open} onOpenChange={setOpen}>

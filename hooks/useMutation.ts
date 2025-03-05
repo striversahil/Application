@@ -17,7 +17,7 @@ export const useMutationData = (
 ) => {
   // Creating a query client for Mutation
   const client = useQueryClient();
-  const { mutate, isPending, data } = useMutation({
+  return useMutation({
     mutationKey,
     mutationFn,
     onMutate: async (variables) => {
@@ -58,8 +58,6 @@ export const useMutationData = (
       });
     },
   });
-
-  return { mutate, isPending, data };
 };
 
 // Example usage

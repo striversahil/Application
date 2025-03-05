@@ -56,7 +56,7 @@ const EditorCanvas = () => {
   }, [data]);
 
   if (!components) return null;
-  console.log(components);
+  // console.log(components);
 
   // This whole Component is a drag and drop zone
   return (

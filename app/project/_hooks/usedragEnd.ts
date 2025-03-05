@@ -19,7 +19,6 @@ export const useDragEnd = () => {
       setData(data.payload);
     }
   }, [data]);
-  console.log(Data);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -29,7 +28,6 @@ export const useDragEnd = () => {
     if (event.over?.id === "droppable") {
       const mouseX = event.activatorEvent.clientX;
       const mouseY = event.activatorEvent.clientY;
-      console.log(event);
 
       // Check if the active item is already in the array
       if (!event.active || !data) return null;

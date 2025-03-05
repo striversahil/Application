@@ -54,10 +54,10 @@ const CodeBlock = ({}: Props) => {
                   <TabsContent
                     key={index}
                     className="w-full h-full"
-                    value={item._id}
+                    value={item.id}
                   >
-                    {currentTab === item._id && <StepEditorRoot value={item} />}
-                    {currentTab !== item._id && (
+                    {currentTab === item.id && <StepEditorRoot value={item} />}
+                    {currentTab !== item.id && (
                       <>
                         <div className="flex">
                           <div className="w-[25%]">

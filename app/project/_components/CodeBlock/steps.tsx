@@ -26,11 +26,7 @@ const Steps = (props: Props) => {
         <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
           {props.value.steps?.map((item: any, index: number) => {
             return (
-              <div
-                className="w-full"
-                key={index}
-                
-              >
+              <div className="w-full" key={index}>
                 <InStepPopOver
                   value={item}
                   id={props.value._id}
@@ -40,7 +36,7 @@ const Steps = (props: Props) => {
             );
           })}
         </TabsList>
-        {props.value.steps.length === 0 && (
+        {/* {props.value.steps.length === 0 && (
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger className=" flex flex-col justify-center items-center cursor-pointer bg-white/20 rounded-lg px-5">
               Click to Add First API
@@ -48,7 +44,7 @@ const Steps = (props: Props) => {
             </PopoverTrigger>
             <ComboPopAPI setOpen={setOpen} _id={props.value._id} />
           </Popover>
-        )}
+        )} */}
       </div>
     </div>
   );

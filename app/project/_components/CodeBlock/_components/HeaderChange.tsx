@@ -1,5 +1,4 @@
 import TabBlockAction from "@/actions/project/tabBlock";
-import CodeBlockAction from "../../../../../api/project/codeBlock";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,7 +22,6 @@ const HeaderChange = (props: Props) => {
   };
   const { mount, setMount, ref, EnterClick, ValueChange, value } =
     useClickOutsideEnter(Mutation, props.value.name);
-  ref.current?.focus();
 
   return (
     <div>

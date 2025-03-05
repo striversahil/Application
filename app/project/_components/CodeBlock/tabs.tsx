@@ -50,20 +50,20 @@ const Tabs = (props: Props) => {
               key={index}
             >
               <TabsTrigger
-                value={item._id}
+                value={item.id}
                 className="inline-flex items-center gap-2"
                 onClick={() => {
-                  props.setCurrentTab(item._id);
-                  localStorage.setItem("currentTab", item._id);
-                  const currentStep = localStorage.getItem(
-                    `currentTab-${item._id}`
-                  );
-                  if (!currentStep) {
-                    localStorage.setItem(
-                      `currentTab-${item._id}`,
-                      item.steps.length > 0 ? item.steps[0]._id : "Slug"
-                    );
-                  }
+                  props.setCurrentTab(item.id);
+                  localStorage.setItem("currentTab", item.id);
+                  // const currentStep = localStorage.getItem(
+                  //   `currentTab-${item._id}`
+                  // );
+                  // if (!currentStep) {
+                  //   localStorage.setItem(
+                  //     `currentTab-${item._id}`,
+                  //     item.steps.length > 0 ? item.steps[0]._id : "Slug"
+                  //   );
+                  // }
                 }}
               >
                 <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />

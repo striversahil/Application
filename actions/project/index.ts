@@ -11,57 +11,52 @@ const component = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";
 
 const ProjectAction = {
   getProject: () => {
-    const { isLoading, data } = useQueryData(
-      ["ProjectAction.getProject"],
-      async () => {
-        const response = await axios.get(`${project}`);
-        return response.data;
-      }
-    );
-    return { isLoading, data };
+    return useQueryData(["ProjectAction.getProject"], async () => {
+      const response = await axios.get(`${project}`);
+      return response.data;
+    });
   },
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++ CodeBlock Actions ++++++++++++++++++++++++++++++++++++++++++++++++++++++
   getCodeBlock: (id: string) => {
-    const { isLoading, data } = useQueryData(
-      [`ProjectAction.getOneCodeBlock-${id}`],
+    return useQueryData(
+      [`ProjectAction.getOneCodeBlock-${id}` as string],
       async () => {
         const response = await axios.get(`${codeBlock}/${id}`);
         return response.data;
       }
     );
-    return { isLoading, data };
+  },
+  getAllSteps: (id: string) => {
+    return useQueryData(
+      [`ProjectAction.getAllSteps-${id}` as string],
+      async () => {
+        const response = await axios.get(`${codeBlock}/steps/${id}`);
+        return response.data;
+      }
+    );
   },
   getCodeBlocks: () => {
-    const { isLoading, data } = useQueryData(
-      ["ProjectAction.getCodeBlocks"],
-      async () => {
-        const response = await axios.get(`${codeBlock}`);
-        return response.data;
-      }
-    );
-    return { isLoading, data };
+    return useQueryData(["ProjectAction.getCodeBlocks"], async () => {
+      const response = await axios.get(`${codeBlock}`);
+      return response.data;
+    });
   },
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++ Component Actions +++++++++++++++++++++++++++++++++++++++++++++++++++++++
   getComponent: (id: string) => {
-    const { isLoading, data } = useQueryData(
-      [`ProjectAction.getComponent-${id}`],
-      async () => {
-        const response = await axios.get(`${component}/${id}`);
-        return response.data;
-      }
-    );
-    return { isLoading, data };
+    return useQueryData([`ProjectAction.getComponent-${id}`], async () => {
+      const response = await axios.get(`${component}/${id}`);
+      return response.data;
+    });
   },
   getComponents: () => {
-    const { isLoading, data } = useQueryData(
-      ["ProjectAction.getComponents"],
-      async () => {
-        const response = await axios.get(`${component}`);
-        return response.data;
-      }
-    );
-    return { isLoading, data };
+    return useQueryData(["ProjectAction.getComponents"], async () => {
+      const response = await axios.get(`${component}`);
+      return response.data;
+    });
   },
   useNameChange: () => {
-    const { mutate } = useMutationData(
+    return useMutationData(
       ["ProjectAction.nameChange"],
       async (payload: any) => {
         const response = await axios.post(`${project}/name`, payload);
@@ -72,7 +67,6 @@ const ProjectAction = {
         return { ...previousData, variables };
       }
     );
-    return { mutate };
   },
 };
 export default ProjectAction;

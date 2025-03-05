@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import IDEeditor from "./IDEeditor";
-import ProjectAction from "@/actions/project";
-import { Skeleton } from "@/components/ui/skeleton";
 import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
