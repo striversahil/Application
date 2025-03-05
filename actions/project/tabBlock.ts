@@ -46,6 +46,7 @@ const TabBlockAction = {
   },
 
   useNameChange: () => {
+    const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChange"],
       async (payload: any) => {
@@ -55,7 +56,11 @@ const TabBlockAction = {
         );
         return response;
       },
-      ["ProjectAction.getCodeBlocks"]
+      [
+        `ProjectAction.getOneCodeBlock-${currentTab}` as string,
+        "ProjectAction.getCodeBlocks",
+      ],
+      undefined
     );
     return { mutate };
   },

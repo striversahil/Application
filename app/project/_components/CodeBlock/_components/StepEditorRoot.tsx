@@ -22,7 +22,7 @@ const StepEditorRoot = (props: Props) => {
 
   if (data) {
     const codeBlock = data.payload;
-    const currentStep = codeBlock.steps[0]._id;
+    const currentStep = codeBlock.steps[0]?._id;
 
     return (
       <div className="w-full h-full">

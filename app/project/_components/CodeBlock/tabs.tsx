@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import ProjectAction from "@/actions/project";
-import DeleteTab from "./_components/DeleteTab";
+import DeleteTab from "./_components/Tab/DeleteTab";
 
 type Props = {
   handleOpen: () => void;

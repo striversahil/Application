@@ -2,7 +2,7 @@ import React from "react";
 import Output from "./output";
 import { Panel, PanelGroup } from "react-resizable-panels";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
-import { EditorZone } from "./_components/EditorZone";
+import { EditorZone } from "./_components/Editor/EditorZone";
 import { TabsContent } from "@radix-ui/react-tabs";
 
 type Props = {

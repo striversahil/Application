@@ -3,13 +3,13 @@ import CodeBlockAction from "../../../../api/project/codeBlock";
 import { useQueryData } from "@/hooks/useQueryData";
 import { useClickOutside } from "@mantine/hooks";
 import React from "react";
-import HeaderChange from "./_components/HeaderChange";
+import HeaderChange from "./_components/Tab/HeaderChange";
 import { useMutationData } from "@/hooks/useMutation";
 import { PlusCircle } from "lucide-react";
 import { Popover } from "@/components/ui/popover";
 import { PopoverTrigger } from "@radix-ui/react-popover";
 import { ComboPopAPI } from "./_components/PopOverSelect";
-import InStepPopOver from "./_components/InStepPopOver";
+import InStepPopOver from "./_components/Steps/InStepPopOver";
 import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 type Props = {

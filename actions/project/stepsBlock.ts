@@ -1,4 +1,5 @@
 import { useMutationData } from "@/hooks/useMutation";
+import { itemsEqual } from "@dnd-kit/sortable/dist/utilities";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -80,23 +81,19 @@ const StepsBlockAction = {
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
-      undefined,
-      // (previousData: any, variables: any) => {
-      //   return {
-      //     ...previousData,
-      //     payload: [...previousData.payload].map((item: any) => {
-      //       if (item._id === variables.id) {
-      //         return {
-      //           ...item,
-      //           steps: [...item.steps].splice(variables.step, 0, {
-      //             name: "Loading... " + item.steps.length + 1,
-      //           }),
-      //         };
-      //       }
-      //       return item;
-      //     }),
-      //   };
-      // },
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: {
+            ...previousData.payload,
+            steps: [
+              ...previousData.payload.steps.slice(0, variables.step),
+              { name: "Loading... " },
+              ...previousData.payload.steps.slice(variables.step),
+            ],
+          },
+        };
+      },
       () => toast("Success", { description: "Successfully duplicated step" })
     );
     return { mutate };
@@ -111,23 +108,17 @@ const StepsBlockAction = {
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
-      undefined,
-      // (previousData: any, variables: any) => {
-      //   return {
-      //     ...previousData,
-      //     payload: [...previousData.payload].map((item: any) => {
-      //       if (item._id === variables.id) {
-      //         return {
-      //           ...item,
-      //           steps: [...item.steps].filter(
-      //             (_, index) => index !== variables.step
-      //           ),
-      //         };
-      //       }
-      //       return item;
-      //     }),
-      //   };
-      // },
+      (previousData: any, variables: any) => {
+        return {
+          ...previousData,
+          payload: {
+            ...previousData.payload,
+            steps: [...previousData.payload.steps].filter(
+              (item) => item._id != variables.id
+            ),
+          },
+        };
+      },
       () => toast("Success", { description: "Successfully deleted step" })
     );
     return { mutate };

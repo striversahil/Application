@@ -2,7 +2,7 @@ import { Popover } from "@/components/ui/popover";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { AlignJustify, Copy, PlusCircle, Trash2 } from "lucide-react";
 import React from "react";
-import { ComboPopAPI } from "./PopOverSelect";
+import { ComboPopAPI } from "../PopOverSelect";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import {
   Tooltip,
