@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Tabs as TabRoot } from "@radix-ui/react-tabs";
+import { Tabs as TabRoot, TabsContent } from "@radix-ui/react-tabs";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import Steps from "../steps";
 import EditorCode from "../editor";
@@ -12,7 +12,7 @@ type Props = {
 const StepEditorRoot = (props: Props) => {
   // const [currentStep, setCurrentStep] = useState("");
 
-  const { isLoading, data } = ProjectAction.getCodeBlock(props.value.id);
+  const { isLoading, data } = ProjectAction.getAllSteps(props.value.id);
 
   console.log(isLoading, data);
 
@@ -22,23 +22,27 @@ const StepEditorRoot = (props: Props) => {
 
   if (data) {
     const codeBlock = data.payload;
-    const currentStep = codeBlock.steps[0]?._id;
+    // const currentStep = codeBlock.steps[0]?._id;
 
     return (
       <div className="w-full h-full">
-        {currentStep && (
-          <TabRoot defaultValue={currentStep} className="w-full h-full">
-            <PanelGroup direction="horizontal" className="">
-              <Panel defaultSize={20} minSize={20} maxSize={50}>
-                <Steps value={codeBlock} />
-              </Panel>
-              <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
-              <Panel defaultSize={80} minSize={20} maxSize={80}>
-                <EditorCode value={codeBlock} />
-              </Panel>
-            </PanelGroup>
-          </TabRoot>
-        )}
+        {/* {currentStep && ( */}
+        <TabRoot className="w-full h-full">
+          <PanelGroup direction="horizontal" className="">
+            <Panel defaultSize={20} minSize={20} maxSize={50}>
+              <Steps value={codeBlock} />
+            </Panel>
+            <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
+            <Panel defaultSize={80} minSize={20} maxSize={80}>
+              {codeBlock.map((item: any, index: number) => (
+                <TabsContent value={item.id} className="w-full h-full">
+                  <EditorCode value={codeBlock} />
+                </TabsContent>
+              ))}
+            </Panel>
+          </PanelGroup>
+        </TabRoot>
+        {/* )} */}
       </div>
     );
   }

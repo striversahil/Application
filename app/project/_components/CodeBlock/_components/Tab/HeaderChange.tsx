@@ -18,7 +18,7 @@ const HeaderChange = (props: Props) => {
   const { mutate } = TabBlockAction.useNameChange();
 
   const Mutation = () => {
-    mutate({ _id: props.value._id, name: value });
+    mutate({ _id: props.value.id, name: value });
   };
   const { mount, setMount, ref, EnterClick, ValueChange, value } =
     useClickOutsideEnter(Mutation, props.value.name);

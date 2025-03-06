@@ -13,12 +13,13 @@ const TabBlockAction = {
         return response;
       },
       ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload, variables.payload],
-        };
-      }
+      undefined
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload, variables.payload],
+      //   };
+      // }
     );
 
     return { mutate, data, isPending };

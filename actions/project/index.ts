@@ -6,6 +6,7 @@ axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const codeBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 const project = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/project";
 const component = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";
+const stepsBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/stepblock";
 
 // Here the Index i.e. Most Used Common Get Actions will be Handled for Project
 
@@ -26,11 +27,20 @@ const ProjectAction = {
       }
     );
   },
+  getStep: (id: string) => {
+    return useQueryData(
+      [`ProjectAction.getOneStep-${id}` as string],
+      async () => {
+        const response = await axios.get(`${stepsBlock}/${id}`);
+        return response.data;
+      }
+    );
+  },
   getAllSteps: (id: string) => {
     return useQueryData(
       [`ProjectAction.getAllSteps-${id}` as string],
       async () => {
-        const response = await axios.get(`${codeBlock}/steps/${id}`);
+        const response = await axios.get(`${stepsBlock}/getAll/${id}`);
         return response.data;
       }
     );

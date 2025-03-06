@@ -17,24 +17,21 @@ type Props = {
 };
 // Space Left Because Wanna Introduce Drag n Drop Feature here
 
-const Steps = (props: Props) => {
+const Steps = ({ value }: Props) => {
   const [open, setOpen] = React.useState(false);
   return (
     <div className=" border-r border-slate-500 w-full h-full">
-      <HeaderChange value={props.value} />
+      <HeaderChange value={value} />
       <div className="w-full h-full">
         <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
-          {props.value.steps?.map((item: any, index: number) => {
-            return (
-              <div className="w-full" key={index}>
-                <InStepPopOver
-                  value={item}
-                  id={props.value._id}
-                  index={index}
-                />
-              </div>
-            );
-          })}
+          {value &&
+            value.map((item: any, index: number) => {
+              return (
+                <div className="w-full" key={index}>
+                  <InStepPopOver value={item} id={value.id} index={index} />
+                </div>
+              );
+            })}
         </TabsList>
         {/* {props.value.steps.length === 0 && (
           <Popover open={open} onOpenChange={setOpen}>
