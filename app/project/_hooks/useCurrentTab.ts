@@ -1,12 +1,16 @@
+"use client";
 import { useEffect, useState } from "react";
 
 export const useCurrentTab = () => {
-  const [currentStep, setCurrentStepState] = useState<string>(
-    localStorage.getItem("currentStep") || "slug"
-  );
-  const [currentTab, setCurrentTabState] = useState<string>(
-    localStorage.getItem("currentTab") || "slug"
-  );
+  const [currentStep, setCurrentStepState] = useState<string>("slug");
+  const [currentTab, setCurrentTabState] = useState<string>("slug");
+
+  // Don't Try to remove this useEffect to put the Value as Next Js Hot reloading brokes while doing so
+
+  useEffect(() => {
+    setCurrentStepState(localStorage.getItem("currentStep") || "slug");
+    setCurrentTabState(localStorage.getItem("currentTab") || "slug");
+  }, [currentStep, currentTab]);
 
   const setCurrentTab = (tab: string) => {
     setCurrentTabState(tab);

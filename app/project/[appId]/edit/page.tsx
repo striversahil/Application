@@ -30,7 +30,7 @@ const page = (props: Props) => {
 
   const { openConfig, handleOpenConfig } = useOpen();
 
-  const { currentTab } = useCurrentTab();
+  const { currentTab, currentStep } = useCurrentTab();
 
   if (!currentTab) {
     return null;
@@ -57,7 +57,7 @@ const page = (props: Props) => {
                   <PanelGroup direction="vertical">
                     <Panel defaultSize={60} minSize={40}>
                       <TabsRoot
-                        defaultValue={currentTab}
+                        defaultValue={currentStep}
                         className="h-full w-full"
                       >
                         <Header />

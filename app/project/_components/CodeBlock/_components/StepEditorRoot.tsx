@@ -17,7 +17,7 @@ const StepEditorRoot = (props: Props) => {
   if (!data) {
     return <div>Loading...</div>;
   }
-  console.log(data.payload);
+  // console.log(data.payload);
 
   if (data) {
     const codeBlock = data.payload;
