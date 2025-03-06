@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Output from "./output";
 import { Panel, PanelGroup } from "react-resizable-panels";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
@@ -11,18 +11,27 @@ type Props = {
 };
 
 const EditorCode = (props: Props) => {
+  const [stepsBlock, setstepBlock] = useState<any>(null);
   const { data } = ProjectAction.getStep(props.value.id);
+  console.log(data);
+
+  useEffect(() => {
+    setstepBlock(data);
+  }, [data]);
+
   return (
     <div className="w-full h-full">
-      <PanelGroup direction="vertical">
-        <Panel defaultSize={70} minSize={20} maxSize={100}>
-          <EditorZone value={data} />
-        </Panel>
-        <PanelResizeHandleComp />
-        <Panel defaultSize={30} minSize={20} maxSize={100}>
-          <Output value={data} />
-        </Panel>
-      </PanelGroup>
+      {stepsBlock && (
+        <PanelGroup direction="vertical">
+          <Panel defaultSize={70} minSize={20} maxSize={100}>
+            <EditorZone value={stepsBlock} />
+          </Panel>
+          <PanelResizeHandleComp />
+          <Panel defaultSize={30} minSize={20} maxSize={100}>
+            <Output value={stepsBlock} />
+          </Panel>
+        </PanelGroup>
+      )}
     </div>
   );
 };

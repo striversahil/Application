@@ -62,7 +62,7 @@ const CodeBlock = ({}: Props) => {
                       <>
                         <div className="flex">
                           <div className="w-[25%]">
-                            <Steps value={item} />
+                            {/* <Steps value={item} /> */}
                           </div>
                           <Skeleton className="w-full h-full" />
                         </div>

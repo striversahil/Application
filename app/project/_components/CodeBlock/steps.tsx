@@ -19,19 +19,17 @@ type Props = {
 
 const Steps = ({ value }: Props) => {
   const [open, setOpen] = React.useState(false);
+
   return (
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={value} />
       <div className="w-full h-full">
         <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
-          {value &&
-            value.map((item: any, index: number) => {
-              return (
-                <div className="w-full" key={index}>
-                  <InStepPopOver value={item} id={value.id} index={index} />
-                </div>
-              );
-            })}
+          {value.map((item: any, index: number) => (
+            <TabsTrigger className="w-full" key={index} value={item.id}>
+              <InStepPopOver value={item} id={value.id} index={index} />
+            </TabsTrigger>
+          ))}
         </TabsList>
         {/* {props.value.steps.length === 0 && (
           <Popover open={open} onOpenChange={setOpen}>

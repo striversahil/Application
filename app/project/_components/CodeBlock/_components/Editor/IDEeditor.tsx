@@ -11,8 +11,6 @@ const IDEeditor = (props: Props) => {
   const [code, setCode] = React.useState<string | undefined>("");
   const { mutate } = StepsBlockAction.useCode();
 
-  console.log(props.value);
-
   const ref = useClickOutside(() => {
     // if (code !== props.value.code) {
     //   mutate({ id: props.value.id, code: code });

@@ -14,8 +14,6 @@ const StepEditorRoot = (props: Props) => {
 
   const { isLoading, data } = ProjectAction.getAllSteps(props.value.id);
 
-  console.log(isLoading, data);
-
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -35,8 +33,12 @@ const StepEditorRoot = (props: Props) => {
             <PanelResizeHandle className="p-[1px] cursor-row-resize hover:bg-blue-500" />
             <Panel defaultSize={80} minSize={20} maxSize={80}>
               {codeBlock.map((item: any, index: number) => (
-                <TabsContent value={item.id} className="w-full h-full">
-                  <EditorCode value={codeBlock} />
+                <TabsContent
+                  value={item.id}
+                  className="w-full h-full"
+                  key={index}
+                >
+                  <EditorCode value={item} />
                 </TabsContent>
               ))}
             </Panel>
