@@ -14,6 +14,7 @@ import { useDragEnd } from "@/app/project/_hooks/usedragEnd";
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
 import { Tabs as TabsRoot } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/Tooltip/tooltip";
+import { useCurrentTab } from "../../_hooks/useCurrentTab";
 
 type Props = {};
 
@@ -29,16 +30,7 @@ const page = (props: Props) => {
 
   const { openConfig, handleOpenConfig } = useOpen();
 
-  const [currentTab, setCurrentTab] = useState("");
-
-  useEffect(() => {
-    const defaultTab = localStorage.getItem("currentTab") as string;
-    if (!defaultTab) {
-      setCurrentTab("slug");
-      return;
-    }
-    setCurrentTab(defaultTab);
-  }, [currentTab]);
+  const { currentTab } = useCurrentTab();
 
   if (!currentTab) {
     return null;

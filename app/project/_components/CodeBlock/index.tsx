@@ -13,6 +13,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import ProjectAction from "@/actions/project";
 import StepEditorRoot from "./_components/StepEditorRoot";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCurrentTab } from "../../_hooks/useCurrentTab";
 
 type Props = {};
 
@@ -21,13 +22,7 @@ const CodeBlock = ({}: Props) => {
 
   const { isLoading, data } = ProjectAction.getCodeBlocks();
 
-  const [currentTab, setCurrentTab] = useState("");
-
-  useEffect(() => {
-    const defaultTab = localStorage.getItem("currentTab") as string;
-
-    setCurrentTab(defaultTab);
-  }, [currentTab]);
+  const { currentTab, setCurrentTab } = useCurrentTab();
 
   return (
     <>

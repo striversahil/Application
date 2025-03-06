@@ -17,6 +17,7 @@ type Props = {
 };
 import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
+import { useCurrentTab } from "@/app/project/_hooks/useCurrentTab";
 
 const InStepPopOver = (props: Props) => {
   const [open, setOpen] = React.useState(false);
@@ -24,6 +25,8 @@ const InStepPopOver = (props: Props) => {
   const { mutate } = StepsBlockAction.useduplicate();
 
   const { mutate: mutateDelete } = StepsBlockAction.usedelete();
+
+  const { currentTab } = useCurrentTab();
 
   const languageHref =
     (props.value.language &&
@@ -52,7 +55,14 @@ const InStepPopOver = (props: Props) => {
             <div className="flex flex-col p-2 rounded-md gap-2">
               <div
                 className="bg-white/40 flex items-center hover:bg-white/20 p-1 rounded-md cursor-pointer"
-                onClick={() => mutate({ id: props.id, step: props.index })}
+                onClick={() =>
+                  mutate({
+                    metadata: {
+                      codeBlock_id: currentTab,
+                      stepBlock_id: props.value.id,
+                    },
+                  })
+                }
               >
                 <Copy className="size-4" />
                 <div className="text-sm ml-2 border-l border-l-gray-200 pl-2">

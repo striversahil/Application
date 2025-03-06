@@ -1,5 +1,4 @@
 import { useMutationData } from "@/hooks/useMutation";
-import { itemsEqual } from "@dnd-kit/sortable/dist/utilities";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -98,19 +97,20 @@ const StepsBlockAction = {
         return response.data;
       },
       [[`ProjectAction.getAllSteps-${currentTab}` as string]],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: {
-            ...previousData.payload,
-            steps: [
-              ...previousData.payload.steps.slice(0, variables.step + 1),
-              { name: "Loading... " },
-              ...previousData.payload.steps.slice(variables.step + 1),
-            ],
-          },
-        };
-      },
+      undefined,
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: {
+      //       ...previousData.payload,
+      //       steps: [
+      //         ...previousData.payload.steps.slice(0, variables.step + 1),
+      //         { name: "Loading... " },
+      //         ...previousData.payload.steps.slice(variables.step + 1),
+      //       ],
+      //     },
+      //   };
+      // },
       () => toast("Success", { description: "Successfully duplicated step" })
     );
     return { mutate };
@@ -125,17 +125,18 @@ const StepsBlockAction = {
         return response.data;
       },
       [[`ProjectAction.getOneCodeBlock-${currentTab}` as string]],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: {
-            ...previousData.payload,
-            steps: [...previousData.payload.steps].filter(
-              (item) => item._id != variables.id
-            ),
-          },
-        };
-      },
+      undefined,
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: {
+      //       ...previousData.payload,
+      //       steps: [...previousData.payload.steps].filter(
+      //         (item) => item._id != variables.id
+      //       ),
+      //     },
+      //   };
+      // },
       () => toast("Success", { description: "Successfully deleted step" })
     );
     return { mutate };
