@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
-const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
+const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/stepblock";
 
 // const currentTab = localStorage.getItem("currentTab") as string;
 
@@ -14,7 +14,7 @@ const StepsBlockAction = {
     const { mutate } = useMutationData(
       ["CodeBlockAction.addstep"],
       async (payload: any) => {
-        const response = await axios.post(`${source}/step/new`, payload);
+        const response = await axios.post(`${source}/`, payload);
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
@@ -40,12 +40,12 @@ const StepsBlockAction = {
     return { mutate };
   },
 
-  useChangeCode: () => {
+  useCode: () => {
     const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.changeCode"],
       async (payload: any) => {
-        const response = await axios.post(`${source}/step/code`, payload);
+        const response = await axios.post(`${source}/code`, payload);
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
@@ -91,7 +91,7 @@ const StepsBlockAction = {
     const { mutate } = useMutationData(
       ["CodeBlockAction.duplicateStep"],
       async (payload: any) => {
-        const response = await axios.post(`${source}/step/duplicate`, payload);
+        const response = await axios.post(`${source}/duplicate`, payload);
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
@@ -118,7 +118,7 @@ const StepsBlockAction = {
     const { mutate } = useMutationData(
       ["CodeBlockAction.deleteStep"],
       async (payload: any) => {
-        const response = await axios.post(`${source}/step/delete`, payload);
+        const response = await axios.delete(`${source}/`, payload);
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],

@@ -18,7 +18,9 @@ const DeleteTab = (props: Props) => {
 
   const handleClose = (id: any) => {
     mutateDelete({
-      id: id,
+      metadata: {
+        id: id,
+      },
     });
     localStorage.removeItem(`currentTab-${id}`);
     setOpen(false);

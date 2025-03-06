@@ -3,14 +3,15 @@ import IDEeditor from "./IDEeditor";
 import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
+import TabBlockAction from "@/actions/project/tabBlock";
+import StepsBlockAction from "@/actions/project/stepsBlock";
 
 type Props = {
   value?: any;
 };
 
 export const EditorZone = (props: Props) => {
-  // const { mount, setMount, ref, EnterClick, ValueChange, value } =
-  //   useClickOutsideEnter();
+  const { mutate } = StepsBlockAction.useCode();
 
   return (
     <div className="relative w-full h-full items-center">
@@ -29,7 +30,7 @@ export const EditorZone = (props: Props) => {
           {props.value.name}
         </div>
       </div>
-      <IDEeditor value={props.value} onChange={(value) => console.log(value)} />
+      <IDEeditor value={props.value} />
     </div>
   );
 };

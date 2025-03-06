@@ -21,7 +21,6 @@ import {
 import Image from "next/image";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import TabBlockAction from "@/actions/project/tabBlock";
-import { useStepAdd } from "@/app/project/_hooks/useStepadd";
 import languages from "@/packages/common/Json/languages.json";
 
 type PopOver = {
@@ -32,7 +31,10 @@ type PopOver = {
 
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
-  const { mutateTab, mutateStep } = useStepAdd();
+
+  const { mutate: mutateTabAdd } = TabBlockAction.useAdd();
+  const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
+
   return (
     <PopoverContent
       className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md"
@@ -52,13 +54,19 @@ export function ComboPopAPI(props: PopOver) {
                     setValue(currentValue === value ? "" : currentValue);
                     props.setOpen(false);
                     if (!props._id) {
-                      mutateTab({ language: language });
+                      mutateTabAdd({
+                        metadata: {
+                          name: language.label,
+                          language: language.value,
+                        },
+                      });
                     }
                     if (props._id) {
-                      mutateStep({
-                        _id: props._id,
-                        language: language,
-                        step: props.step,
+                      mutateStepAdd({
+                        metadata: {
+                          _id: props._id,
+                          language: language.value,
+                        },
                       });
                     }
                   }}
