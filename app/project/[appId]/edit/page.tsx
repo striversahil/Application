@@ -33,9 +33,12 @@ const page = (props: Props) => {
 
   useEffect(() => {
     const defaultTab = localStorage.getItem("currentTab") as string;
-    if (!defaultTab) setCurrentTab("1");
+    if (!defaultTab) {
+      setCurrentTab("slug");
+      return;
+    }
     setCurrentTab(defaultTab);
-  }, []);
+  }, [currentTab]);
 
   if (!currentTab) {
     return null;

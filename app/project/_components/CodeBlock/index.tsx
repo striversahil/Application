@@ -36,6 +36,7 @@ const CodeBlock = ({}: Props) => {
         Open={openCode}
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
+
         // BlockData={(item) => setBlockData(item)}
       />
       {openCode && <PanelResizeHandleComp />}

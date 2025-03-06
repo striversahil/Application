@@ -10,7 +10,8 @@ type Props = {
 
 export const EditorZone = (props: Props) => {
   // const { mount, setMount, ref, EnterClick, ValueChange, value } =
-  // useClickOutsideEnter();
+  //   useClickOutsideEnter();
+
   return (
     <div className="relative w-full h-full items-center">
       <div className="h-[50px] w-full flex gap-5 shadow-2xl bg-gradient-to-r from-slate-800 to-slate-600">
@@ -28,7 +29,7 @@ export const EditorZone = (props: Props) => {
           {props.value.name}
         </div>
       </div>
-      <IDEeditor value={props.value} />
+      <IDEeditor value={props.value} onChange={(value) => console.log(value)} />
     </div>
   );
 };

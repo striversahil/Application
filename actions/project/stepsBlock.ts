@@ -40,12 +40,26 @@ const StepsBlockAction = {
     return { mutate };
   },
 
+  useChangeCode: () => {
+    const currentTab = localStorage.getItem("currentTab") as string;
+    const { mutate } = useMutationData(
+      ["CodeBlockAction.changeCode"],
+      async (payload: any) => {
+        const response = await axios.post(`${source}/step/code`, payload);
+        return response.data;
+      },
+      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      undefined
+    );
+    return { mutate };
+  },
+
   useNameChange: () => {
     const currentTab = localStorage.getItem("currentTab") as string;
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChangeStep"],
       async (payload: any) => {
-        const response = await axios.post(`${source}/step/update`, payload);
+        const response = await axios.post(`${source}/step/name`, payload);
         return response.data;
       },
       [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
@@ -87,9 +101,9 @@ const StepsBlockAction = {
           payload: {
             ...previousData.payload,
             steps: [
-              ...previousData.payload.steps.slice(0, variables.step),
+              ...previousData.payload.steps.slice(0, variables.step + 1),
               { name: "Loading... " },
-              ...previousData.payload.steps.slice(variables.step),
+              ...previousData.payload.steps.slice(variables.step + 1),
             ],
           },
         };

@@ -16,7 +16,7 @@ const TabBlockAction = {
       (previousData: any, variables: any) => {
         return {
           ...previousData,
-          payload: [...previousData.payload, variables.metadata.name],
+          payload: [...previousData.payload, variables.payload],
         };
       }
     );
@@ -36,7 +36,7 @@ const TabBlockAction = {
         return {
           ...previousData,
           payload: [...previousData.payload].filter(
-            (item: any) => item._id !== variables._id
+            (item: any) => item._id !== variables.id
           ),
         };
       }

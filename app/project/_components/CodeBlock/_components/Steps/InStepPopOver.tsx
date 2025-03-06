@@ -26,6 +26,12 @@ const InStepPopOver = (props: Props) => {
 
   const { mutate: mutateDelete } = StepsBlockAction.usedelete();
 
+  const languageHref =
+    (props.value.language &&
+      languages.find((item) => item.value === props.value.language)
+        ?.icon_href) ||
+    "/assets/languages/mysql.svg";
+
   return (
     <div>
       <div className="bg-white/20 w-full p-2 rounded-md flex items-center justify-center">
@@ -37,10 +43,7 @@ const InStepPopOver = (props: Props) => {
           }
         >
           <Image
-            src={
-              languages.find((item) => item.value === props.value.language)
-                ?.icon_href || ""
-            }
+            src={languageHref}
             width={25}
             height={25}
             alt="Image"

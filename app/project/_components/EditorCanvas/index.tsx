@@ -2,6 +2,7 @@
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import ProjectAction from "@/actions/project";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export interface ComponentInterface {
   name: string;
@@ -24,8 +25,6 @@ const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
     position: "absolute" as const,
     left: coordinates[0],
     top: coordinates[1],
-    opacity: isDragging ? 0.5 : 1,
-    background: isDragging ? "lightgreen" : undefined,
   };
 
   return (
@@ -34,10 +33,15 @@ const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-white rounded shadow-md touch-none w-fit text-black"
+      className={cn(
+        "bg-white rounded shadow-md touch-none w-fit text-black  outline",
+        isDragging
+          ? "cursor-grabbing outline-green-300"
+          : "cursor-grab  outline-pink-400"
+      )}
     >
       {/* Your content here */}
-      <div>Hello There {_id}</div>
+      <div>{_id}</div>
     </div>
   );
 };
@@ -56,6 +60,7 @@ const EditorCanvas = () => {
   }, [data]);
 
   if (!components) return null;
+
   // console.log(components);
 
   // This whole Component is a drag and drop zone
