@@ -24,7 +24,7 @@ const ComponentAction = {
         const response = await axios.post(`${source}`, payload);
         return response.data;
       },
-      ["ProjectAction.getComponents"]
+      [["ProjectAction.getComponents"]]
     );
     return { mutate };
   },
@@ -35,7 +35,7 @@ const ComponentAction = {
         const response = await axios.post(`${source}/update`, payload);
         return response.data;
       },
-      ["ProjectAction.getComponents"]
+      [["ProjectAction.getComponents"]]
     );
     return { mutate };
   },

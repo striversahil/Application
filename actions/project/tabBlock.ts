@@ -12,7 +12,7 @@ const TabBlockAction = {
         const response = await axios.post(`${source}/`, payload);
         return response;
       },
-      ["ProjectAction.getCodeBlocks"],
+      [["ProjectAction.getCodeBlocks"]],
       undefined
       // (previousData: any, variables: any) => {
       //   return {
@@ -32,7 +32,7 @@ const TabBlockAction = {
         const response = await axios.delete(`${source}/${payload.metadata.id}`);
         return response;
       },
-      ["ProjectAction.getCodeBlocks"],
+      [["ProjectAction.getCodeBlocks"]],
       (previousData: any, variables: any) => {
         return {
           ...previousData,
@@ -58,8 +58,8 @@ const TabBlockAction = {
         return response;
       },
       [
-        `ProjectAction.getOneCodeBlock-${currentTab}` as string,
-        "ProjectAction.getCodeBlocks",
+        [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+        ["ProjectAction.getCodeBlocks"],
       ],
       undefined
     );

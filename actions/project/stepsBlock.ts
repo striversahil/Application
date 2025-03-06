@@ -17,7 +17,10 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/`, payload);
         return response.data;
       },
-      [`ProjectAction.getAllSteps-${currentTab}` as string],
+      [
+        [`ProjectAction.getAllSteps-${currentTab}` as string],
+        [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      ],
       undefined
       // (previousData: any, variables: any) => {
       //   return {
@@ -48,7 +51,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/code`, payload);
         return response.data;
       },
-      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      [[`ProjectAction.getOneCodeBlock-${currentTab}` as string]],
       undefined
     );
     return { mutate };
@@ -62,7 +65,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/step/name`, payload);
         return response.data;
       },
-      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      [[`ProjectAction.getOneCodeBlock-${currentTab}` as string]],
       undefined
       // (previousData: any, variables: any) => {
       //   return {
@@ -94,7 +97,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/duplicate`, payload);
         return response.data;
       },
-      [`ProjectAction.getAllSteps-${currentTab}` as string],
+      [[`ProjectAction.getAllSteps-${currentTab}` as string]],
       (previousData: any, variables: any) => {
         return {
           ...previousData,
@@ -121,7 +124,7 @@ const StepsBlockAction = {
         const response = await axios.delete(`${source}/`, payload);
         return response.data;
       },
-      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      [[`ProjectAction.getOneCodeBlock-${currentTab}` as string]],
       (previousData: any, variables: any) => {
         return {
           ...previousData,
