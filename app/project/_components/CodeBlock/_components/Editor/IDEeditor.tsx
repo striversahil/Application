@@ -8,13 +8,24 @@ type Props = {
 };
 
 const IDEeditor = (props: Props) => {
-  const [code, setCode] = React.useState<string | undefined>("");
-  const { mutate } = StepsBlockAction.useCode();
+  const [code, setCode] = React.useState<string | undefined>(props.value.code);
+  const { mutate } = StepsBlockAction.useCode(props.value._id);
+
+  const MutateFunction = () => {
+    if (code === undefined || code === props.value.code) return;
+
+    if (code !== props.value.code) {
+      mutate({
+        metadata: { _id: props.value._id },
+        payload: {
+          code: code,
+        },
+      });
+    }
+  };
 
   const ref = useClickOutside(() => {
-    // if (code !== props.value.code) {
-    //   mutate({ id: props.value.id, code: code });
-    // }
+    MutateFunction();
   });
 
   React.useEffect(() => {

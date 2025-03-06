@@ -1,3 +1,4 @@
+import { useCurrentTab } from "@/app/project/_hooks/useCurrentTab";
 import { useMutationData } from "@/hooks/useMutation";
 import axios from "axios";
 import { toast } from "sonner";
@@ -9,7 +10,8 @@ const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/stepblock";
 
 const StepsBlockAction = {
   useadd: () => {
-    const currentTab = localStorage.getItem("currentTab") as string;
+    const { currentTab } = useCurrentTab();
+
     const { mutate } = useMutationData(
       ["CodeBlockAction.addstep"],
       async (payload: any) => {
@@ -42,22 +44,21 @@ const StepsBlockAction = {
     return { mutate };
   },
 
-  useCode: () => {
-    const currentTab = localStorage.getItem("currentTab") as string;
+  useCode: (step_id : string) => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.changeCode"],
       async (payload: any) => {
         const response = await axios.post(`${source}/code`, payload);
         return response.data;
       },
-      [[`ProjectAction.getOneCodeBlock-${currentTab}` as string]],
+      [[`ProjectAction.getOneStep-${step_id}` as string]],
       undefined
     );
     return { mutate };
   },
 
   useNameChange: () => {
-    const currentTab = localStorage.getItem("currentTab") as string;
+    const { currentTab } = useCurrentTab();
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChangeStep"],
       async (payload: any) => {
@@ -89,7 +90,7 @@ const StepsBlockAction = {
   },
 
   useduplicate: () => {
-    const currentTab = localStorage.getItem("currentTab") as string;
+    const { currentTab } = useCurrentTab();
     const { mutate } = useMutationData(
       ["CodeBlockAction.duplicateStep"],
       async (payload: any) => {
@@ -117,14 +118,14 @@ const StepsBlockAction = {
   },
 
   usedelete: () => {
-    const currentTab = localStorage.getItem("currentTab") as string;
+    const { currentTab } = useCurrentTab();
     const { mutate } = useMutationData(
       ["CodeBlockAction.deleteStep"],
       async (payload: any) => {
-        const response = await axios.delete(`${source}/`, payload);
+        const response = await axios.post(`${source}/delete`, payload);
         return response.data;
       },
-      [[`ProjectAction.getOneCodeBlock-${currentTab}` as string]],
+      [[`ProjectAction.getAllSteps-${currentTab}` as string]],
       undefined,
       // (previousData: any, variables: any) => {
       //   return {

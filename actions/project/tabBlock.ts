@@ -1,3 +1,4 @@
+import { useCurrentTab } from "@/app/project/_hooks/useCurrentTab";
 import { useMutationData } from "@/hooks/useMutation";
 import axios from "axios";
 
@@ -47,7 +48,7 @@ const TabBlockAction = {
   },
 
   useNameChange: () => {
-    const currentTab = localStorage.getItem("currentTab") as string;
+    const { currentTab } = useCurrentTab();
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChange"],
       async (payload: any) => {

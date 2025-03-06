@@ -11,6 +11,7 @@ import { PopoverTrigger } from "@radix-ui/react-popover";
 import { ComboPopAPI } from "./_components/PopOverSelect";
 import InStepPopOver from "./_components/Steps/InStepPopOver";
 import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import { useCurrentTab } from "../../_hooks/useCurrentTab";
 
 type Props = {
   value?: any;
@@ -20,15 +21,21 @@ type Props = {
 const Steps = ({ value }: Props) => {
   const [open, setOpen] = React.useState(false);
 
+  const { setCurrentStep } = useCurrentTab();
+
   return (
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={value} />
       <div className="w-full h-full">
         <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
           {value.map((item: any, index: number) => (
-            <TabsTrigger className="w-full" key={index} value={item.id}>
+            <div
+              key={index}
+              className="w-full"
+              onClick={() => setCurrentStep(item.id)}
+            >
               <InStepPopOver value={item} id={value.id} index={index} />
-            </TabsTrigger>
+            </div>
           ))}
         </TabsList>
         {/* {props.value.steps.length === 0 && (

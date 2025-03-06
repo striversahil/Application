@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
 
 export const useCurrentTab = () => {
-  const [currentTab, setCurrentTabState] = useState<string>("slug");
-
-  useEffect(() => {
-    const currentTablocal = localStorage.getItem("currentTab");
-
-    if (!currentTablocal) {
-      localStorage.setItem("currentTab", "slug");
-    }
-
-    setCurrentTabState(currentTablocal as string);
-  }, [currentTab]);
+  const [currentStep, setCurrentStepState] = useState<string>(
+    localStorage.getItem("currentStep") || "slug"
+  );
+  const [currentTab, setCurrentTabState] = useState<string>(
+    localStorage.getItem("currentTab") || "slug"
+  );
 
   const setCurrentTab = (tab: string) => {
     setCurrentTabState(tab);
     localStorage.setItem("currentTab", tab);
   };
 
-  return { currentTab, setCurrentTab };
+  const setCurrentStep = (step: string) => {
+    setCurrentStepState(step);
+
+    localStorage.setItem("currentStep", step);
+  };
+
+  return { currentStep, setCurrentStep, currentTab, setCurrentTab };
 };
 
 // setCurrentTab should set localstorage as well

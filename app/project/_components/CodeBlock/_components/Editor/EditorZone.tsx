@@ -11,8 +11,6 @@ type Props = {
 };
 
 export const EditorZone = (props: Props) => {
-  const { mutate } = StepsBlockAction.useCode();
-
   return (
     <div className="relative w-full h-full items-center">
       <div className="h-[50px] w-full flex gap-5 shadow-2xl bg-gradient-to-r from-slate-800 to-slate-600">
