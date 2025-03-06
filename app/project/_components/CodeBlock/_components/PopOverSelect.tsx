@@ -1,10 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown, CirclePlus } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -25,15 +21,20 @@ import languages from "@/packages/common/Json/languages.json";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
-  _id?: string;
-  step?: number;
+  stepUse?: boolean;
 };
 
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
+  const [currentTab, setCurrentTab] = React.useState<string>("");
 
   const { mutate: mutateTabAdd } = TabBlockAction.useAdd();
   const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
+
+  React.useEffect(() => {
+    const currentTab = localStorage.getItem("currentTab");
+    setCurrentTab(currentTab as string);
+  }, []);
 
   return (
     <PopoverContent
@@ -53,7 +54,7 @@ export function ComboPopAPI(props: PopOver) {
                   onSelect={(currentValue: any) => {
                     setValue(currentValue === value ? "" : currentValue);
                     props.setOpen(false);
-                    if (!props._id) {
+                    if (!props.stepUse) {
                       mutateTabAdd({
                         metadata: {
                           name: language.label,
@@ -61,10 +62,10 @@ export function ComboPopAPI(props: PopOver) {
                         },
                       });
                     }
-                    if (props._id) {
+                    if (props.stepUse) {
                       mutateStepAdd({
                         metadata: {
-                          _id: props._id,
+                          id: currentTab,
                           language: language.value,
                         },
                       });
@@ -88,7 +89,4 @@ export function ComboPopAPI(props: PopOver) {
       </Command>
     </PopoverContent>
   );
-}
-function useaddSteps(): { mutateStepAdd: any } {
-  throw new Error("Function not implemented.");
 }

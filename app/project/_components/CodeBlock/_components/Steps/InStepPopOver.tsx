@@ -1,7 +1,7 @@
 import { Popover } from "@/components/ui/popover";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { AlignJustify, Copy, PlusCircle, Trash2 } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { ComboPopAPI } from "../PopOverSelect";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import {
@@ -17,7 +17,6 @@ type Props = {
 };
 import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
-import { TabsTrigger } from "@radix-ui/react-tabs";
 
 const InStepPopOver = (props: Props) => {
   const [open, setOpen] = React.useState(false);
@@ -87,7 +86,7 @@ const InStepPopOver = (props: Props) => {
             </TooltipContent>
           </Tooltip>
         </PopoverTrigger>
-        <ComboPopAPI setOpen={setOpen} _id={props.id} step={props.index + 1} />
+        <ComboPopAPI setOpen={setOpen} stepUse={true} />
       </Popover>
     </div>
   );

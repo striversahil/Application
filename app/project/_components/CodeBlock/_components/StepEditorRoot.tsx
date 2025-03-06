@@ -17,6 +17,7 @@ const StepEditorRoot = (props: Props) => {
   if (!data) {
     return <div>Loading...</div>;
   }
+  console.log(data.payload);
 
   if (data) {
     const codeBlock = data.payload;
@@ -25,7 +26,7 @@ const StepEditorRoot = (props: Props) => {
     return (
       <div className="w-full h-full">
         {/* {currentStep && ( */}
-        <TabRoot className="w-full h-full">
+        <TabRoot className="w-full h-full" defaultValue={codeBlock[0].id}>
           <PanelGroup direction="horizontal" className="">
             <Panel defaultSize={20} minSize={20} maxSize={50}>
               <Steps value={codeBlock} />

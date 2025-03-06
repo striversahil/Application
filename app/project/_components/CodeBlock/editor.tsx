@@ -13,10 +13,11 @@ type Props = {
 const EditorCode = (props: Props) => {
   const [stepsBlock, setstepBlock] = useState<any>(null);
   const { data } = ProjectAction.getStep(props.value.id);
-  console.log(stepsBlock);
 
   useEffect(() => {
-    setstepBlock(data.payload);
+    if (data) {
+      setstepBlock(data.payload);
+    }
   }, [data]);
 
   return (

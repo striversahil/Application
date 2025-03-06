@@ -17,7 +17,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/`, payload);
         return response.data;
       },
-      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      [`ProjectAction.getAllSteps-${currentTab}` as string],
       undefined
       // (previousData: any, variables: any) => {
       //   return {
@@ -94,7 +94,7 @@ const StepsBlockAction = {
         const response = await axios.post(`${source}/duplicate`, payload);
         return response.data;
       },
-      [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+      [`ProjectAction.getAllSteps-${currentTab}` as string],
       (previousData: any, variables: any) => {
         return {
           ...previousData,
