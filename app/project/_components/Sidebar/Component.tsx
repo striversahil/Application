@@ -76,7 +76,7 @@ const CompSidebar = ({ children }: SidebarProps) => {
                 placeholder="Search ..."
               ></Input>
             </div>
-            <div className="flex flex-col py-[10%]">
+            <div className=" py-[10%]">
               <div className="grid grid-cols-2 gap-5 mx-2">
                 {ReferenceSidebarComponents.map(
                   (item: Record<string, any>, index: number) => (
