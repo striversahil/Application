@@ -18,19 +18,17 @@ import Image from "next/image";
 import StepsBlockAction from "@/actions/project/stepsBlock";
 import TabBlockAction from "@/actions/project/tabBlock";
 import languages from "@/packages/common/Json/languages.json";
-import { useCurrentTab } from "@/app/project/_hooks/useCurrentTab";
 
 type PopOver = {
   setOpen: (open: boolean) => void;
-  stepUse?: boolean;
+  id?: string;
 };
 
 export function ComboPopAPI(props: PopOver) {
   const [value, setValue] = React.useState("");
-  const { currentTab } = useCurrentTab();
 
   const { mutate: mutateTabAdd } = TabBlockAction.useAdd();
-  const { mutate: mutateStepAdd } = StepsBlockAction.useadd();
+  const { mutate: mutateStepAdd } = StepsBlockAction.useadd(props.id || "");
 
   return (
     <PopoverContent
@@ -50,7 +48,7 @@ export function ComboPopAPI(props: PopOver) {
                   onSelect={(currentValue: any) => {
                     setValue(currentValue === value ? "" : currentValue);
                     props.setOpen(false);
-                    if (!props.stepUse) {
+                    if (!props.id) {
                       mutateTabAdd({
                         metadata: {
                           name: language.label,
@@ -58,10 +56,10 @@ export function ComboPopAPI(props: PopOver) {
                         },
                       });
                     }
-                    if (props.stepUse) {
+                    if (props.id) {
                       mutateStepAdd({
                         metadata: {
-                          id: currentTab,
+                          id: props.id,
                           language: language.value,
                         },
                       });

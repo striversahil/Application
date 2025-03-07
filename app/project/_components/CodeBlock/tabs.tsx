@@ -15,13 +15,12 @@ import DeleteTab from "./_components/Tab/DeleteTab";
 type Props = {
   handleOpen: () => void;
   Open?: boolean;
-  currentTab: string;
-  setCurrentTab: (tab: string) => void;
   // BlockData: (data: any) => void;
 };
 
 const Tabs = (props: Props) => {
   const { isLoading, data } = ProjectAction.getCodeBlocks();
+  const [currentTab, setCurrentTab] = useState("0");
 
   const [open, setOpen] = React.useState(false);
 
@@ -44,17 +43,16 @@ const Tabs = (props: Props) => {
             <div
               className={cn(
                 `flex bg-white/10 p-1 rounded-md border  border-white/20 hover:bg-white/30  select-none cursor-pointer items-center gap-2`,
-                props.currentTab === item.id &&
+                currentTab === index.toString() &&
                   "bg-white/20 font-bold text-blue-400 border-b-[3px] border-l-[3px] border-blue-700"
               )}
               key={index}
             >
               <TabsTrigger
-                value={item.id}
+                value={index.toString()}
                 className="inline-flex items-center gap-2"
                 onClick={() => {
-                  props.setCurrentTab(item.id);
-                  localStorage.setItem("currentTab", item.id);
+                  setCurrentTab(index.toString());
                 }}
               >
                 <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />

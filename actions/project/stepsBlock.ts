@@ -9,9 +9,7 @@ const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/stepblock";
 // const currentTab = localStorage.getItem("currentTab") as string;
 
 const StepsBlockAction = {
-  useadd: () => {
-    const { currentTab } = useCurrentTab();
-
+  useadd: (currentTab: string) => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.addstep"],
       async (payload: any) => {
@@ -44,7 +42,7 @@ const StepsBlockAction = {
     return { mutate };
   },
 
-  useCode: (step_id : string) => {
+  useCode: (step_id: string) => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.changeCode"],
       async (payload: any) => {
@@ -89,8 +87,7 @@ const StepsBlockAction = {
     return { mutate };
   },
 
-  useduplicate: () => {
-    const { currentTab } = useCurrentTab();
+  useduplicate: (currentTab: string) => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.duplicateStep"],
       async (payload: any) => {
@@ -117,8 +114,7 @@ const StepsBlockAction = {
     return { mutate };
   },
 
-  usedelete: () => {
-    const { currentTab } = useCurrentTab();
+  usedelete: (currentTab: string) => {
     const { mutate } = useMutationData(
       ["CodeBlockAction.deleteStep"],
       async (payload: any) => {

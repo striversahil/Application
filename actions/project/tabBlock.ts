@@ -52,10 +52,7 @@ const TabBlockAction = {
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChange"],
       async (payload: any) => {
-        const response = await axios.post(
-          `${source}/${payload._id}/name`,
-          payload
-        );
+        const response = await axios.post(`${source}/name`, payload);
         return response;
       },
       [

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import React from "react";
 
@@ -6,26 +7,39 @@ type Props = {
 };
 
 const Output = (props: Props) => {
-  console.log(props.value);
+  const [activeTab, setActiveTab] = React.useState("output");
+
   return (
     <div className="border-t border-pink-500  w-full h-full">
       <Tabs defaultValue="output">
-        <TabsList className="flex px-3 py-1 bg-white/20 rounded-full w-fit  my-3">
+        <TabsList className="relative flex px-3 py-1 bg-white/20 rounded-full w-fit  my-3">
           <TabsTrigger
             value="output"
-            className=" px-3  rounded-full hover:bg-white/30"
+            className={cn(
+              "text-sm font-bold px-3  rounded-full hover:bg-white/30",
+              activeTab === "output" && "bg-white/20"
+            )}
+            onClick={() => setActiveTab("output")}
           >
             Output
           </TabsTrigger>
           <TabsTrigger
             value="code"
-            className="px-3  rounded-full hover:bg-white/30"
+            className={cn(
+              "text-sm font-bold px-3  rounded-full hover:bg-white/30",
+              activeTab === "code" && "bg-white/20"
+            )}
+            onClick={() => setActiveTab("code")}
           >
             Executed Code
           </TabsTrigger>
           <TabsTrigger
             value="stdout"
-            className="px-3  rounded-full hover:bg-white/30"
+            className={cn(
+              "text-sm font-bold px-3  rounded-full hover:bg-white/30",
+              activeTab === "stdout" && "bg-white/20"
+            )}
+            onClick={() => setActiveTab("stdout")}
           >
             Console
           </TabsTrigger>

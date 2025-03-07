@@ -17,18 +17,15 @@ type Props = {
 };
 import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
-import { useCurrentTab } from "@/app/project/_hooks/useCurrentTab";
 import { TabsTrigger } from "@radix-ui/react-tabs";
 
 const InStepPopOver = (props: Props) => {
   const [open, setOpen] = React.useState(true);
   const [open2, setOpen2] = React.useState(true);
 
-  const { mutate } = StepsBlockAction.useduplicate();
+  const { mutate } = StepsBlockAction.useduplicate(props.id);
 
-  const { mutate: mutateDelete } = StepsBlockAction.usedelete();
-
-  const { currentTab } = useCurrentTab();
+  const { mutate: mutateDelete } = StepsBlockAction.usedelete(props.id);
 
   const languageHref =
     (props.value.language &&
@@ -39,7 +36,7 @@ const InStepPopOver = (props: Props) => {
   return (
     <div>
       <div className="bg-white/20 w-full p-2 rounded-md flex items-center justify-center">
-        <TabsTrigger className="w-full" value={props.value.id}>
+        <TabsTrigger className="w-full" value={props.value._id}>
           <div className="font-bold flex-1 flex w-full text-center cursor-pointer">
             <Image
               src={languageHref}
@@ -65,8 +62,8 @@ const InStepPopOver = (props: Props) => {
                   setOpen2(false);
                   mutate({
                     metadata: {
-                      codeBlock_id: currentTab,
-                      stepBlock_id: props.value.id,
+                      codeBlock_id: props.id,
+                      stepBlock_id: props.value._id,
                     },
                   });
                 }}
@@ -82,8 +79,8 @@ const InStepPopOver = (props: Props) => {
                   setOpen2(false);
                   mutateDelete({
                     metadata: {
-                      codeBlock_id: currentTab,
-                      stepBlock_id: props.value.id,
+                      codeBlock_id: props.id,
+                      stepBlock_id: props.value._id,
                     },
                   });
                 }}
@@ -108,7 +105,7 @@ const InStepPopOver = (props: Props) => {
             </TooltipContent>
           </Tooltip>
         </PopoverTrigger>
-        <ComboPopAPI setOpen={setOpen} stepUse={true} />
+        <ComboPopAPI setOpen={setOpen} id={props.id} />
       </Popover>
     </div>
   );

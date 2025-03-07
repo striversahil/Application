@@ -22,15 +22,11 @@ const CodeBlock = ({}: Props) => {
 
   const { isLoading, data } = ProjectAction.getCodeBlocks();
 
-  const { currentTab, setCurrentTab } = useCurrentTab();
-
   return (
     <>
       <Tabs
         handleOpen={handleOpenCode}
         Open={openCode}
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
 
         // BlockData={(item) => setBlockData(item)}
       />
@@ -50,19 +46,9 @@ const CodeBlock = ({}: Props) => {
                   <TabsContent
                     key={index}
                     className="w-full h-full"
-                    value={item.id}
+                    value={index.toString()}
                   >
-                    {currentTab === item.id && <StepEditorRoot value={item} />}
-                    {currentTab !== item.id && (
-                      <>
-                        <div className="flex">
-                          <div className="w-[25%]">
-                            {/* <Steps value={item} /> */}
-                          </div>
-                          <Skeleton className="w-full h-full" />
-                        </div>
-                      </>
-                    )}
+                    <StepEditorRoot value={item} />
                   </TabsContent>
                 );
               })}

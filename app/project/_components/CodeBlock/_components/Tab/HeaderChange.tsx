@@ -11,14 +11,14 @@ import { Pencil } from "lucide-react";
 import React from "react";
 
 type Props = {
-  value: any;
+  value?: any;
 };
 
 const HeaderChange = (props: Props) => {
   const { mutate } = TabBlockAction.useNameChange();
 
   const Mutation = () => {
-    mutate({ _id: props.value.id, name: value });
+    mutate({ metadata: { _id: props.value._id }, payload: { name: value } });
   };
   const { mount, setMount, ref, EnterClick, ValueChange, value } =
     useClickOutsideEnter(Mutation, props.value.name);

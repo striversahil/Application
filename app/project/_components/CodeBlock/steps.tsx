@@ -21,20 +21,14 @@ type Props = {
 const Steps = ({ value }: Props) => {
   const [open, setOpen] = React.useState(false);
 
-  const { setCurrentStep } = useCurrentTab();
-
   return (
     <div className=" border-r border-slate-500 w-full h-full">
       <HeaderChange value={value} />
       <div className="w-full h-full">
         <TabsList className="flex flex-col overflow-y-scroll items-center justify-start w-full h-full gap-2 p-2">
-          {value.map((item: any, index: number) => (
-            <div
-              key={index}
-              className="w-full"
-              onClick={() => setCurrentStep(item.id)}
-            >
-              <InStepPopOver value={item} id={value.id} index={index} />
+          {value.steps.map((item: any, index: number) => (
+            <div key={index} className="w-full">
+              <InStepPopOver value={item} id={value._id} index={index} />
             </div>
           ))}
         </TabsList>
