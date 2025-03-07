@@ -24,11 +24,11 @@ const EditorCode = (props: Props) => {
     <div className="w-full h-full">
       {stepsBlock && (
         <PanelGroup direction="vertical">
-          <Panel defaultSize={70} minSize={20} maxSize={100}>
+          <Panel defaultSize={60} minSize={20} maxSize={100}>
             <EditorZone value={stepsBlock} />
           </Panel>
           <PanelResizeHandleComp />
-          <Panel defaultSize={30} minSize={20} maxSize={100}>
+          <Panel defaultSize={40} minSize={20} maxSize={100}>
             <Output value={stepsBlock} />
           </Panel>
         </PanelGroup>

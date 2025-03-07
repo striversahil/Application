@@ -34,14 +34,15 @@ const TabBlockAction = {
         return response;
       },
       [["ProjectAction.getCodeBlocks"]],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload].filter(
-            (item: any) => item._id !== variables.id
-          ),
-        };
-      }
+      undefined
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload].filter(
+      //       (item: any) => item._id !== variables.id
+      //     ),
+      //   };
+      // }
     );
 
     return { mutate, isPending };
