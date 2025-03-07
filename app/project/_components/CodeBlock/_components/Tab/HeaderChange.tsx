@@ -1,5 +1,4 @@
 import TabBlockAction from "@/actions/project/tabBlock";
-import CodeBlockAction from "../../../../../api/project/codeBlock";
 import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,18 +11,17 @@ import { Pencil } from "lucide-react";
 import React from "react";
 
 type Props = {
-  value: any;
+  value?: any;
 };
 
 const HeaderChange = (props: Props) => {
   const { mutate } = TabBlockAction.useNameChange();
 
   const Mutation = () => {
-    mutate({ _id: props.value._id, name: value });
+    mutate({ metadata: { _id: props.value._id }, payload: { name: value } });
   };
   const { mount, setMount, ref, EnterClick, ValueChange, value } =
     useClickOutsideEnter(Mutation, props.value.name);
-  ref.current?.focus();
 
   return (
     <div>

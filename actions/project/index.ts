@@ -5,53 +5,78 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const codeBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 const project = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/project";
+const component = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";
+const stepsBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/stepblock";
 
 // Here the Index i.e. Most Used Common Get Actions will be Handled for Project
 
 const ProjectAction = {
   getProject: () => {
-    const { isLoading, data } = useQueryData(
-      ["ProjectAction.getProject"],
-      async () => {
-        const response = await axios.get(`${project}`);
-        return response.data;
-      }
-    );
-    return { isLoading, data };
+    return useQueryData(["ProjectAction.getProject"], async () => {
+      const response = await axios.get(`${project}`);
+      return response.data;
+    });
   },
-  getOneCodeBlock: (id: string) => {
-    const { isLoading, data } = useQueryData(
-      ["ProjectAction.getOneCodeBlock"],
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++ CodeBlock Actions ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  getCodeBlock: (id: string) => {
+    return useQueryData(
+      [`ProjectAction.getOneCodeBlock-${id}` as string],
       async () => {
         const response = await axios.get(`${codeBlock}/${id}`);
         return response.data;
       }
     );
-    return { isLoading, data };
   },
-  getCodeBlocks: () => {
-    const { isLoading, data } = useQueryData(
-      ["ProjectAction.getCodeBlocks"],
+  getStep: (id: string) => {
+    return useQueryData(
+      [`ProjectAction.getOneStep-${id}` as string],
       async () => {
-        const response = await axios.get(`${codeBlock}`);
+        const response = await axios.get(`${stepsBlock}/${id}`);
         return response.data;
       }
     );
-    return { isLoading, data };
+  },
+  getAllSteps: (id: string) => {
+    return useQueryData(
+      [`ProjectAction.getAllSteps-${id}` as string],
+      async () => {
+        const response = await axios.get(`${stepsBlock}/getAll/${id}`);
+        return response.data;
+      }
+    );
+  },
+  getCodeBlocks: () => {
+    return useQueryData(["ProjectAction.getCodeBlocks"], async () => {
+      const response = await axios.get(`${codeBlock}`);
+      return response.data;
+    });
+  },
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++ Component Actions +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  getComponent: (id: string) => {
+    return useQueryData([`ProjectAction.getComponent-${id}`], async () => {
+      const response = await axios.get(`${component}/${id}`);
+      return response.data;
+    });
+  },
+  getComponents: () => {
+    return useQueryData(["ProjectAction.getComponents"], async () => {
+      const response = await axios.get(`${component}`);
+      return response.data;
+    });
   },
   useNameChange: () => {
-    const { mutate } = useMutationData(
+    return useMutationData(
       ["ProjectAction.nameChange"],
       async (payload: any) => {
         const response = await axios.post(`${project}/name`, payload);
         return response;
       },
-      ["ProjectAction.getProject"],
+      [["ProjectAction.getProject"]],
       (previousData: any, variables: any) => {
         return { ...previousData, variables };
       }
     );
-    return { mutate };
   },
 };
 export default ProjectAction;

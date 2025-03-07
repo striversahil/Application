@@ -1,0 +1,44 @@
+[
+  {
+    "value": "python",
+    "label": "Python",
+    "icon_href": "/assets/languages/python.svg",
+    "code": "print('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "javascript",
+    "label": "JavaScript",
+    "icon_href": "/assets/languages/javascript.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "typescript",
+    "label": "TypeScript",
+    "icon_href": "/assets/languages/typescript.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  },
+  {
+    "value": "graphql",
+    "label": "GraphQL",
+    "icon_href": "/assets/languages/graphql.svg",
+    "code": "query {\n  user(id: \"1\") {\n    id\n    name\n    email\n  }\n}",
+    "output": "Hello World"
+  },
+  {
+    "value": "mysql",
+    "label": "SQL",
+    "icon_href": "/assets/languages/mysql.svg",
+    "code": "SELECT * FROM test_table WHERE id = 1 AND name = 'John'",
+    "output": "Hello World"
+  },
+  {
+    "value": "restapi",
+    "label": "REST API",
+    "icon_href": "/assets/languages/restapi.svg",
+    "code": "console.log('Hello World')",
+    "output": "Hello World"
+  }
+]

@@ -1,44 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Output from "./output";
 import { Panel, PanelGroup } from "react-resizable-panels";
 import PanelResizeHandleComp from "../utils/PanelResizeHandle";
-import { EditorZone } from "./_components/EditorZone";
+import { EditorZone } from "./_components/Editor/EditorZone";
 import { TabsContent } from "@radix-ui/react-tabs";
+import ProjectAction from "@/actions/project";
 
 type Props = {
   value?: any;
 };
 
 const EditorCode = (props: Props) => {
+  const [stepsBlock, setstepBlock] = useState<any>(null);
+  const { data } = ProjectAction.getStep(props.value._id);
+
+  useEffect(() => {
+    if (data) {
+      setstepBlock(data.payload);
+    }
+  }, [data]);
+
   return (
-    <div className="h-full w-full ">
-      <div className="w-full h-full">
-        {props.value.steps?.map((item: any, index: number) => {
-          console.log(item);
-          return (
-            <TabsContent value={item._id} className="w-full h-full" key={index}>
-              {item._id}
-              <div
-                key={index}
-                className="w-full h-full"
-                onClick={() =>
-                  localStorage.setItem("currentStep", JSON.stringify(index))
-                }
-              >
-                <PanelGroup direction="vertical" key={index}>
-                  <Panel defaultSize={50} minSize={20} maxSize={100}>
-                    <EditorZone />
-                  </Panel>
-                  <PanelResizeHandleComp />
-                  <Panel defaultSize={50} minSize={20} maxSize={100}>
-                    <Output />
-                  </Panel>
-                </PanelGroup>
-              </div>
-            </TabsContent>
-          );
-        })}
-      </div>
+    <div className="w-full h-full">
+      {stepsBlock && (
+        <PanelGroup direction="vertical">
+          <Panel defaultSize={60} minSize={20} maxSize={100}>
+            <EditorZone value={stepsBlock} />
+          </Panel>
+          <PanelResizeHandleComp />
+          <Panel defaultSize={40} minSize={20} maxSize={100}>
+            <Output value={stepsBlock} />
+          </Panel>
+        </PanelGroup>
+      )}
     </div>
   );
 };

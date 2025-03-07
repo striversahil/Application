@@ -1,3 +1,4 @@
+import { useCurrentTab } from "@/app/project/_hooks/useCurrentTab";
 import { useMutationData } from "@/hooks/useMutation";
 import axios from "axios";
 
@@ -12,13 +13,14 @@ const TabBlockAction = {
         const response = await axios.post(`${source}/`, payload);
         return response;
       },
-      ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload, variables],
-        };
-      }
+      [["ProjectAction.getCodeBlocks"]],
+      undefined
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload, variables.payload],
+      //   };
+      // }
     );
 
     return { mutate, data, isPending };
@@ -28,34 +30,37 @@ const TabBlockAction = {
     const { mutate, isPending } = useMutationData(
       ["CodeBlockAction.delete"],
       async (payload: any) => {
-        const response = await axios.delete(`${source}/${payload._id}`);
+        const response = await axios.delete(`${source}/${payload.metadata.id}`);
         return response;
       },
-      ["ProjectAction.getCodeBlocks"],
-      (previousData: any, variables: any) => {
-        return {
-          ...previousData,
-          payload: [...previousData.payload].filter(
-            (item: any) => item._id !== variables._id
-          ),
-        };
-      }
+      [["ProjectAction.getCodeBlocks"]],
+      undefined
+      // (previousData: any, variables: any) => {
+      //   return {
+      //     ...previousData,
+      //     payload: [...previousData.payload].filter(
+      //       (item: any) => item._id !== variables.id
+      //     ),
+      //   };
+      // }
     );
 
     return { mutate, isPending };
   },
 
   useNameChange: () => {
+    const { currentTab } = useCurrentTab();
     const { mutate } = useMutationData(
       ["CodeBlockAction.nameChange"],
       async (payload: any) => {
-        const response = await axios.post(
-          `${source}/${payload._id}/name`,
-          payload
-        );
+        const response = await axios.post(`${source}/name`, payload);
         return response;
       },
-      ["ProjectAction.getCodeBlocks"]
+      [
+        [`ProjectAction.getOneCodeBlock-${currentTab}` as string],
+        ["ProjectAction.getCodeBlocks"],
+      ],
+      undefined
     );
     return { mutate };
   },

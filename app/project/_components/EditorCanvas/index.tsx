@@ -1,23 +1,21 @@
 "use client";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
+import ProjectAction from "@/actions/project";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
-interface ComponentData {
-  id: number;
-  x: number;
-  y: number;
-  payload: any;
-  // Add more configurable properties as needed
+export interface ComponentInterface {
+  name: string;
+  _id: string;
+  payload: string; // Here my Component Payload i.e. Data will Come
+  configuration: object; // This will Contain Component Configuration
+  coordinates: number[];
 }
-type Props = {
-  data: ComponentData[];
-};
 
-// create array of nested id's of components1
-
-const Draggable = ({ id, payload, x, y }: ComponentData) => {
+const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
-      id: id,
+      id: _id,
     });
 
   const style = {
@@ -25,10 +23,8 @@ const Draggable = ({ id, payload, x, y }: ComponentData) => {
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     position: "absolute" as const,
-    left: x || "auto",
-    top: y || "auto",
-    opacity: isDragging ? 0.5 : 1,
-    background: isDragging ? "lightgreen" : undefined,
+    left: coordinates[0],
+    top: coordinates[1],
   };
 
   return (
@@ -37,19 +33,37 @@ const Draggable = ({ id, payload, x, y }: ComponentData) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-white rounded shadow-md touch-none w-fit text-black"
+      className={cn(
+        "bg-white rounded shadow-md touch-none w-fit text-black  outline",
+        isDragging
+          ? "cursor-grabbing outline-green-300"
+          : "cursor-grab  outline-pink-400"
+      )}
     >
       {/* Your content here */}
-      {payload}
+      <div>{_id}</div>
     </div>
   );
 };
 
-const EditorCanvas = ({ data }: Props) => {
-  // This whole Component is a drag and drop zone
+const EditorCanvas = () => {
+  const [components, setComponents] = useState<any>([]);
+  const { isLoading, data } = ProjectAction.getComponents();
   const { isOver, setNodeRef } = useDroppable({
     id: "droppable",
   });
+
+  useEffect(() => {
+    if (data) {
+      setComponents(data.payload);
+    }
+  }, [data]);
+
+  if (!components) return null;
+
+  // console.log(components);
+
+  // This whole Component is a drag and drop zone
   return (
     <div className="w-full overflow-auto">
       <div
@@ -57,7 +71,7 @@ const EditorCanvas = ({ data }: Props) => {
         ref={setNodeRef}
       >
         <div className="relative w-full h-full">
-          {data.map((item, index) => (
+          {components.map((item: any, index: number) => (
             <Draggable key={index} {...item}></Draggable>
           ))}
         </div>

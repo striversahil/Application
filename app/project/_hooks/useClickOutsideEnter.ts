@@ -34,5 +34,7 @@ export const useClickOutsideEnter = (
     setValue(e.target.value);
   };
 
+  ref.current?.focus();
+
   return { ref, mount, setMount, EnterClick, ValueChange, value };
 };

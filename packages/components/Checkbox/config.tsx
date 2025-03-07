@@ -1,16 +1,13 @@
-import React from "react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Label } from "@radix-ui/react-dropdown-menu";
+import React from "react";
 
-const TextConfigPanel = ({
-  selectedItem,
-  updateItem,
-}: {
-  selectedItem: any | null; // It will Get the Selected Item
-  updateItem: (newData: any) => void; // It will Update the Selected Item Each time i will call it using the on change event
-}) => {
-  if (!selectedItem) return null;
+type Props = {
+  selectedItem: any;
+  updateItem: (newData: any) => void;
+};
 
+const CheckboxConfigPanel = ({ selectedItem, updateItem }: Props) => {
   return (
     <>
       <h2 className="text-lg font-bold mb-4">Text Settings</h2>
@@ -34,25 +31,12 @@ const TextConfigPanel = ({
         <div>
           <Label>Content</Label>
           <Input
-            type="text"
-            value={selectedItem.content}
+            type="checkbox"
+            checked={selectedItem.content}
             onChange={(e) =>
               updateItem({
                 ...selectedItem,
-                content: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div>
-          <Label>Alignment</Label>
-          <Input
-            type="text"
-            value={selectedItem.alignment}
-            onChange={(e) =>
-              updateItem({
-                ...selectedItem,
-                alignment: e.target.value,
+                content: e.target.checked,
               })
             }
           />
@@ -62,4 +46,4 @@ const TextConfigPanel = ({
   );
 };
 
-export default TextConfigPanel;
+export default CheckboxConfigPanel;

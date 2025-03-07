@@ -21,7 +21,7 @@ const page = () => {
   // Next js is not allowing me to put this data into JSX
   const path = usePathname();
 
-  const { data, isLoading } = useQueryData("workspace", getWorkspaceInfo);
+  const { data, isLoading } = useQueryData(["workspace"], getWorkspaceInfo);
 
   return (
     <SidebarProvider>

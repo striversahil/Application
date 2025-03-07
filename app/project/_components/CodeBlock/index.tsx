@@ -13,6 +13,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import ProjectAction from "@/actions/project";
 import StepEditorRoot from "./_components/StepEditorRoot";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCurrentTab } from "../../_hooks/useCurrentTab";
 
 type Props = {};
 
@@ -21,20 +22,12 @@ const CodeBlock = ({}: Props) => {
 
   const { isLoading, data } = ProjectAction.getCodeBlocks();
 
-  const [currentTab, setCurrentTab] = useState("");
-
-  useEffect(() => {
-    const defaultTab = localStorage.getItem("currentTab") as string;
-    setCurrentTab(defaultTab);
-  }, [currentTab]);
-
   return (
     <>
       <Tabs
         handleOpen={handleOpenCode}
         Open={openCode}
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+
         // BlockData={(item) => setBlockData(item)}
       />
       {openCode && <PanelResizeHandleComp />}
@@ -47,25 +40,15 @@ const CodeBlock = ({}: Props) => {
         >
           <div className="ml-1 h-full bg-slate-800">
             {!isLoading &&
-              data &&
+              data.payload &&
               data.payload.map((item: any, index: number) => {
                 return (
                   <TabsContent
                     key={index}
                     className="w-full h-full"
-                    value={item._id}
+                    value={index.toString()}
                   >
-                    {currentTab === item._id && <StepEditorRoot value={item} />}
-                    {currentTab !== item._id && (
-                      <>
-                        <div className="flex">
-                          <div className="w-[25%]">
-                            <Steps value={item} />
-                          </div>
-                          <Skeleton className="w-full h-full" />
-                        </div>
-                      </>
-                    )}
+                    <StepEditorRoot value={item} />
                   </TabsContent>
                 );
               })}

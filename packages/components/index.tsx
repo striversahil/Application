@@ -1,3 +1,3 @@
 // Barrel file
 
-export * from "./core/__template";
+export * from "./Text";

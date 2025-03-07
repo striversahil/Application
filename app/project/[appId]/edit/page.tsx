@@ -4,7 +4,7 @@ import EditorCanvas from "../../_components/EditorCanvas";
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import { PanelRightOpen } from "lucide-react";
 
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../../_components/Sidebar";
 import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
@@ -12,18 +12,17 @@ import { DndContext } from "@dnd-kit/core";
 import Header from "../../_components/Header";
 import { useDragEnd } from "@/app/project/_hooks/usedragEnd";
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
-import PanelResizeHandleComp from "@/app/project/_components/utils/PanelResizeHandle";
 import { Tabs as TabsRoot } from "@/components/ui/tabs";
-import useTabFallback from "@/app/project/_components/utils/TabFallback";
 import { TooltipProvider } from "@/components/ui/Tooltip/tooltip";
+import { useCurrentTab } from "../../_hooks/useCurrentTab";
 
 type Props = {};
 
 const page = (props: Props) => {
   const {
-    Data,
     handleDragEnd,
     setActiveId,
+    activeId,
     setIsDropped,
     setIsDragging,
     sensors,
@@ -31,13 +30,7 @@ const page = (props: Props) => {
 
   const { openConfig, handleOpenConfig } = useOpen();
 
-  const [currentTab, setCurrentTab] = useState("");
-
-  useEffect(() => {
-    const defaultTab = localStorage.getItem("currentTab") as string;
-    if (!defaultTab) setCurrentTab("1");
-    setCurrentTab(defaultTab);
-  }, []);
+  const { currentTab, currentStep } = useCurrentTab();
 
   if (!currentTab) {
     return null;
@@ -63,8 +56,13 @@ const page = (props: Props) => {
                 <Panel defaultSize={80} minSize={40}>
                   <PanelGroup direction="vertical">
                     <Panel defaultSize={60} minSize={40}>
-                      <Header />
-                      <EditorCanvas data={Data} />
+                      <TabsRoot
+                        defaultValue={currentStep}
+                        className="h-full w-full"
+                      >
+                        <Header />
+                        <EditorCanvas />
+                      </TabsRoot>
                     </Panel>
 
                     <CodeBlock />
@@ -81,13 +79,10 @@ const page = (props: Props) => {
                     onCollapse={handleOpenConfig}
                     maxSize={40}
                   >
-                    <ConfigFolder handleOpen={handleOpenConfig}>
-                      {/* Add Here Config Individual component with   
-                  selectedItem={items.find((item) => item.id === selectedId) || null}
-                  updateItem={updateItem}
-                  
-                  */}
-                    </ConfigFolder>
+                    <ConfigFolder
+                      handleOpen={handleOpenConfig}
+                      selectedItem={activeId}
+                    />
                   </Panel>
                 )}
               </PanelGroup>

@@ -51,7 +51,7 @@ const Draggable = ({ id, title, target }: any) => {
 
 const CompSidebar = ({ children }: SidebarProps) => {
   const [open, setOpen] = React.useState(false);
-  console.log("Rendered CompSidebar");
+  // console.log("Rendered CompSidebar");
   return (
     <div>
       <Popover open={open} onOpenChange={setOpen}>
@@ -76,7 +76,7 @@ const CompSidebar = ({ children }: SidebarProps) => {
                 placeholder="Search ..."
               ></Input>
             </div>
-            <div className="flex flex-col py-[10%]">
+            <div className=" py-[10%]">
               <div className="grid grid-cols-2 gap-5 mx-2">
                 {ReferenceSidebarComponents.map(
                   (item: Record<string, any>, index: number) => (

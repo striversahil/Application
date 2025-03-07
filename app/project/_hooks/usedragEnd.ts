@@ -1,64 +1,69 @@
+import ProjectAction from "@/actions/project";
+import ComponentAction from "@/actions/project/component";
 import { PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
-import React from "react";
-
-interface ComponentData {
-  id: number;
-  x: number;
-  y: number;
-  payload: any;
-  // Add more configurable properties as needed
-}
-const test: ComponentData[] = [];
+import React, { useEffect } from "react";
 
 export const useDragEnd = () => {
-  const [Data, setData] = React.useState<ComponentData[]>(test);
+  const [Data, setData] = React.useState<Record<string, any>[]>([]);
 
   const [activeId, setActiveId] = React.useState<string>("");
   const [IsDropped, setIsDropped] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
 
+  const { data } = ProjectAction.getComponents();
+  const { mutate: mutateAdd } = ComponentAction.add();
+  const { mutate: mutateUpdate } = ComponentAction.update();
+
+  useEffect(() => {
+    if (data) {
+      setData(data.payload);
+    }
+  }, [data]);
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
-
-  const filterOperation = (event: any, mouseX: number, mouseY: number) => {
-    const { active } = event;
-    // Check if the active item is already in the array
-    const Presence_array = Data.filter((item) => item.id === Number(active.id));
-    const filtered_array = Data.filter((item) => item.id !== Number(active.id));
-
-    // If the active item is not in the array, add it
-    if (Presence_array.length === 0) {
-      setData((initialData) => [
-        ...initialData,
-        {
-          id: Date.now(),
-          payload: "Component " + Date.now(),
-          x: mouseX,
-          y: mouseY, // Fixed typo here
-        },
-      ]);
-      return null;
-      // Else We are modifying it from the Array
-    } else {
-      const newData = [
-        ...filtered_array,
-        {
-          id: Presence_array[0]?.id ?? 0,
-          payload: Presence_array[0]?.payload ?? "",
-          x: event.delta.x + Presence_array[0]?.x,
-          y: event.delta.y + Presence_array[0]?.y,
-        },
-      ];
-      setData(newData);
-    }
-  };
 
   const handleDragEnd = (event: any) => {
     if (event.over?.id === "droppable") {
       const mouseX = event.activatorEvent.clientX;
       const mouseY = event.activatorEvent.clientY;
-      filterOperation(event, mouseX, mouseY);
+
+      // Check if the active item is already in the array
+      if (!event.active || !data) return null;
+      const PresentElement = Data.find((item) => item._id === event.active.id);
+      const PresentElementCoordinates = PresentElement?.coordinates as number[];
+
+      // If the active item is not in the array, add it
+      if (!PresentElement) {
+        mutateAdd({
+          metadata: {
+            name: "Component " + Date.now(),
+            coordinates: [mouseX, mouseY],
+            configuration: {
+              type: "component",
+              name: "Component " + Date.now(),
+            },
+          },
+          payload: { Json_Data: "Component " + Date.now() },
+        });
+        // Else We are modifying it from the Array
+      } else {
+        mutateUpdate({
+          metadata: {
+            _id: PresentElement._id,
+            name: PresentElement.name,
+            coordinates: [
+              PresentElementCoordinates[0] + event.delta.x,
+              PresentElementCoordinates[1] + event.delta.y,
+            ],
+            configuration: {
+              type: "component",
+            },
+          },
+          payload: { Json_Data: "Component " + Date.now() },
+        });
+      }
       setIsDropped(true);
     }
     // setIsDragging(false);

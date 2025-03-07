@@ -1,6 +1,3 @@
-import TextComponent from "@packages/components/Text";
-import React from "react";
-
 // A workaround to generate random id
 const id = () => {
   return (Math.random() * 10000).toString();
@@ -9,27 +6,32 @@ const id = () => {
 export const ReferenceSidebarComponents = [
   {
     id: id(),
-    title: "Text",
-    target: "text",
+    title: "Label",
+    target: "label",
   },
   {
     id: id(),
     title: "Button",
-    target: "text",
+    target: "button",
   },
   {
     id: id(),
-    title: "Text",
-    target: "text",
+    title: "Dropdown",
+    target: "dropdown",
   },
   {
     id: id(),
-    title: "Button",
-    target: "text",
+    title: "Input",
+    target: "input",
   },
   {
     id: id(),
-    title: "Text",
-    target: "text",
+    title: "Table",
+    target: "table",
+  },
+  {
+    id: id(),
+    title: "Card",
+    target: "card",
   },
 ];
