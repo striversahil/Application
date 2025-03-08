@@ -22,6 +22,7 @@ import languages from "@/packages/common/Json/languages.json";
 type PopOver = {
   setOpen: (open: boolean) => void;
   id?: string;
+  step_id?: string;
 };
 
 export function ComboPopAPI(props: PopOver) {
@@ -31,10 +32,7 @@ export function ComboPopAPI(props: PopOver) {
   const { mutate: mutateStepAdd } = StepsBlockAction.useadd(props.id || "");
 
   return (
-    <PopoverContent
-      className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md"
-      side="right"
-    >
+    <PopoverContent className="w-[200px] p-0 border-[2px] border-black shadow-lg rounded-md">
       <Command className="bg-[#1e1e1e]">
         <CommandInput placeholder="Search Provider..." />
         <CommandList>
@@ -61,6 +59,7 @@ export function ComboPopAPI(props: PopOver) {
                         metadata: {
                           id: props.id,
                           language: language.value,
+                          step_id: props.step_id,
                         },
                       });
                     }

@@ -16,11 +16,11 @@ const Output = (props: Props) => {
     <div className="border-t border-blue-500  w-full h-full">
       <Tabs defaultValue="output" className="flex flex-col h-full w-full">
         <div className="flex  w-full">
-          <TabsList className="relative flex px-3 py-1 gap-2 bg-white/20 rounded-full w-fit mt-2">
+          <TabsList className="relative flex px-1 py-1 gap-1 bg-white/20 rounded-full w-fit mt-2">
             <TabsTrigger
               value="output"
               className={cn(
-                "text-sm font-bold px-2  rounded-full hover:bg-white/30",
+                "text-sm font-bold px-2  rounded-full hover:bg-white/10",
                 activeTab === "output" && "bg-white/20"
               )}
               onClick={() => setActiveTab("output")}
@@ -31,7 +31,7 @@ const Output = (props: Props) => {
             <TabsTrigger
               value="code"
               className={cn(
-                "text-sm font-bold px-2  rounded-full hover:bg-white/30",
+                "text-sm font-bold px-2  rounded-full hover:bg-white/10",
                 activeTab === "code" && "bg-white/20"
               )}
               onClick={() => setActiveTab("code")}
@@ -41,7 +41,7 @@ const Output = (props: Props) => {
             <TabsTrigger
               value="stdout"
               className={cn(
-                "text-sm font-bold px-2  rounded-full hover:bg-white/30",
+                "text-sm font-bold px-2  rounded-full hover:bg-white/10",
                 activeTab === "stdout" && "bg-white/20"
               )}
               onClick={() => setActiveTab("stdout")}
@@ -57,7 +57,7 @@ const Output = (props: Props) => {
                   Success
                 </span>{" "}
                 <Dot size={15} className="text-green-500" />
-                <div className="text-sm  ">10ms</div>
+                <div className="text-sm ">10ms</div>
               </div>
             </div>
           </div>

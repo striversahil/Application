@@ -105,7 +105,11 @@ const InStepPopOver = (props: Props) => {
             </TooltipContent>
           </Tooltip>
         </PopoverTrigger>
-        <ComboPopAPI setOpen={setOpen} id={props.id} />
+        <ComboPopAPI
+          setOpen={setOpen}
+          id={props.id}
+          step_id={props.value._id}
+        />
       </Popover>
     </div>
   );
