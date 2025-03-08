@@ -1,6 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { Cable, CirclePlus, PanelBottomClose, Trash } from "lucide-react";
+import {
+  Cable,
+  CirclePlus,
+  PanelBottomClose,
+  Trash,
+  UnplugIcon,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ComboPopAPI } from "./_components/PopOverSelect";
@@ -26,13 +32,14 @@ const Tabs = (props: Props) => {
 
   return (
     <div className="flex h-[36px] mx-1 ">
-      <TabsList className="relative flex flex-1 items-center justify-start gap-2 flex-wrap overflow-y-scroll max-w-full bg-transparent">
+      <TabsList className="relative flex flex-1 items-center justify-start gap-2  overflow-y-scroll max-w-full bg-transparent">
         {isLoading && <Skeleton className="w-[500px] h-[40px] rounded-md" />}
-        <div>
+        <div className="sticky left-0">
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-              <div className="bg-white/10 p-1 rounded-md border border-white/20 cursor-pointer inline-flex items-center gap-2">
-                Add Tab <CirclePlus />
+              <div className="bg-white/10 w-32 p-1  rounded-md border border-white/20 cursor-pointer inline-flex items-center gap-2">
+                <CirclePlus size={20} />
+                <span className="text-sm font-bold"> Add New API</span>
               </div>
             </PopoverTrigger>
             <ComboPopAPI setOpen={setOpen} />
@@ -55,10 +62,10 @@ const Tabs = (props: Props) => {
                   setCurrentTab(index.toString());
                 }}
               >
-                <Cable className="size-5 bg-slate-600 rounded-md p-[2px]" />
-                <span className=" text-sm ">{item.name}</span>
+                <UnplugIcon className="size-4 ml-1" />
+                <span className=" text-[13px] ">{item.name}</span>
               </TabsTrigger>
-              <div className=" bg-gray-600 rounded-md cursor-pointer px-1 hover:bg-red-600/50">
+              <div className="ml-auto">
                 <DeleteTab item={item} />
               </div>
             </div>

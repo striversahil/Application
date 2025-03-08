@@ -34,7 +34,7 @@ const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
       {...attributes}
       {...listeners}
       className={cn(
-        "bg-white rounded shadow-md touch-none w-fit text-black  outline",
+        "bg-white rounded shadow-md touch-none px-1 w-fit text-black  outline",
         isDragging
           ? "cursor-grabbing outline-green-300"
           : "cursor-grab  outline-pink-400"
@@ -65,7 +65,7 @@ const EditorCanvas = () => {
 
   // This whole Component is a drag and drop zone
   return (
-    <div className="w-full overflow-auto">
+    <div className="w-full overscroll-y-auto ">
       <div
         className={`w-full min-h-screen h-full` + (isOver ? " bg-white/5" : "")}
         ref={setNodeRef}

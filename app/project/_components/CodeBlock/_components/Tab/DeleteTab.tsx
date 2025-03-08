@@ -26,7 +26,7 @@ const DeleteTab = (props: Props) => {
     setOpen(false);
   };
   return (
-    <div className="w-full h-full   rounded-md cursor-pointer p-[px]  hover:bg-red-600/50">
+    <div className="w-full h-full bg-gray-600  px-1  rounded-md cursor-pointer  hover:bg-red-500/70">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
           <span className="">
