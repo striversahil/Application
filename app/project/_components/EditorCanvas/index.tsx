@@ -3,6 +3,7 @@ import { useDraggable, useDroppable } from "@dnd-kit/core";
 import ProjectAction from "@/actions/project";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import Section from "./Section";
 
 export interface ComponentInterface {
   name: string;
@@ -47,26 +48,26 @@ const Draggable = ({ _id, payload, coordinates }: ComponentInterface) => {
 };
 
 const EditorCanvas = () => {
-  const [components, setComponents] = useState<any>([]);
-  const { isLoading, data } = ProjectAction.getComponents();
-  const { isOver, setNodeRef } = useDroppable({
-    id: "droppable",
-  });
+  const [Sections, setSections] = useState<any>([]);
+  const { isLoading, data } = ProjectAction.getSections();
 
   useEffect(() => {
     if (data) {
-      setComponents(data.payload);
+      setSections(data.payload.sections);
     }
   }, [data]);
 
-  if (!components) return null;
+  if (!Sections) return null;
 
   // console.log(components);
 
   // This whole Component is a drag and drop zone
   return (
-    <div className="w-full overscroll-y-auto ">
-      <div
+    <div className="w-full p-1 h-[200vh] flex flex-col gap-[1000px]">
+      {Sections.map((item: any, index: number) => (
+        <Section key={index} value={item} />
+      ))}
+      {/* <div
         className={`w-full min-h-screen h-full` + (isOver ? " bg-white/5" : "")}
         ref={setNodeRef}
       >
@@ -75,7 +76,7 @@ const EditorCanvas = () => {
             <Draggable key={index} {...item}></Draggable>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

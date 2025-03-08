@@ -50,19 +50,16 @@ const page = (props: Props) => {
         <TooltipProvider>
           <div className="relative flex min-h-screen bg-slate-950">
             <Sidebar />
-            <main className="relative flex-1 w-full">
+            <main className="relative flex-1 min-h-screen min-w-screen">
               {/* Main Resizable Pannel Start's Here */}
               <PanelGroup direction="horizontal">
-                <Panel defaultSize={80} minSize={40}>
+                <Panel defaultSize={80}>
                   <PanelGroup direction="vertical">
-                    <Panel defaultSize={60} minSize={40}>
-                      <TabsRoot
-                        defaultValue={currentStep}
-                        className="h-full w-full"
-                      >
+                    <Panel defaultSize={60} className="relative">
+                      <div className="absolute inset-0 overflow-y-scroll">
                         <Header />
                         <EditorCanvas />
-                      </TabsRoot>
+                      </div>
                     </Panel>
 
                     <CodeBlock />
