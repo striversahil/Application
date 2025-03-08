@@ -1,7 +1,6 @@
 import { useMutationData } from "@/hooks/useMutation";
 import { useQueryData } from "@/hooks/useQueryData";
 import axios from "axios";
-import { toast } from "sonner";
 
 axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";

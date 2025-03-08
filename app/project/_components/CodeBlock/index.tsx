@@ -35,6 +35,7 @@ const CodeBlock = ({}: Props) => {
         <Panel
           defaultSize={40}
           minSize={20}
+          maxSize={100}
           collapsible
           onCollapse={handleOpenCode}
         >

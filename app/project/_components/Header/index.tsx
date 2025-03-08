@@ -17,7 +17,7 @@ const Header = (props: Props) => {
   ref.current?.focus();
 
   return (
-    <div className="relative top-0 w-full h-[5vh] bg-slate-900 text-center flex justify-center">
+    <div className="sticky top-0 w-full h-[5vh] bg-slate-900 text-center flex justify-center">
       <h1
         className="flex items-center text-3xl text-white font-bold text-center"
         onClick={() => setMount(true)}

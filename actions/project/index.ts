@@ -7,6 +7,7 @@ const codeBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/codeblock";
 const project = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/project";
 const component = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";
 const stepsBlock = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/stepblock";
+const section = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/section";
 
 // Here the Index i.e. Most Used Common Get Actions will be Handled for Project
 
@@ -27,6 +28,12 @@ const ProjectAction = {
       }
     );
   },
+  getCodeBlocks: () => {
+    return useQueryData(["ProjectAction.getCodeBlocks"], async () => {
+      const response = await axios.get(`${codeBlock}`);
+      return response.data;
+    });
+  },
   getStep: (id: string) => {
     return useQueryData(
       [`ProjectAction.getOneStep-${id}` as string],
@@ -45,14 +52,25 @@ const ProjectAction = {
       }
     );
   },
-  getCodeBlocks: () => {
-    return useQueryData(["ProjectAction.getCodeBlocks"], async () => {
-      const response = await axios.get(`${codeBlock}`);
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++ Component Actions +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  getSection: (id: string) => {
+    return useQueryData(
+      [`ProjectAction.getOneSection-${id}` as string],
+      async () => {
+        const response = await axios.get(`${section}/${id}`);
+        return response.data;
+      }
+    );
+  },
+
+  getSections: () => {
+    return useQueryData(["ProjectAction.getSections"], async () => {
+      const response = await axios.get(`${section}`);
       return response.data;
     });
   },
 
-  // +++++++++++++++++++++++++++++++++++++++++++++++++++++ Component Actions +++++++++++++++++++++++++++++++++++++++++++++++++++++++
   getComponent: (id: string) => {
     return useQueryData([`ProjectAction.getComponent-${id}`], async () => {
       const response = await axios.get(`${component}/${id}`);
@@ -65,6 +83,8 @@ const ProjectAction = {
       return response.data;
     });
   },
+
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++ Project Specific Actions +++++++++++++++++++++++++++++++++++++++++++++++++++++++
   useNameChange: () => {
     return useMutationData(
       ["ProjectAction.nameChange"],
