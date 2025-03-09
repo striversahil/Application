@@ -15,46 +15,54 @@ const ResizableBox = ({ children }: Props) => {
   const initialWidth = useRef<number>(0);
   const initialHeight = useRef<number>(0);
 
+  const handleMouseX = useRef((e: MouseEvent) => {
+    if (!isResizing.current) return;
+    const newWidth =
+      initialWidth.current +
+      Math.floor((e.clientX - initialX.current) / 10) * 10;
+    setWidth(newWidth);
+  });
+
   // Debounced mouse move handler
-  const handleMouseMove = useRef(
-    debounce((e: MouseEvent) => {
-      if (!isResizing.current) return;
+  const handleMouseY = useRef((e: MouseEvent) => {
+    if (!isResizing.current) return;
 
-      const newWidth = Math.max(
-        50,
-        initialWidth.current + (e.clientX - initialX.current)
-      );
-      const newHeight = Math.max(
-        50,
-        initialHeight.current + (e.clientY - initialY.current)
-      );
+    const newHeight =
+      initialHeight.current +
+      Math.floor((e.clientY - initialY.current) / 10) * 10;
 
-      setWidth(newWidth);
-      setHeight(newHeight);
-    }, 10)
-  );
+    setHeight(newHeight);
+  });
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDownX = (e: React.MouseEvent<HTMLDivElement>) => {
     isResizing.current = true;
     initialX.current = e.clientX;
-    initialY.current = e.clientY;
     initialWidth.current = DOMref.current?.offsetWidth || 200;
+
+    document.addEventListener("mousemove", handleMouseX.current);
+    document.addEventListener("mouseup", handleMouseUp);
+  };
+  const handleMouseDownY = (e: React.MouseEvent<HTMLDivElement>) => {
+    isResizing.current = true;
+    initialY.current = e.clientY;
     initialHeight.current = DOMref.current?.offsetHeight || 200;
 
-    document.addEventListener("mousemove", handleMouseMove.current);
+    document.addEventListener("mousemove", handleMouseY.current);
     document.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseUp = useCallback(() => {
     isResizing.current = false;
-    document.removeEventListener("mousemove", handleMouseMove.current);
+    document.removeEventListener("mousemove", handleMouseX.current);
+    document.removeEventListener("mousemove", handleMouseY.current);
     document.removeEventListener("mouseup", handleMouseUp);
   }, []);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove.current);
+      document.removeEventListener("mousemove", handleMouseX.current);
+      document.removeEventListener("mousemove", handleMouseY.current);
       document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [handleMouseUp]);
@@ -66,18 +74,22 @@ const ResizableBox = ({ children }: Props) => {
         style={{
           width: `${width}px`,
           height: `${height}px`,
-          resize: "both",
+          //     resize: "both",
           overflow: "hidden",
         }}
-        className=" border shadow-md"
+        className="relative border shadow-md"
       >
         {children}
+        <div
+          onMouseDown={handleMouseDownX}
+          className="absolute right-0 top-0 h-full w-1 bg-gray-600 cursor-e-resize"
+        />
+        <div
+          onMouseDown={handleMouseDownY}
+          className="absolute bottom-0 w-full  h-1 bg-gray-600 cursor-n-resize"
+        />
       </div>
       {/* Resizable Handle */}
-      <div
-        onMouseDown={handleMouseDown}
-        className="absolute bottom-0 right-0 w-5 h-5 bg-gray-600 cursor-se-resize"
-      />
     </div>
   );
 };
