@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import IDEeditor from "./IDEeditor";
 import languages from "@/packages/common/Json/languages.json";
 import Image from "next/image";
-import { useClickOutsideEnter } from "@/app/project/_hooks/useClickOutsideEnter";
-import TabBlockAction from "@/actions/project/tabBlock";
-import StepsBlockAction from "@/actions/project/stepsBlock";
 
 type Props = {
   value?: any;

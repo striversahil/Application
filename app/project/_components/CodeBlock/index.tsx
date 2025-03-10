@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import Tabs from "./tabs";
-import Steps from "./steps";
-import EditorCode from "./editor";
+import Tabs from "./Tab";
+import EditorCode from "./Editor";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
@@ -11,7 +10,7 @@ import { useQueryData } from "@/hooks/useQueryData";
 import CodeBlockAction from "../../../../api/project/codeBlock";
 import { TabsContent } from "@radix-ui/react-tabs";
 import ProjectAction from "@/actions/project";
-import StepEditorRoot from "./_components/StepEditorRoot";
+import StepEditorRoot from "./utils/StepEditorRoot";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCurrentTab } from "../../_hooks/useCurrentTab";
 

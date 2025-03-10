@@ -56,8 +56,8 @@ const page = (props: Props) => {
                 <Panel defaultSize={80}>
                   <PanelGroup direction="vertical">
                     <Panel defaultSize={60} className="relative">
-                      <div className="absolute inset-0 overflow-y-scroll">
-                        <Header />
+                      <Header />
+                      <div className="absolute inset-0 top-14 overflow-y-scroll">
                         <EditorCanvas />
                       </div>
                     </Panel>
