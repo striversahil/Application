@@ -15,7 +15,7 @@ const Output = (props: Props) => {
   return (
     <div className="border-t border-blue-500  w-full h-full">
       <Tabs defaultValue="output" className="flex flex-col h-full w-full">
-        <div className="flex  w-full">
+        <div className="flex  w-full mx-2">
           <TabsList className="relative flex px-1 py-1 gap-1 bg-white/20 rounded-full w-fit mt-2">
             <TabsTrigger
               value="output"
