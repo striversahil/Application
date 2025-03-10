@@ -10,43 +10,37 @@ import CodeBlock from "../../_components/CodeBlock";
 import ConfigFolder from "../../_components/Config";
 import { DndContext } from "@dnd-kit/core";
 import Header from "../../_components/Header";
-import { useDragEnd } from "@/app/project/_hooks/usedragEnd";
 import { useOpen } from "@/app/project/_hooks/useOpenCode";
 import { Tabs as TabsRoot } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/Tooltip/tooltip";
 import { useCurrentTab } from "../../_hooks/useCurrentTab";
+import { useDragEnd } from "../../_hooks/usedragEnd";
 
 type Props = {};
 
 const page = (props: Props) => {
   const {
     handleDragEnd,
-    setActiveId,
-    activeId,
-    setIsDropped,
-    setIsDragging,
+    //   setActiveId,
+    //   activeId,
+    //   setIsDropped,
+    //   setIsDragging,
     sensors,
   } = useDragEnd();
 
   const { openConfig, handleOpenConfig } = useOpen();
 
-  const { currentTab, currentStep } = useCurrentTab();
-
-  if (!currentTab) {
-    return null;
-  }
-
   return (
     <DndContext
       onDragEnd={handleDragEnd}
-      onDragStart={(event) => {
-        setActiveId(event.active.id as string);
-        setIsDropped(false);
-        setIsDragging(true);
-      }}
+      // onDragStart={(event) => {
+      //   setActiveId(event.active.id as string);
+      //   setIsDropped(false);
+      //   setIsDragging(true);
+      // }}
       sensors={sensors}
     >
-      <TabsRoot defaultValue={currentTab}>
+      <TabsRoot>
         <TooltipProvider>
           <div className="relative flex min-h-screen bg-slate-950">
             <Sidebar />
@@ -78,7 +72,7 @@ const page = (props: Props) => {
                   >
                     <ConfigFolder
                       handleOpen={handleOpenConfig}
-                      selectedItem={activeId}
+                      // selectedItem={activeId}
                     />
                   </Panel>
                 )}

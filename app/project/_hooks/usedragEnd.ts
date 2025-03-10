@@ -10,11 +10,17 @@ export const useDragEnd = () => {
   const [IsDropped, setIsDropped] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
 
-  const { data } = ProjectAction.getComponents();
-  const { mutate: mutateAdd } = ComponentAction.add();
-  const { mutate: mutateUpdate } = ComponentAction.update();
+  const { data, refetch } = ProjectAction.getComponents(activeId);
+  const { mutate: mutateAdd } = ComponentAction.add(activeId);
+  const { mutate: mutateUpdate } = ComponentAction.update(activeId);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    if (activeId) {
+      refetch();
+    }
+  }, [activeId, refetch]);
+
+  React.useEffect(() => {
     if (data) {
       setData(data.payload);
     }
@@ -25,12 +31,13 @@ export const useDragEnd = () => {
   );
 
   const handleDragEnd = (event: any) => {
-    if (event.over?.id === "droppable") {
+    if (event.over?.id) {
+      setActiveId(event.over.id);
       const mouseX = event.activatorEvent.clientX;
       const mouseY = event.activatorEvent.clientY;
 
       // Check if the active item is already in the array
-      if (!event.active || !data) return null;
+      // if (!Data || event.active.id) return null;
       const PresentElement = Data.find((item) => item._id === event.active.id);
       const PresentElementCoordinates = PresentElement?.coordinates as number[];
 
@@ -39,6 +46,7 @@ export const useDragEnd = () => {
         mutateAdd({
           metadata: {
             name: "Component " + Date.now(),
+            section_id: activeId,
             coordinates: [mouseX, mouseY],
             configuration: {
               type: "component",
@@ -67,13 +75,11 @@ export const useDragEnd = () => {
       setIsDropped(true);
     }
     // setIsDragging(false);
-    setActiveId("");
   };
   return {
     Data,
     setData,
     activeId,
-    setActiveId,
     IsDropped,
     setIsDropped,
     setIsDragging,

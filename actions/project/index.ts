@@ -77,9 +77,9 @@ const ProjectAction = {
       return response.data;
     });
   },
-  getComponents: () => {
-    return useQueryData(["ProjectAction.getComponents"], async () => {
-      const response = await axios.get(`${component}`);
+  getComponents: (id: string) => {
+    return useQueryData([`ProjectAction.getComponents-${id}`], async () => {
+      const response = await axios.get(`${component}/getAll/${id}`);
       return response.data;
     });
   },

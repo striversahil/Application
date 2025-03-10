@@ -2,14 +2,15 @@ import ComponentAction from "@/actions/project/component";
 
 import React, { useEffect } from "react";
 import DraggableComponent from "./DraggableComponent";
+import ProjectAction from "@/actions/project";
 
 type Props = {
-  id: string;
+  value: any;
 };
 
 const Component = (props: Props) => {
   const [component, setComponent] = React.useState<any>(null);
-  const { data } = ComponentAction.getOne(props.id);
+  const { data } = ProjectAction.getComponent(props.value._id);
 
   useEffect(() => {
     if (data) {
@@ -17,11 +18,7 @@ const Component = (props: Props) => {
     }
   }, [data]);
 
-  return (
-    <div className="w-full h-full">
-      <DraggableComponent {...component} />
-    </div>
-  );
+  return <>{component && <DraggableComponent {...component} />}</>;
 };
 
 export default Component;
