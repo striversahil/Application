@@ -9,14 +9,14 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { ComboPopAPI } from "./_components/PopOverSelect";
+import { ComboPopAPI } from "../utils/PopOverSelect";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import ProjectAction from "@/actions/project";
-import DeleteTab from "./_components/Tab/DeleteTab";
+import DeleteTab from "./DeleteTab";
 
 type Props = {
   handleOpen: () => void;

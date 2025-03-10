@@ -16,10 +16,12 @@ const ResizableBox = ({ children }: Props) => {
   const initialHeight = useRef<number>(0);
 
   const handleMouseX = useRef((e: MouseEvent) => {
-    if (!isResizing.current) return;
+    //UseRef because it won't will cause rerender's and i was not having any dependency
+    //useRef returns a mutable ref object
+    if (!isResizing.current) return; // If not resizing, do nothing
     const newWidth =
       initialWidth.current +
-      Math.floor((e.clientX - initialX.current) / 10) * 10;
+      Math.floor((e.clientX - initialX.current) / 10) * 10; // Set Width in Snap Size of 10px
     setWidth(newWidth);
   });
 
@@ -34,6 +36,10 @@ const ResizableBox = ({ children }: Props) => {
     setHeight(newHeight);
   });
 
+  const handleMouseDownCommon = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleMouseDownX(e);
+    handleMouseDownY(e);
+  };
   const handleMouseDownX = (e: React.MouseEvent<HTMLDivElement>) => {
     isResizing.current = true;
     initialX.current = e.clientX;
@@ -42,6 +48,7 @@ const ResizableBox = ({ children }: Props) => {
     document.addEventListener("mousemove", handleMouseX.current);
     document.addEventListener("mouseup", handleMouseUp);
   };
+
   const handleMouseDownY = (e: React.MouseEvent<HTMLDivElement>) => {
     isResizing.current = true;
     initialY.current = e.clientY;
@@ -51,6 +58,7 @@ const ResizableBox = ({ children }: Props) => {
     document.addEventListener("mouseup", handleMouseUp);
   };
 
+  //  Cleanup all Event listeners
   const handleMouseUp = useCallback(() => {
     isResizing.current = false;
     document.removeEventListener("mousemove", handleMouseX.current);
@@ -58,7 +66,7 @@ const ResizableBox = ({ children }: Props) => {
     document.removeEventListener("mouseup", handleMouseUp);
   }, []);
 
-  // Cleanup on unmount
+  // Cleanup Callback listener
   useEffect(() => {
     return () => {
       document.removeEventListener("mousemove", handleMouseX.current);
@@ -72,7 +80,7 @@ const ResizableBox = ({ children }: Props) => {
       <div
         ref={DOMref}
         style={{
-          width: `${width}px`,
+          // width: `${width}px`,
           height: `${height}px`,
           //     resize: "both",
           overflow: "hidden",
@@ -80,13 +88,18 @@ const ResizableBox = ({ children }: Props) => {
         className="relative border shadow-md"
       >
         {children}
+        {/* Resizable Handle */}
         <div
           onMouseDown={handleMouseDownX}
           className="absolute right-0 top-0 h-full w-1 bg-gray-600 cursor-e-resize"
         />
         <div
           onMouseDown={handleMouseDownY}
-          className="absolute bottom-0 w-full  h-1 bg-gray-600 cursor-n-resize"
+          className="absolute bottom-0 w-full  h-1 bg-gray-600 cursor-n-resize "
+        />
+        <div
+          className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-gray-600 cursor-nw-resize"
+          onMouseDown={handleMouseDownCommon}
         />
       </div>
       {/* Resizable Handle */}

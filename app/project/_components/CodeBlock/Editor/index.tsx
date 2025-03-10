@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Output from "./output";
+import Output from "../Output";
 import { Panel, PanelGroup } from "react-resizable-panels";
-import PanelResizeHandleComp from "../utils/PanelResizeHandle";
-import { EditorZone } from "./_components/Editor/EditorZone";
+import PanelResizeHandleComp from "../../utils/PanelResizeHandle";
+import { EditorZone } from "./EditorZone";
 import { TabsContent } from "@radix-ui/react-tabs";
 import ProjectAction from "@/actions/project";
 

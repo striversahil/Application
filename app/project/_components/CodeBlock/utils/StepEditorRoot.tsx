@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Tabs as TabRoot, TabsContent } from "@radix-ui/react-tabs";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import Steps from "../steps";
-import EditorCode from "../editor";
+import Steps from "../Steps";
+import EditorCode from "../Editor";
 import ProjectAction from "@/actions/project";
 
 type Props = {
@@ -11,22 +11,30 @@ type Props = {
 
 const StepEditorRoot = (props: Props) => {
   // const [currentStep, setCurrentStep] = useState("");
-  console.log(props.value);
+  const [codeBlock, setCodeBlock] = useState<any>(null);
 
   if (!props.value) {
-    return <div>Loading...</div>;
+    return;
   }
 
-  const { isLoading, data } = ProjectAction.getAllSteps(props.value.id);
+  const { data } = ProjectAction.getAllSteps(props.value.id);
 
-  if (!data) {
-    return <div>Loading...</div>;
+  useEffect(() => {
+    if (data) {
+      setCodeBlock(data.payload);
+    }
+  }, [data]);
+
+  if (!codeBlock) {
+    return (
+      <div className="w-full h-full animate-pulse">
+        <div className="bg-white/10 h-full"></div>
+      </div>
+    );
   }
   // console.log(data.payload);
 
-  if (data) {
-    const codeBlock = data.payload;
-    console.log(codeBlock);
+  if (codeBlock) {
     // const currentStep = codeBlock.steps[0]?._id;
 
     return (
