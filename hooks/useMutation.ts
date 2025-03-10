@@ -52,12 +52,12 @@ export const useMutationData = (
       }
     },
     onSettled: () => {
-      queryKey.forEach((query) =>
+      queryKey.forEach((query) => {
         client.invalidateQueries({
           queryKey: [query],
           exact: true,
-        })
-      );
+        });
+      });
     },
   });
 };
