@@ -16,16 +16,27 @@ import Image from "next/image";
 import DeleteSection from "./DeleteSection";
 import AddSection from "./AddSection";
 import Component from "../Component";
+import ProjectAction from "@/actions/project";
 
 type Props = {
   value?: any;
 };
 
 const Section = (props: Props) => {
+  const [Components, setComponents] = React.useState<any>([]);
+
   const { isOver, setNodeRef, rect, active } = useDroppable({
     id: props.value._id,
   });
-  // console.log(rect?.current?.width);
+
+  const { data } = ProjectAction.getComponents(props.value._id);
+
+  useEffect(() => {
+    if (data) {
+      setComponents(data.payload);
+      console.log(data);
+    }
+  }, [data]);
 
   return (
     <div className="w-full h-full">
@@ -53,11 +64,14 @@ const Section = (props: Props) => {
           <Label className="absolute top-[50px] left-[70px]">
             {props.value._id + props.value.name}
           </Label>
-          {props.value.components.map((item: any, index: number) => (
-            <div key={index} className="w-full h-full">
-              <Component id={item} />
-            </div>
-          ))}
+          {Components &&
+            Components.map((item: any, index: number) => (
+              <>
+                <Component value={item} />
+              </>
+              // <div key={index} className="w-full h-full">
+              // </div>
+            ))}
           <DeleteSection id={props.value._id} />
         </div>
       </ResizableBox>

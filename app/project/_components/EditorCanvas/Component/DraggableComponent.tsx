@@ -6,7 +6,7 @@ export interface ComponentInterface {
   _id: string;
   payload: string; // Here my Component Payload i.e. Data will Come
   configuration: object; // This will Contain Component Configuration
-  coordinates: number[];
+  coordinates: any;
 }
 
 const DraggableComponent = ({
@@ -24,8 +24,8 @@ const DraggableComponent = ({
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     position: "absolute" as const,
-    left: coordinates[0],
-    top: coordinates[1],
+    left: coordinates.x,
+    top: coordinates.y,
   };
 
   return (

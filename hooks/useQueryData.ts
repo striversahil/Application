@@ -8,7 +8,6 @@ export function useQueryData<T>(queryKey: QueryKey, queryFn: () => Promise<T>) {
     queryFn: queryFn,
     refetchOnWindowFocus: false,
     retry: false,
-    // enabled: false,
     staleTime: 1000 * 60 * 60,
   });
 }

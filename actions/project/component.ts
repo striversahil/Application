@@ -6,35 +6,25 @@ axios.defaults.withCredentials = true; // Global axios config to enable cookies
 const source = (process.env.NEXT_PUBLIC_BASE_URL as string) + "/component";
 
 const ComponentAction = {
-  getOne: (id: string) => {
-    const { isLoading, data } = useQueryData(
-      ["ComponentAction.getOne"],
-      async () => {
-        const response = await axios.get(`${source}/${id}`);
-        return response.data;
-      }
-    );
-    return { isLoading, data };
-  },
-  add: () => {
+  add: (section_id: string) => {
     const { mutate } = useMutationData(
       ["ComponentAction.add"],
       async (payload: any) => {
         const response = await axios.post(`${source}`, payload);
         return response.data;
       },
-      [["ProjectAction.getComponents"]]
+      [[`ProjectAction.getComponents-${section_id}`]]
     );
     return { mutate };
   },
-  update: () => {
+  update: (section_id: string) => {
     const { mutate } = useMutationData(
       ["ComponentAction.update"],
       async (payload: any) => {
         const response = await axios.post(`${source}/update`, payload);
         return response.data;
       },
-      [["ProjectAction.getComponents"]]
+      [[`ProjectAction.getComponents-${section_id}`]]
     );
     return { mutate };
   },

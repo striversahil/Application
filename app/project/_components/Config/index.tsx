@@ -4,7 +4,7 @@ import ConfigRoute from "./ConfigRoute";
 
 type Props = {
   handleOpen: () => void;
-  selectedItem: any;
+  selectedItem?: any;
 };
 
 // Selected Component == Object Detect and pass as Value
